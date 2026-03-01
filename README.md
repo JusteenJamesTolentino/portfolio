@@ -1,18 +1,78 @@
-# React + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio web app built with React and Vite. It showcases projects, services, and contact details in a clean single-page layout with smooth interactive UI components.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- Vite
+- React Router
+- Tailwind CSS + DaisyUI
+- GSAP / Motion (animation support)
 
-## React Compiler
+## Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Hero section with typing text effect
+- Projects section with management system cards
+- Services section with animated card swap display
+- Contact section with clickable contact cards
+- Route handling for unauthorized and not found pages
 
-Note: This will impact Vite dev & build performances.
+## Getting Started
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js 18+
+- npm
+
+### Install
+
+```bash
+npm install
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Available Scripts
+
+- `npm run dev` - Start local development server
+- `npm run build` - Create production build
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint checks
+
+## Project Structure
+
+```text
+src/
+	Components/
+		ReactBits/
+	routes/
+		Project/
+	styles/
+	utils/
+	App.jsx
+	Portfolio.jsx
+	main.jsx
+```
+
+## Notes
+
+- Main landing route: `/`
+- Fallback route: `*` (404 page)
+- Unauthorized route: `/unauthorized`
