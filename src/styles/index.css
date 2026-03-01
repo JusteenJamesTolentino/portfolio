@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+
+
+
+body {
+    font-family: "Ubuntu Sans", sans-serif;
+}
+
+.hero-dark-gradient {
+    background: linear-gradient(to bottom left, #111827, #0f172a, #020617);
+}
+
