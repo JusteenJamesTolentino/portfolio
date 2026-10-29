@@ -8,7 +8,7 @@ export const serviceCards = [
     description: 'Affordable and accessible freelance development services for students.',
   },
   {
-    title: 'Fullstack Web Developement',
+    title: 'Fullstack Web Development',
     description: 'Comprehensive web development services covering frontend and backend.',
   },
 ];

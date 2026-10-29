@@ -1,10 +1,10 @@
 export const cardSwapCards = [
   {
-    title: 'Fullstack Web Developement',
+    title: 'Fullstack Web Development',
     description: 'Build complete web applications from frontend to backend.',
   },
   {
-    title: 'Backend Developement',
+    title: 'Backend Development',
     description: 'Create scalable APIs, server logic, and database integrations.',
   },
   {

@@ -8,21 +8,24 @@ A personal portfolio web app built with React and Vite. It showcases projects, s
 - Vite
 - React Router
 - Tailwind CSS + DaisyUI
-- GSAP / Motion (animation support)
+- GSAP (animation support)
 
 ## Features
 
-- Hero section with typing text effect
+- Hero section with scroll-zoom background animation and typing text effect
+- About Me section with tech stack badges
 - Projects section with management system cards
 - Services section with animated card swap display
-- Contact section with clickable contact cards
+- Tools section showcasing upcoming engineering web tools
+- Serial Monitor page (`/serialmonitor`) using the Web Serial API to read/write USB serial with microcontrollers
+- Contact section with clickable contact cards and a message form
 - Route handling for unauthorized and not found pages
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20.19+ (or 22.12+)
 - npm
 
 ### Install
@@ -63,7 +66,7 @@ src/
 	Components/
 		ReactBits/
 	routes/
-		Project/
+		404.jsx
 	styles/
 	utils/
 	App.jsx
