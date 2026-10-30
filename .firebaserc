@@ -1,7 +1,6 @@
 {
   "projects": {
-    "default": "justeen-portfolio",
-    "justeendev": "justeendev"
+    "default": "justeendev"
   },
   "targets": {},
   "etags": {}

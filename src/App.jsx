@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Portfolio from './Portfolio';
 import SerialMonitor from './routes/SerialMonitor';
+import Messenger from './routes/Messenger';
 import NotFoundPage from './routes/404';
 
 function RouteGuard({ isAllowed, children }) {
@@ -39,6 +40,7 @@ function App() {
           
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/serialmonitor" element={<SerialMonitor />} />
+        <Route path="/serialmonitor/messenger" element={<Messenger />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

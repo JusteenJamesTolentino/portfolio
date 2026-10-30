@@ -5,6 +5,11 @@ export const toolCards = [
     href: '/serialmonitor',
   },
   {
+    title: 'Hardware Messenger',
+    description: 'Chat through an ESP32 over USB serial and MQTT, with in-browser WiFi setup.',
+    href: '/serialmonitor/messenger',
+  },
+  {
     title: 'JSON Formatter',
     description: 'Format, validate, and minify JSON payloads instantly.',
   },

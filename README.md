@@ -18,6 +18,7 @@ A personal portfolio web app built with React and Vite. It showcases projects, s
 - Services section with animated card swap display
 - Tools section showcasing upcoming engineering web tools
 - Serial Monitor page (`/serialmonitor`) using the Web Serial API to read/write USB serial with microcontrollers
+- Hardware Messenger page (`/serialmonitor/messenger`) with serial-driven WiFi setup and MQTT chat relay through an ESP32
 - Contact section with clickable contact cards and a message form
 - Route handling for unauthorized and not found pages
 
