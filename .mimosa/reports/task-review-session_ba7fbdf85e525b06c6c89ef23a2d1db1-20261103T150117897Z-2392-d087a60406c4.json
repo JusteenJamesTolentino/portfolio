@@ -1,0 +1,257 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20261103T150117897Z-2392-d087a60406c4",
+  "run_status": "completed",
+  "errors": [],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "complete",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 45,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 9
+    },
+    "change_tracking": {
+      "touched_observed": 9,
+      "touched_retained": 9,
+      "truncated": false,
+      "bash_mutation": true,
+      "bash_discovered": 9,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 9,
+      "selected_files": 9,
+      "limit": 20,
+      "truncated": false
+    },
+    "scanning": {
+      "required_files": 9,
+      "scanned_files": 9,
+      "skipped_files": 0,
+      "failed_files": 0,
+      "project_checks_required": 0,
+      "project_checks_completed": 0
+    },
+    "notification": {
+      "eligible_findings": 0,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": false
+    },
+    "reason_counts": {},
+    "reasons": [],
+    "reasons_truncated": false
+  },
+  "generated_at": "2026-11-03T15:01:17.897Z",
+  "session_id": "session_ba7fbdf85e525b06c6c89ef23a2d1db1",
+  "target": ".",
+  "revision": "73145b98f7c37d5bbb479936ad8242d9e21b4428",
+  "rules_version": "unavailable",
+  "diff_hash": "0fe2b59485caefa8f9b8876a26f37569684a8ce699641da25a693c54c030d385",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 9,
+    "changed_files": [
+      {
+        "file": "src/os/apps/BrowserApp.jsx",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 111
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "4c0af21266acf2b3497abddc968c5fe2e2b58135b2ba8624e113f2980172fd71"
+      },
+      {
+        "file": "src/os/apps/ContactApp.jsx",
+        "ranges": [
+          {
+            "start": 4,
+            "end": 24
+          }
+        ],
+        "before_hash": "7118c504e7ac786c247e09f13a0c0723641684596ea5f119a8314e7985bcc60a",
+        "after_hash": "1e5db44ca1323c6db5eb16385be4b943a7d2bbba3c78189b778edd231d11f36c"
+      },
+      {
+        "file": "src/os/apps/TerminalApp.jsx",
+        "ranges": [
+          {
+            "start": 11,
+            "end": 12
+          },
+          {
+            "start": 19,
+            "end": 19
+          },
+          {
+            "start": 33,
+            "end": 36
+          }
+        ],
+        "before_hash": "e617ee0f946e23774ba281ac2b7155becb28959b1bd3f583f9cfe81878539c2c",
+        "after_hash": "1fe636cf485e08d794c606d5961b4ac54dda13a94d2888bf2a091909850889cc"
+      },
+      {
+        "file": "src/os/apps/ToolsApp.jsx",
+        "ranges": [
+          {
+            "start": 4,
+            "end": 5
+          }
+        ],
+        "before_hash": "110ad4f0cedb8670553503d3de4bcb2eb77658af8437096ccadd242c265bf0d5",
+        "after_hash": "af0b31b70a3f7dd8b7903c16bed05ce6de0a984da1fb64baccb994fcc79cf086"
+      },
+      {
+        "file": "src/os/config/osApps.js",
+        "ranges": [
+          {
+            "start": 6,
+            "end": 6
+          },
+          {
+            "start": 19,
+            "end": 19
+          }
+        ],
+        "before_hash": "11db0edd3504954430d18d3397e2ea5e6c768a1fcca9b91e6b36cacd73391652",
+        "after_hash": "56665385fae8ad437cb6aa2c15d62de70f737e3ead183950dd39b1ae923e085e"
+      },
+      {
+        "file": "src/os/OSDesktop.jsx",
+        "ranges": [
+          {
+            "start": 3,
+            "end": 3
+          },
+          {
+            "start": 23,
+            "end": 23
+          },
+          {
+            "start": 38,
+            "end": 41
+          },
+          {
+            "start": 44,
+            "end": 44
+          },
+          {
+            "start": 50,
+            "end": 52
+          }
+        ],
+        "before_hash": "4d2ca2fdb0904e699c52e99718b3b0ca573975824133825ca8bb90a80141b932",
+        "after_hash": "a016ed5f8f13db096330be1c5f36eb10dc2679309711178bfd71aff449a6d48a"
+      },
+      {
+        "file": "src/os/utils/browserUrl.js",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 55
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "d5003ac471d2d8f76d136630e899f51da3f66ee202571740998bba15b0280cbb"
+      },
+      {
+        "file": "src/routes/Messenger.jsx",
+        "ranges": [
+          {
+            "start": 2,
+            "end": 2
+          },
+          {
+            "start": 23,
+            "end": 24
+          },
+          {
+            "start": 253,
+            "end": 253
+          }
+        ],
+        "before_hash": "df1bf75ee880767256d146f28153affa6b922adf1c62f49c5bd089f8380506ff",
+        "after_hash": "dd843f10a7dd0eaaf44fefabce850ca765178e8439586e924a4ec507161013ab"
+      },
+      {
+        "file": "src/routes/SerialMonitor.jsx",
+        "ranges": [
+          {
+            "start": 2,
+            "end": 2
+          },
+          {
+            "start": 50,
+            "end": 51
+          },
+          {
+            "start": 228,
+            "end": 228
+          }
+        ],
+        "before_hash": "e928812d12c15f7e09892f7e43b4c79d57777960aa05285b512bac51876c858b",
+        "after_hash": "7eb17b0d0d265c8b9da5e6f492b07518eeb05c8f4f60680d799625866061c485"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-11-03T15:01:15.544Z",
+    "completed_at": "2026-11-03T15:01:17.897Z",
+    "duration_ms": 2353,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "complete",
+    "latencyMs": 2353,
+    "peakMemoryBytes": 136257536,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 9,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 0,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [],
+  "findings": [],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T150117897Z-2392-d087a60406c4.json",
+    "latest_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1.json",
+    "history_summary": ".mimosa/history/run-20261103T150117897Z-2392-d087a60406c4.json"
+  }
+}

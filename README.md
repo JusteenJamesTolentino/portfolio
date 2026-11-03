@@ -19,6 +19,8 @@ A personal portfolio web app built with React and Vite. It showcases projects, s
 - Tools section showcasing upcoming engineering web tools
 - Serial Monitor page (`/serialmonitor`) using the Web Serial API to read/write USB serial with microcontrollers
 - Hardware Messenger page (`/serialmonitor/messenger`) with serial-driven WiFi setup and MQTT chat relay through an ESP32
+- Installable Progressive Web App with an offline app shell and safe update prompts
+- Optional desktop OS portfolio at `/osview` with draggable windows, taskbar, Start menu, terminal, and session-based view selection
 - Contact section with clickable contact cards and a message form
 - Route handling for unauthorized and not found pages
 
@@ -74,6 +76,16 @@ src/
 	Portfolio.jsx
 	main.jsx
 ```
+
+## Progressive Web App
+
+The portfolio can be installed from supported browsers and uses a service worker to cache the application shell and previously loaded portfolio images. When a new deployment is available, the site asks before reloading so active serial connections and form input are not interrupted.
+
+Offline support applies to cached portfolio pages and static demos. Web Serial still requires a Chromium-based browser, HTTPS or localhost, and connected hardware. The Hardware Messenger also requires network access for MQTT chat.
+
+On the first homepage visit in each browser session, visitors can choose Web Page View or OS View. OS View requires a viewport at least 1024 CSS pixels wide; smaller screens receive a message directing them to the responsive Web Page View.
+
+OS View includes a simple Browser application. It accepts HTTP(S) addresses, keeps supported links inside the desktop, and opens the same-origin Serial Monitor and Hardware Messenger with Web Serial permission. External pages run in a restricted iframe and may refuse embedded viewing through their own security headers; the Browser always provides an Open Externally fallback. Browser history tracks addresses opened through its toolbar or OS applications, but cannot observe navigation performed inside cross-origin pages.
 
 ## Notes
 

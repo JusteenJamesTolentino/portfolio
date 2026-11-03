@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 // Web Serial API is Chromium-only and requires HTTPS or localhost.
 const isSerialSupported = typeof navigator !== 'undefined' && 'serial' in navigator;
@@ -19,6 +19,10 @@ function parseStatusWifiIp(text) {
 }
 
 function Messenger() {
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const embedded = searchParams.get('embed') === 'os-browser';
+  const backTo = location.state?.from === '/osview' ? '/osview' : '/';
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [deviceId, setDeviceId] = useState(null);
@@ -246,7 +250,7 @@ function Messenger() {
             <h1 className='text-3xl sm:text-4xl font-bold'>Hardware Messenger</h1>
             <p className='mt-1 text-sm sm:text-base opacity-80'>Chat over MQTT through an ESP32 connected by USB serial.</p>
           </div>
-          <Link to='/' className='btn btn-ghost btn-sm'>Back to Home</Link>
+          {!embedded && <Link to={backTo} className='btn btn-ghost btn-sm'>Back to {backTo === '/osview' ? 'OS View' : 'Home'}</Link>}
         </div>
 
         {!isSerialSupported && (

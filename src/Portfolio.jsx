@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MonitorCog } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import TextType from './Components/ReactBits/TypingText';
 import ClickSpark from './Components/ReactBits/ClickSpark';
@@ -10,9 +11,12 @@ import { serviceCards } from './utils/serviceCards';
 import { cardSwapCards } from './utils/cardSwapCards';
 import { contactCards } from './utils/contactCards';
 import { toolCards } from './utils/toolCards';
+import { portfolioProfile, technologies } from './data/portfolioProfile';
 
-function Portfolio() {
+function Portfolio({ onSwitchView }) {
   const [navHidden, setNavHidden] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showAllTools, setShowAllTools] = useState(false);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -32,11 +36,66 @@ function Portfolio() {
           <p className='text-base sm:text-lg md:text-xl font-bold'>JusteenDev</p>
         </div>
         <div className='navbar-center'></div>
-        <div className='navbar-end gap-1 sm:gap-2'>
-          <a className='btn btn-ghost btn-sm sm:btn-md' href="#about">About</a>
-          <a className='btn btn-ghost btn-sm sm:btn-md' href="#services">Services</a>
-          <a className='btn btn-ghost btn-sm sm:btn-md' href="#tools">Tools</a>
-          <a className='btn btn-ghost btn-sm sm:btn-md' href="#contact">Contact</a>
+        <div className='navbar-end'>
+          <div className='hidden md:flex gap-1 sm:gap-2'>
+            <button type='button' className='btn btn-ghost btn-sm sm:btn-md' onClick={onSwitchView} title='Switch portfolio view'>
+              <MonitorCog className='h-4 w-4' />
+              View
+            </button>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href="#about">About</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href="#services">Services</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href="#tools">Tools</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href="#contact">Contact</a>
+          </div>
+
+          <div className='relative md:hidden'>
+            <button
+              type='button'
+              className='btn btn-ghost btn-square btn-sm'
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(open => !open)}
+            >
+              {mobileMenuOpen ? (
+                <span className='text-2xl leading-none' aria-hidden='true'>×</span>
+              ) : (
+                <svg aria-hidden='true' viewBox='0 0 24 24' className='w-5 h-5 fill-none stroke-current stroke-2'>
+                  <path d='M4 6h16M4 12h16M4 18h16' strokeLinecap='round' />
+                </svg>
+              )}
+            </button>
+
+            {mobileMenuOpen && (
+              <div className='absolute right-0 top-full mt-3 w-44 p-2 rounded-2xl bg-base-300/70 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-xl flex flex-col'>
+                {[
+                  ['Switch View', null],
+                  ['About', '#about'],
+                  ['Services', '#services'],
+                  ['Tools', '#tools'],
+                  ['Contact', '#contact'],
+                ].map(([label, href]) => href ? (
+                  <a
+                    key={href}
+                    href={href}
+                    className='btn btn-ghost justify-start'
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {label}
+                  </a>
+                ) : (
+                  <button
+                    key={label}
+                    type='button'
+                    className='btn btn-ghost justify-start'
+                    onClick={() => { setMobileMenuOpen(false); onSwitchView(); }}
+                  >
+                    <MonitorCog className='h-4 w-4' />
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -49,34 +108,6 @@ function Portfolio() {
           </div>
         </div>
       </ScrollZoomHero>
-
-      <div id='about' className='hero relative min-h-screen scroll-mt-16 bg-cover bg-center bg-no-repeat' style={{ backgroundImage: "url('/about-night-lamp.jpg')" }}>
-        <div className='absolute inset-0 bg-black/70' aria-hidden='true'></div>
-        <div className='hero-content relative z-10 flex-col lg:flex-row-reverse gap-8 lg:gap-16 max-w-6xl px-4 sm:px-6'>
-          <img
-            src='/logo.png'
-            alt='JusteenDev logo'
-            className='w-40 sm:w-52 lg:w-64 rounded-2xl shadow-lg'
-          />
-          <div className='text-center lg:text-left'>
-            <h1 className='text-3xl sm:text-4xl font-bold'>About Me</h1>
-            <p className='py-4 text-base sm:text-lg'>
-              I&apos;m Justeen, a fullstack web developer who believes simplicity is the shortest
-              path to reliable software. I build complete web applications, from responsive
-              frontends to APIs and the databases behind them.
-            </p>
-            <p className='text-sm sm:text-base opacity-80'>
-              I also offer student-friendly freelance services, helping turn project ideas into
-              working systems with clean, maintainable code.
-            </p>
-            <div className='flex flex-wrap gap-2 justify-center lg:justify-start pt-4'>
-              {['React', 'Node.js', 'Firebase', 'Tailwind CSS', 'JavaScript'].map(tech => (
-                <span key={tech} className='badge badge-outline'>{tech}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div id='projects' className='p-5 bg-neutral text-neutral-content scroll-mt-16'>
         <div className='w-full p-5 flex flex-col gap-4 items-start max-w-6xl mx-auto'>
@@ -116,7 +147,7 @@ function Portfolio() {
           </div>
 
           <div className='flex flex-row flex-wrap gap-4 items-stretch justify-center w-full px-2'>
-            {toolCards.map((tool) => {
+            {(showAllTools ? toolCards : toolCards.slice(0, 2)).map((tool) => {
               const inner = (
                 <>
                   <h2 className='text-lg sm:text-xl py-2 font-bold'>{tool.title}</h2>
@@ -143,6 +174,19 @@ function Portfolio() {
               );
             })}
           </div>
+
+          {toolCards.length > 2 && (
+            <div className='flex justify-center pt-6'>
+              <button
+                type='button'
+                className='btn btn-outline bg-transparent border-white/40 hover:border-white hover:bg-white/10 hover:text-white'
+                onClick={() => setShowAllTools(current => !current)}
+                aria-expanded={showAllTools}
+              >
+                {showAllTools ? 'Show Less' : `Show More (${toolCards.length - 2})`}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -175,6 +219,31 @@ function Portfolio() {
         </div>
       </div>
 
+
+      <div id='about' className='hero relative min-h-screen scroll-mt-16 bg-cover bg-center bg-no-repeat' style={{ backgroundImage: "url('/about-night-lamp.jpg')" }}>
+        <div className='absolute inset-0 bg-black/70' aria-hidden='true'></div>
+        <div className='hero-content relative z-10 flex-col lg:flex-row-reverse gap-8 lg:gap-16 max-w-6xl px-4 sm:px-6'>
+          <img
+            src='/logo.png'
+            alt='JusteenDev logo'
+            className='w-40 sm:w-52 lg:w-64 rounded-2xl shadow-lg'
+          />
+          <div className='text-center lg:text-left'>
+            <h1 className='text-3xl sm:text-4xl font-bold'>About Me</h1>
+            <p className='py-4 text-base sm:text-lg'>
+              {portfolioProfile.bio}
+            </p>
+            <p className='text-sm sm:text-base opacity-80'>
+              {portfolioProfile.freelance}
+            </p>
+            <div className='flex flex-wrap gap-2 justify-center lg:justify-start pt-4'>
+              {technologies.map(tech => (
+                <span key={tech} className='badge badge-outline'>{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div id='contact' className='hero min-h-screen bg-neutral text-neutral-content max-[768px]:place-items-start scroll-mt-16'>
         <div className='hero-content w-full max-w-6xl flex-col items-start text-left px-4 sm:px-6 max-[768px]:pt-6'>

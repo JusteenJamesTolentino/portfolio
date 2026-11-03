@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 const BAUD_RATES = [9600, 19200, 38400, 57600, 115200, 230400];
 const LINE_ENDINGS = [
@@ -46,6 +46,10 @@ function formatSize(bytes) {
 }
 
 function SerialMonitor() {
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const embedded = searchParams.get('embed') === 'os-browser';
+  const backTo = location.state?.from === '/osview' ? '/osview' : '/';
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [baudRate, setBaudRate] = useState(115200);
@@ -221,7 +225,7 @@ function SerialMonitor() {
             <h1 className='text-3xl sm:text-4xl font-bold'>Serial Monitor</h1>
             <p className='mt-1 text-sm sm:text-base opacity-80'>Read from and write to a microcontroller over USB serial, right in the browser.</p>
           </div>
-          <Link to='/' className='btn btn-ghost btn-sm'>Back to Home</Link>
+          {!embedded && <Link to={backTo} className='btn btn-ghost btn-sm'>Back to {backTo === '/osview' ? 'OS View' : 'Home'}</Link>}
         </div>
 
         {!isSerialSupported && (

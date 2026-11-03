@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261103T133405583Z-14928-2b7dc4ad4fa9",
+  "runId": "20261103T133405583Z-14928-2b7dc4ad4fa9",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "73145b98f7c37d5bbb479936ad8242d9e21b4428",
+  "diffHash": "df5d7dacb67fd9f1cd90e049fc4071d9d77aa1876568862b313cdee8f6565704",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T133405583Z-14928-2b7dc4ad4fa9.json",
+  "events": [
+    {
+      "eventId": "hook-cd6421607d31ba2978f66e9625790857",
+      "findingId": "mimosa-7b9af9e24e4feaf98c1acae0",
+      "type": "finding_observed",
+      "at": "2026-11-03T13:34:05.583Z",
+      "identity": {
+        "projectRelativeFile": "package.json",
+        "ruleId": "mimosa.supply.version-range",
+        "codeEvidenceHash": "fa71f627b0f0498ca4fbbf4375dc8d5ae4eb39982fbd8fa26a3e8291449073b4",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 34,
+      "endLine": 34,
+      "reasonCode": "observe",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "fa71f627b0f0498ca4fbbf4375dc8d5ae4eb39982fbd8fa26a3e8291449073b4"
+      },
+      "sequence": 0
+    },
+    {
+      "eventId": "hook-9f1d64050b38b7244fb8c7159d895e7c",
+      "findingId": "mimosa-151d8a1a455a70e9701729d3",
+      "type": "finding_observed",
+      "at": "2026-11-03T13:34:05.583Z",
+      "identity": {
+        "projectRelativeFile": "package.json",
+        "ruleId": "mimosa.supply.version-range",
+        "codeEvidenceHash": "aa537e72d79ba14efff08bb53d7efd3259c087979f4a60c16cabdb7cec12fe62",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 35,
+      "endLine": 35,
+      "reasonCode": "observe",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "aa537e72d79ba14efff08bb53d7efd3259c087979f4a60c16cabdb7cec12fe62"
+      },
+      "sequence": 1
+    }
+  ],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "vite.config.js",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/Components/ReloadPrompt.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/App.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-03T13:34:06.210Z"
+}

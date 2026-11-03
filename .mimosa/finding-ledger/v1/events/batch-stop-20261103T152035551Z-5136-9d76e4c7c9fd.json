@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261103T152035551Z-5136-9d76e4c7c9fd",
+  "runId": "20261103T152035551Z-5136-9d76e4c7c9fd",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "73145b98f7c37d5bbb479936ad8242d9e21b4428",
+  "diffHash": "9b2126fbcdde62e0f9913575b59da3d117ba26ea80130a2600726d5120fecc98",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T152035551Z-5136-9d76e4c7c9fd.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "src/os/apps/TerminalApp.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/OSDesktop.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/Components/AppErrorBoundary.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/App.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-03T15:20:36.590Z"
+}

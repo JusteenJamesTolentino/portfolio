@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261103T150117897Z-2392-d087a60406c4",
+  "runId": "20261103T150117897Z-2392-d087a60406c4",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "73145b98f7c37d5bbb479936ad8242d9e21b4428",
+  "diffHash": "0fe2b59485caefa8f9b8876a26f37569684a8ce699641da25a693c54c030d385",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T150117897Z-2392-d087a60406c4.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "src/os/utils/browserUrl.js",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/config/osApps.js",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/apps/BrowserApp.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/OSDesktop.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/apps/ToolsApp.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/apps/TerminalApp.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/apps/ContactApp.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/routes/SerialMonitor.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/routes/Messenger.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-03T15:01:18.754Z"
+}
