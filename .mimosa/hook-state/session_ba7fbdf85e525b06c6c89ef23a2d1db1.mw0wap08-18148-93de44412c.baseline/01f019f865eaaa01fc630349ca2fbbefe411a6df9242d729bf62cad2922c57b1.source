@@ -43,12 +43,16 @@ function OSWindow({ app, windowState, active, onFocus, onClose, onMinimize, onMa
         zIndex: windowState.zIndex,
       };
 
+  const accentStyle = active
+    ? { borderColor: 'var(--os-accent)', boxShadow: '0 0 0 1px var(--os-accent-soft), 0 20px 45px -25px var(--os-accent-soft)' }
+    : undefined;
+
   return (
     <section
-      style={style}
+      style={{ ...style, ...accentStyle }}
       onPointerDown={onFocus}
-      className={`absolute pointer-events-auto flex min-h-0 flex-col overflow-hidden rounded-2xl border bg-slate-950/75 shadow-2xl backdrop-blur-2xl transition-[box-shadow,opacity] ${
-        active ? 'border-blue-400/35 shadow-blue-500/10 ring-1 ring-blue-400/25' : 'border-white/10 opacity-95'
+      className={`absolute pointer-events-auto flex min-h-0 flex-col overflow-hidden rounded-2xl border bg-slate-950/75 shadow-2xl backdrop-blur-2xl transition-[box-shadow,opacity,border-color] ${
+        active ? '' : 'border-white/10 opacity-95'
       }`}
       aria-label={`${app.title} window`}
     >

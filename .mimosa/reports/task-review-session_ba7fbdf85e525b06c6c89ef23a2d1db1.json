@@ -1,6 +1,6 @@
 {
   "schema_version": "mimosa-task-review/v2",
-  "run_id": "20261103T152035551Z-5136-9d76e4c7c9fd",
+  "run_id": "20261103T161709795Z-13608-f2602dd016cd",
   "run_status": "completed",
   "errors": [],
   "coverage": {
@@ -9,16 +9,16 @@
     "scope": "hook_observed_diff",
     "baseline": {
       "complete": true,
-      "captured_files": 46,
+      "captured_files": 47,
       "candidate_limit": 5000,
       "truncated": false,
       "enumeration_error_count": 0,
       "snapshot_error_count": 0,
-      "compensated_target_count": 4
+      "compensated_target_count": 6
     },
     "change_tracking": {
-      "touched_observed": 4,
-      "touched_retained": 4,
+      "touched_observed": 6,
+      "touched_retained": 6,
       "truncated": false,
       "bash_mutation": false,
       "bash_discovered": 0,
@@ -26,113 +26,171 @@
       "bash_discovery_truncated": false
     },
     "candidates": {
-      "eligible_files": 4,
-      "selected_files": 4,
+      "eligible_files": 6,
+      "selected_files": 6,
       "limit": 20,
       "truncated": false
     },
     "scanning": {
-      "required_files": 4,
-      "scanned_files": 4,
+      "required_files": 6,
+      "scanned_files": 6,
       "skipped_files": 0,
       "failed_files": 0,
       "project_checks_required": 0,
       "project_checks_completed": 0
     },
     "notification": {
-      "eligible_findings": 0,
+      "eligible_findings": 3,
       "detailed_findings": 0,
       "detail_limit": 3,
-      "truncated": false
+      "truncated": true
     },
     "reason_counts": {},
     "reasons": [],
     "reasons_truncated": false
   },
-  "generated_at": "2026-11-03T15:20:35.551Z",
+  "generated_at": "2026-11-03T16:17:09.795Z",
   "session_id": "session_ba7fbdf85e525b06c6c89ef23a2d1db1",
   "target": ".",
-  "revision": "73145b98f7c37d5bbb479936ad8242d9e21b4428",
+  "revision": "918cd7b79728322ac210d47423ee2a5c807ddba0",
   "rules_version": "unavailable",
-  "diff_hash": "9b2126fbcdde62e0f9913575b59da3d117ba26ea80130a2600726d5120fecc98",
+  "diff_hash": "5da247f252cfe616b908923fe9fe94344cdb0ecb8f83cbce98917edc41b88cda",
   "diff": {
     "algorithm": "sha256",
-    "changed_file_count": 4,
+    "changed_file_count": 6,
     "changed_files": [
       {
-        "file": "src/App.jsx",
-        "ranges": [
-          {
-            "start": 3,
-            "end": 3
-          },
-          {
-            "start": 116,
-            "end": 120
-          }
-        ],
-        "before_hash": "0fcc89c2e6e5a232ce46ee47260b864dd1161a8df888a34a312a51510efed0a1",
-        "after_hash": "501777fecfb0a744d3fd84f53b280192f409bdb16a4d60684f1f1d9a714ae921"
-      },
-      {
-        "file": "src/Components/AppErrorBoundary.jsx",
-        "ranges": [
-          {
-            "start": 1,
-            "end": 45
-          }
-        ],
-        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "after_hash": "ebd71fd9c70db347a641948ee12bbb944c16e6463e164533d1421fb3949da45b"
-      },
-      {
-        "file": "src/os/apps/TerminalApp.jsx",
-        "ranges": [
-          {
-            "start": 22,
-            "end": 27
-          },
-          {
-            "start": 48,
-            "end": 48
-          }
-        ],
-        "before_hash": "1fe636cf485e08d794c606d5961b4ac54dda13a94d2888bf2a091909850889cc",
-        "after_hash": "0cad57912017cd217188d2db5129d71e0275aef97927e700a4a712be388163ba"
-      },
-      {
-        "file": "src/os/OSDesktop.jsx",
+        "file": "src/os/apps/SettingsApp.jsx",
         "ranges": [
           {
             "start": 1,
             "end": 1
           },
           {
-            "start": 18,
-            "end": 18
+            "start": 4,
+            "end": 84
+          }
+        ],
+        "before_hash": "dd602b2672ba8dd8069fa7ce3303f184d839d16ede77886d8972f0b288ef34c6",
+        "after_hash": "4c407eb1013a5883cd64b3a08fd336bf6d19c890e44b6f1df35ac663a077edea"
+      },
+      {
+        "file": "src/os/config/wallpapers.js",
+        "ranges": [
+          {
+            "start": 2,
+            "end": 84
           },
           {
-            "start": 25,
-            "end": 25
+            "start": 86,
+            "end": 89
+          }
+        ],
+        "before_hash": "19a72f0af20e7c32f3de44e52bf1e7d535bf8b162d56fca6c8a79da314bf1147",
+        "after_hash": "a5025504cdb9cd8ea1437eb33950c49710373e3f530f2eee824c50efd4611522"
+      },
+      {
+        "file": "src/os/OSDesktop.jsx",
+        "ranges": [
+          {
+            "start": 12,
+            "end": 12
           },
           {
-            "start": 41,
-            "end": 42
+            "start": 14,
+            "end": 14
+          },
+          {
+            "start": 26,
+            "end": 27
+          },
+          {
+            "start": 30,
+            "end": 41
+          },
+          {
+            "start": 71,
+            "end": 71
+          },
+          {
+            "start": 83,
+            "end": 87
           },
           {
             "start": 89,
-            "end": 91
+            "end": 94
+          },
+          {
+            "start": 122,
+            "end": 131
           }
         ],
-        "before_hash": "a016ed5f8f13db096330be1c5f36eb10dc2679309711178bfd71aff449a6d48a",
-        "after_hash": "f561ecac7772f6f0a3fcf6fa9f47131642894ec39a2033438ec19ef9e19de91b"
+        "before_hash": "f561ecac7772f6f0a3fcf6fa9f47131642894ec39a2033438ec19ef9e19de91b",
+        "after_hash": "d1ba9a3d6757eb40eff8631324e476f097a8844af20ba8739301d6f5fd6873ec"
+      },
+      {
+        "file": "src/os/shell/AnimatedBackground.jsx",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 271
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "c25b20483e38b905b5ef4fc267adf7750ec32ce3ab5d7f129f6d4ee23966dbe2"
+      },
+      {
+        "file": "src/os/shell/OSWindow.jsx",
+        "ranges": [
+          {
+            "start": 46,
+            "end": 49
+          },
+          {
+            "start": 52,
+            "end": 52
+          },
+          {
+            "start": 54,
+            "end": 55
+          }
+        ],
+        "before_hash": "86025adeefa2140daf4c2ac30b4301acac5b5137fb066a48ed9d6c7e97a1b1a0",
+        "after_hash": "80aa7aa2b545561da84cf31f18f57079782ba3f7186c88182ba398d06b604ad8"
+      },
+      {
+        "file": "src/os/shell/Taskbar.jsx",
+        "ranges": [
+          {
+            "start": 2,
+            "end": 2
+          },
+          {
+            "start": 4,
+            "end": 4
+          },
+          {
+            "start": 14,
+            "end": 20
+          },
+          {
+            "start": 31,
+            "end": 36
+          },
+          {
+            "start": 42,
+            "end": 50
+          }
+        ],
+        "before_hash": "f73cbf48f4cd6b11fa39627c3b4f57ad4ed2712472b6b41cbf830fb9b95ae1a9",
+        "after_hash": "4eb61c3df3eac6a4fc2333adf76269e0b51a14a6a7831983469528d73f046895"
       }
     ]
   },
   "timing": {
-    "started_at": "2026-11-03T15:20:32.780Z",
-    "completed_at": "2026-11-03T15:20:35.551Z",
-    "duration_ms": 2771,
+    "started_at": "2026-11-03T16:17:07.612Z",
+    "completed_at": "2026-11-03T16:17:09.795Z",
+    "duration_ms": 2183,
     "measurement": "hook_wall_clock"
   },
   "tokens": {
@@ -147,10 +205,10 @@
     "profile": "gate",
     "operation": "Stop",
     "outcome": "complete",
-    "latencyMs": 2771,
-    "peakMemoryBytes": 149532672,
+    "latencyMs": 2183,
+    "peakMemoryBytes": 150929408,
     "memoryMeasurement": "max-observed-process-rss",
-    "scannedFiles": 4,
+    "scannedFiles": 6,
     "cache": {
       "hits": 0,
       "misses": 0,
@@ -165,18 +223,228 @@
       "measurement": "known-zero"
     }
   },
-  "finding_count": 0,
+  "finding_count": 3,
   "rewake_finding_count": 0,
   "evidence_boundary": {
     "scan": "candidate",
     "static_fix_verification": "observed_static_only",
     "runtime_verification": "not_performed"
   },
-  "finding_events": [],
-  "findings": [],
+  "finding_events": [
+    {
+      "finding_id": "mimosa-e929e18798324e944a8c7985",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 26,
+      "rule_id": "security",
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "advisory",
+      "at": "2026-11-03T16:11:46.093Z",
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b",
+        "runtime_oracle": false
+      }
+    },
+    {
+      "finding_id": "mimosa-dc13fa7b5df2ff5d35b48725",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 91,
+      "rule_id": "security",
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "advisory",
+      "at": "2026-11-03T16:11:46.093Z",
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "162f572d941551c9fe320438c79adb1f9d314028e0ad419c0212e8bb035fdcfc",
+        "runtime_oracle": false
+      }
+    },
+    {
+      "finding_id": "mimosa-8b26bc519af8757580efeb5a",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 108,
+      "rule_id": "security",
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "advisory",
+      "at": "2026-11-03T16:11:46.093Z",
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4",
+        "runtime_oracle": false
+      }
+    },
+    {
+      "finding_id": "mimosa-4fe160cf2a49402b6af1b270",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 110,
+      "rule_id": "security",
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "advisory",
+      "at": "2026-11-03T16:11:46.093Z",
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45",
+        "runtime_oracle": false
+      }
+    },
+    {
+      "finding_id": "mimosa-e929e18798324e944a8c7985",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 26,
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "observe",
+      "at": "2026-11-03T16:17:09.795Z",
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b",
+        "runtime_oracle": false
+      }
+    },
+    {
+      "finding_id": "mimosa-8b26bc519af8757580efeb5a",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 94,
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "observe",
+      "at": "2026-11-03T16:17:09.795Z",
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4",
+        "runtime_oracle": false
+      }
+    },
+    {
+      "finding_id": "mimosa-4fe160cf2a49402b6af1b270",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 96,
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "observe",
+      "at": "2026-11-03T16:17:09.795Z",
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45",
+        "runtime_oracle": false
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "mimosa-e929e18798324e944a8c7985",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 26,
+      "end_line": 26,
+      "severity": "high",
+      "category": "弱随机数",
+      "kind": "semgrep",
+      "advisory": true,
+      "status": "candidate",
+      "evidence_boundary": "candidate",
+      "evidence": [
+        {
+          "kind": "static_scan",
+          "boundary": "candidate",
+          "producer": "deterministic",
+          "source": "semgrep",
+          "file": "src/os/shell/AnimatedBackground.jsx",
+          "line": 26,
+          "evidence_hash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b",
+          "runtime_oracle": false
+        }
+      ],
+      "already_reported_to_agent": false,
+      "selected_for_rewake": false
+    },
+    {
+      "finding_id": "mimosa-8b26bc519af8757580efeb5a",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 94,
+      "end_line": 94,
+      "severity": "high",
+      "category": "弱随机数",
+      "kind": "semgrep",
+      "advisory": true,
+      "status": "candidate",
+      "evidence_boundary": "candidate",
+      "evidence": [
+        {
+          "kind": "static_scan",
+          "boundary": "candidate",
+          "producer": "deterministic",
+          "source": "semgrep",
+          "file": "src/os/shell/AnimatedBackground.jsx",
+          "line": 94,
+          "evidence_hash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4",
+          "runtime_oracle": false
+        }
+      ],
+      "already_reported_to_agent": false,
+      "selected_for_rewake": false
+    },
+    {
+      "finding_id": "mimosa-4fe160cf2a49402b6af1b270",
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "line": 96,
+      "end_line": 96,
+      "severity": "high",
+      "category": "弱随机数",
+      "kind": "semgrep",
+      "advisory": true,
+      "status": "candidate",
+      "evidence_boundary": "candidate",
+      "evidence": [
+        {
+          "kind": "static_scan",
+          "boundary": "candidate",
+          "producer": "deterministic",
+          "source": "semgrep",
+          "file": "src/os/shell/AnimatedBackground.jsx",
+          "line": 96,
+          "evidence_hash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45",
+          "runtime_oracle": false
+        }
+      ],
+      "already_reported_to_agent": false,
+      "selected_for_rewake": false
+    }
+  ],
   "artifacts": {
-    "immutable_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T152035551Z-5136-9d76e4c7c9fd.json",
+    "immutable_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T161709795Z-13608-f2602dd016cd.json",
     "latest_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1.json",
-    "history_summary": ".mimosa/history/run-20261103T152035551Z-5136-9d76e4c7c9fd.json"
+    "history_summary": ".mimosa/history/run-20261103T161709795Z-13608-f2602dd016cd.json"
   }
 }

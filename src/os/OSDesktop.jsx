@@ -9,8 +9,9 @@ import SkillsApp from './apps/SkillsApp';
 import TerminalApp from './apps/TerminalApp';
 import ToolsApp from './apps/ToolsApp';
 import { OS_APPS } from './config/osApps';
-import { WALLPAPERS } from './config/wallpapers';
+import { WALLPAPERS, getWallpaper } from './config/wallpapers';
 import useWindowManager from './hooks/useWindowManager';
+import AnimatedBackground from './shell/AnimatedBackground';
 import DesktopIcons from './shell/DesktopIcons';
 import OSWindow from './shell/OSWindow';
 import StartMenu from './shell/StartMenu';
@@ -22,9 +23,22 @@ function OSDesktop({ onSwitchView }) {
   const [startMenuOpen, setStartMenuOpen] = useState(false);
   const [wallpaperId, setWallpaperId] = useState('aurora');
   const [browserRequest, setBrowserRequest] = useState(null);
+  const [animSpeed, setAnimSpeed] = useState(1);
+  const [animDensity, setAnimDensity] = useState(1);
   const browserRequestId = useRef(0);
   const manager = useWindowManager();
-  const wallpaper = WALLPAPERS.find(item => item.id === wallpaperId) ?? WALLPAPERS[0];
+  const wallpaper = getWallpaper(wallpaperId);
+  const initialThemeColor = useRef(null);
+
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return undefined;
+    if (initialThemeColor.current === null) initialThemeColor.current = meta.content;
+    meta.content = wallpaper.palette.themeColor;
+    return () => {
+      if (initialThemeColor.current !== null) meta.content = initialThemeColor.current;
+    };
+  }, [wallpaper]);
 
   useEffect(() => {
     const close = event => { if (event.key === 'Escape') setStartMenuOpen(false); };
@@ -54,7 +68,7 @@ function OSDesktop({ onSwitchView }) {
       browser: <BrowserApp navigationRequest={browserRequest} />,
       contact: <ContactApp openBrowser={openBrowser} />,
       terminal: <TerminalApp {...common} />,
-      settings: <SettingsApp wallpaperId={wallpaperId} setWallpaperId={setWallpaperId} resetLayout={manager.resetLayout} />,
+      settings: <SettingsApp wallpaperId={wallpaperId} setWallpaperId={setWallpaperId} animSpeed={animSpeed} setAnimSpeed={setAnimSpeed} animDensity={animDensity} setAnimDensity={setAnimDensity} resetLayout={manager.resetLayout} />,
     };
     return apps[id];
   };
@@ -66,8 +80,18 @@ function OSDesktop({ onSwitchView }) {
     else manager.focusWindow(id);
   };
 
+  const cycleWallpaper = () => {
+    const index = WALLPAPERS.findIndex(item => item.id === wallpaperId);
+    setWallpaperId(WALLPAPERS[(index + 1) % WALLPAPERS.length].id);
+  };
+
   return (
-    <main className={`fixed inset-0 overflow-hidden font-sans ${wallpaper.className}`} onPointerDown={() => setStartMenuOpen(false)}>
+    <main
+      className={`fixed inset-0 overflow-hidden font-sans ${wallpaper.type === 'canvas' ? 'bg-slate-950' : wallpaper.className ?? 'bg-slate-950'}`}
+      style={{ '--os-accent': wallpaper.palette.accent, '--os-accent-soft': wallpaper.palette.accentSoft }}
+      onPointerDown={() => setStartMenuOpen(false)}
+    >
+      {wallpaper.type === 'canvas' && <AnimatedBackground wallpaperId={wallpaper.id} speed={animSpeed} density={animDensity} />}
       <div aria-hidden='true' className='absolute inset-0 bg-black/20' />
       <DesktopIcons apps={OS_APPS} onOpen={manager.openWindow} />
       <div className='absolute inset-0 bottom-14 z-10 overflow-hidden pointer-events-none'>
@@ -95,7 +119,16 @@ function OSDesktop({ onSwitchView }) {
         })}
       </div>
       {startMenuOpen && <StartMenu apps={OS_APPS} onOpen={id => { manager.openWindow(id); setStartMenuOpen(false); }} onSwitchView={switchView} />}
-      <Taskbar apps={OS_APPS} windows={manager.state.windows} activeId={manager.state.activeId} startMenuOpen={startMenuOpen} onToggleStart={() => setStartMenuOpen(open => !open)} onAppClick={taskbarAppClick} />
+      <Taskbar
+        apps={OS_APPS}
+        windows={manager.state.windows}
+        activeId={manager.state.activeId}
+        startMenuOpen={startMenuOpen}
+        wallpaperName={wallpaper.name}
+        onToggleStart={() => setStartMenuOpen(open => !open)}
+        onAppClick={taskbarAppClick}
+        onCycleWallpaper={cycleWallpaper}
+      />
     </main>
   );
 }

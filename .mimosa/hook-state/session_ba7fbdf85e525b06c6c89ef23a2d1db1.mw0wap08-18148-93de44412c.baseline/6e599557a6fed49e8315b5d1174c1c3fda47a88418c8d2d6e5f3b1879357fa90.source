@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Monitor, Sparkles, Volume2, Wifi } from 'lucide-react';
+import { Monitor, Sparkles, Tv, Volume2, Wifi } from 'lucide-react';
 
-function Taskbar({ apps, windows, activeId, startMenuOpen, onToggleStart, onAppClick }) {
+function Taskbar({ apps, windows, activeId, startMenuOpen, wallpaperName, onToggleStart, onAppClick, onCycleWallpaper }) {
   const [now, setNow] = useState(new Date());
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
@@ -11,7 +11,13 @@ function Taskbar({ apps, windows, activeId, startMenuOpen, onToggleStart, onAppC
   return (
     <div onPointerDown={event => event.stopPropagation()} className='absolute inset-x-0 bottom-0 z-[70] flex h-14 select-none items-center justify-between border-t border-white/10 bg-slate-950/70 px-4 backdrop-blur-2xl'>
       <div className='flex items-center gap-2'>
-        <button type='button' aria-label='Open start menu' onClick={onToggleStart} className={`rounded-lg p-2 transition ${startMenuOpen ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25' : 'text-white/85 hover:bg-white/10'}`}>
+        <button
+          type='button'
+          aria-label='Open start menu'
+          onClick={onToggleStart}
+          className='rounded-lg p-2 transition'
+          style={startMenuOpen ? { backgroundColor: 'var(--os-accent)', boxShadow: '0 4px 14px var(--os-accent-soft)' } : undefined}
+        >
           <Sparkles className='h-5 w-5 text-blue-300' />
         </button>
         <span className='mx-1 h-5 w-px bg-white/15' />
@@ -22,12 +28,26 @@ function Taskbar({ apps, windows, activeId, startMenuOpen, onToggleStart, onAppC
           return (
             <button key={app.id} type='button' aria-label={`Taskbar ${app.title}`} title={app.title} onClick={() => onAppClick(app.id)} className={`relative rounded-lg p-2 transition ${active ? 'bg-white/15' : window.open ? 'bg-white/5 hover:bg-white/10' : 'opacity-65 hover:bg-white/10 hover:opacity-100'}`}>
               <Icon className={`h-5 w-5 ${app.color}`} />
-              {window.open && <span className={`absolute bottom-0.5 left-1/2 h-1 -translate-x-1/2 rounded-full ${active ? 'w-4 bg-blue-400' : 'w-1.5 bg-white/40'}`} />}
+              {window.open && (
+                <span
+                  className='absolute bottom-0.5 left-1/2 h-1 -translate-x-1/2 rounded-full transition-all'
+                  style={{ width: active ? '1rem' : '0.375rem', backgroundColor: active ? 'var(--os-accent)' : 'rgba(255,255,255,0.4)' }}
+                />
+              )}
             </button>
           );
         })}
       </div>
       <div className='flex items-center gap-3 text-xs text-white/75'>
+        <button
+          type='button'
+          onClick={onCycleWallpaper}
+          title='Cycle live wallpaper'
+          className='flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/10 px-2.5 py-1.5 transition hover:bg-white/15'
+        >
+          <Tv className='h-3.5 w-3.5 text-[var(--os-accent)]' />
+          <span className='hidden sm:inline'>{wallpaperName}</span>
+        </button>
         <div className='flex items-center gap-2 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1.5'>
           <Wifi className='h-3.5 w-3.5 text-emerald-400' />
           <Volume2 className='h-3.5 w-3.5' />

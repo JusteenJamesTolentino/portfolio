@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261103T161709795Z-13608-f2602dd016cd",
+  "runId": "20261103T161709795Z-13608-f2602dd016cd",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "918cd7b79728322ac210d47423ee2a5c807ddba0",
+  "diffHash": "5da247f252cfe616b908923fe9fe94344cdb0ecb8f83cbce98917edc41b88cda",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261103T161709795Z-13608-f2602dd016cd.json",
+  "events": [
+    {
+      "eventId": "hook-84dabb71a4df9520302f255b49469eec",
+      "findingId": "mimosa-e929e18798324e944a8c7985",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:11:46.093Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 26,
+      "endLine": 26,
+      "reasonCode": "advisory",
+      "reportedToAgent": true,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b"
+      },
+      "sequence": 0
+    },
+    {
+      "eventId": "hook-e380d7816575c29d6179b5f8702a798e",
+      "findingId": "mimosa-dc13fa7b5df2ff5d35b48725",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:11:46.093Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "162f572d941551c9fe320438c79adb1f9d314028e0ad419c0212e8bb035fdcfc",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 91,
+      "endLine": 91,
+      "reasonCode": "advisory",
+      "reportedToAgent": true,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "162f572d941551c9fe320438c79adb1f9d314028e0ad419c0212e8bb035fdcfc"
+      },
+      "sequence": 1
+    },
+    {
+      "eventId": "hook-57fa8ad0f2c99423139bab120ce83b7b",
+      "findingId": "mimosa-8b26bc519af8757580efeb5a",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:11:46.093Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 108,
+      "endLine": 108,
+      "reasonCode": "advisory",
+      "reportedToAgent": true,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4"
+      },
+      "sequence": 2
+    },
+    {
+      "eventId": "hook-cb689ae4d8d3e5c0ef392e5d81287dd1",
+      "findingId": "mimosa-4fe160cf2a49402b6af1b270",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:11:46.093Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 110,
+      "endLine": 110,
+      "reasonCode": "advisory",
+      "reportedToAgent": true,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45"
+      },
+      "sequence": 3
+    },
+    {
+      "eventId": "hook-87b391745f6774042c195e3f97bb9107",
+      "findingId": "mimosa-e929e18798324e944a8c7985",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:17:09.795Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 26,
+      "endLine": 26,
+      "reasonCode": "observe",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "2d80ea9982b1c692446c6d0d73912348f6e6c9745319ed441ddc18b2dc426d0b"
+      },
+      "sequence": 4
+    },
+    {
+      "eventId": "hook-03ffb6318b44979c9627905c89c12bce",
+      "findingId": "mimosa-8b26bc519af8757580efeb5a",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:17:09.795Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 94,
+      "endLine": 94,
+      "reasonCode": "observe",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "47ce279ee1964607bc75f1bcd7d741b52894a10c8a7c057da0c65aa2599f15a4"
+      },
+      "sequence": 5
+    },
+    {
+      "eventId": "hook-ba79a0ea7d99a369a0fff3162edf6dc1",
+      "findingId": "mimosa-4fe160cf2a49402b6af1b270",
+      "type": "finding_observed",
+      "at": "2026-11-03T16:17:09.795Z",
+      "identity": {
+        "projectRelativeFile": "src/os/shell/AnimatedBackground.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 96,
+      "endLine": 96,
+      "reasonCode": "observe",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "a22e7053d74665fb3597e66805105894f5889d3a5672e6eebc08e22ada489f45"
+      },
+      "sequence": 6
+    }
+  ],
+  "observedFindingIds": [
+    "mimosa-e929e18798324e944a8c7985",
+    "mimosa-8b26bc519af8757580efeb5a",
+    "mimosa-4fe160cf2a49402b6af1b270"
+  ],
+  "verifiedFiles": [
+    {
+      "file": "src/os/config/wallpapers.js",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/shell/AnimatedBackground.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/apps/SettingsApp.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/shell/Taskbar.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/shell/OSWindow.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/os/OSDesktop.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-03T16:17:10.489Z"
+}
