@@ -194,6 +194,230 @@ body {
     font: 10px ui-monospace, monospace;
 }
 
+/* Cull whole visual groups, but never a form group with preserved input controls. */
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-group]:is([data-swarm-group-state="culled"], [data-swarm-group-state="queued"]):not(:has([data-swarm-preserve])):not(:focus-within) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-mask="surface"] {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.web-portfolio[data-swarm-stage="rebuilding"] :is([data-swarm-mask="text"], [data-swarm-mask="control"], [data-swarm-mask="image"]) {
+    opacity: 0 !important;
+}
+
+/* Only leaf content is masked. Section and interactive ancestors stay usable. */
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-mask="container"] {
+    opacity: 1 !important;
+}
+
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-mask]:focus-within,
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-preserve],
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-nav],
+.web-portfolio[data-swarm-stage="rebuilding"] [data-swarm-nav] [data-swarm-mask] {
+    opacity: 1 !important;
+}
+
+.web-portfolio[data-swarm-stage="rebuilding"] .swarm-original-typing {
+    opacity: 0;
+}
+
+.full-swarm-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.full-swarm-blueprint-grid {
+    position: absolute;
+    inset: var(--full-swarm-top, 0px) 0 0;
+    background-image: linear-gradient(#6ee7b709 1px, transparent 1px), linear-gradient(90deg, #6ee7b709 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+.full-swarm-items {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(var(--full-swarm-top, 0px) 0 0);
+}
+
+.full-swarm-scene[data-motion="reduced"] .full-swarm-blueprint-grid {
+    display: none;
+}
+
+.full-swarm-scene[data-operation="erase"] .full-swarm-blueprint-grid {
+    opacity: 0.45;
+}
+
+.full-swarm-item {
+    position: absolute;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.full-swarm-text {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+.full-swarm-caret {
+    display: inline-block;
+    height: 1em;
+    width: 2px;
+    margin-left: 2px;
+    background: var(--builder-color);
+    vertical-align: text-bottom;
+}
+
+.full-swarm-outline {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.full-swarm-outline rect {
+    fill: none;
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+}
+
+.full-swarm-guides {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.full-swarm-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    filter: drop-shadow(0 2px 3px #0008);
+    will-change: transform;
+}
+
+.full-swarm-cursor span {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font: 11px ui-monospace, monospace;
+    font-weight: 700;
+    color: #07130f;
+}
+
+.full-swarm-cursor small {
+    position: absolute;
+    left: 20px;
+    top: 42px;
+    white-space: nowrap;
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: #09100eee;
+    font: 9px ui-monospace, monospace;
+    color: #e5e7eb;
+}
+
+.full-swarm-hud {
+    position: fixed;
+    z-index: 80;
+    bottom: 16px;
+    left: 16px;
+    width: min(370px, calc(100vw - 32px));
+    padding: 14px;
+    border: 1px solid #6ee7b733;
+    border-radius: 16px;
+    background: #0b1514ed;
+    color: #e6fff4;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 12px 35px #0005;
+    font: 12px ui-monospace, monospace;
+}
+
+.full-swarm-hud-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 700;
+}
+
+.full-swarm-hud-heading > span:first-child,
+.full-swarm-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.full-swarm-hud progress {
+    width: 100%;
+    height: 4px;
+    margin-top: 10px;
+    accent-color: #6ee7b7;
+}
+
+.full-swarm-hud p {
+    margin-top: 7px;
+    font-size: 10px;
+    color: #b6d6cb;
+}
+
+.full-swarm-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.full-swarm-actions button {
+    padding: 6px 8px;
+    border: 1px solid #6ee7b726;
+    border-radius: 7px;
+    background: #6ee7b70c;
+}
+
+.full-swarm-actions button:disabled {
+    opacity: 0.45;
+}
+
+.full-swarm-actions button:focus-visible,
+.full-swarm-options input:focus-visible {
+    outline: 2px solid #6ee7b7;
+}
+
+.full-swarm-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+    font-size: 10px;
+}
+
+.full-swarm-options label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+@media (max-width: 767px) {
+    .full-swarm-hud {
+        top: 76px;
+        bottom: auto;
+        left: 8px;
+        width: calc(100vw - 16px);
+        padding: 10px;
+    }
+    .full-swarm-help { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .web-portfolio[data-hacker-mode="off"] [data-scroll-reveal="pending"] > .web-card {
         opacity: 1;

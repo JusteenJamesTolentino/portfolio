@@ -13,10 +13,10 @@ A personal portfolio web app built with React and Vite. It showcases projects, s
 ## Features
 
 - Photo-free gradient hero with typing text effect
-- Optional Hacker Mode with a finite, simulated cursor rebuild for Projects and Tools
+- Optional Hacker Mode with full-page, concurrent simulated-builder reconstruction
 - About Me section with tech stack badges
 - Projects section with management system cards
-- Services section with animated card swap display
+- Services section with responsive service cards
 - Tools section showcasing upcoming engineering web tools
 - Serial Monitor page (`/serialmonitor`) using the Web Serial API to read/write USB serial with microcontrollers
 - Hardware Messenger page (`/serialmonitor/messenger`) with serial-driven WiFi setup and MQTT chat relay through an ESP32
@@ -63,6 +63,12 @@ npm run preview
 - `npm run preview` - Preview production build locally
 - `npm run lint` - Run ESLint checks
 
+### Swarm regression tests
+
+```bash
+node --test tests/swarm-scheduler.test.js
+```
+
 ## Project Structure
 
 ```text
@@ -80,9 +86,13 @@ src/
 
 ## Hacker Mode
 
-Web Page View includes a Hacker Mode swap control after Contact in the navbar and mobile menu. The smile icon represents Normal mode and the spider represents Hacker Mode. Projects, Tools, Services, and Contact cards reveal one at a time as they enter the viewport, including in Normal mode. Cards stay visually hidden until their turn, with their layout space and data preserved. After fully leaving the viewport, cards are culled and their animations cancelled; returning to the screen replays the reveal. The queue follows scroll direction and starts at approximately 10% visibility. Keyboard focus reveals cards immediately. Normal reveals take about 240 ms and Hacker rebuilds about 1.05 seconds per card. Hacker Mode adds terminal-inspired styling and a finite simulated-cursor build to the same sequence. Replay rebuild restarts the sequence; Stop Hacker Mode, the navbar toggle, or Escape returns to Normal. The old Services card-swap and click-spark effects are no longer used on Web Page View.
+Web Page View includes a Hacker Mode swap after Contact: smile for Normal, spider for Hacker Mode. Normal mode retains the fast 240 ms scroll reveals and full-exit viewport culling, with immediate reveal for keyboard focus and reduced-motion preferences.
 
-The effect is an original implementation inspired by the [swarm rebuild reference](https://github.com/0xp47/0xp47.github.io/blob/main/public/scripts/swarm-rebuild.js), not a copy or remote script load. It does not clone the page, inspect form values, or request music/other third-party resources. Actual content and links remain accessible. Normal mode respects reduced-motion settings; explicitly enabling Hacker Mode opts into its finite animation even when that setting is enabled. If no cards are visible, enabling Hacker Mode brings Projects into view. Hidden tabs pause animation, and switching modes/routes cleans up the decorative layers. OS View keeps its existing wallpapers and theme.
+Hacker Mode reconstructs the portfolio in a separate DOM/SVG scene. Six named builders on desktop (three on small screens) collaborate inside one active content group at a time, so headings and individual cards appear one by one. The hero, Projects, Tools, Services, About, and Contact participate. As an outgoing group approaches the viewport edge, cursors erase its text, controls, images, and outlines; full exits immediately cull it and cancel obsolete work. Returning to the content triggers reconstruction again. Fast scrolling can skip the visible edge-erasure animation, but off-screen content still hides immediately. Layout space and React data stay mounted.
+
+The HUD provides Pause/Resume, 1x/2x/3x speed, Replay, Go Live, Stop, Less motion, and optional Follow builders. Finishing the currently visible groups enters idle mode with viewport observers active and no continuous animation loop. Explicit Go Live removes construction layers and disables culling until Replay or mode exit. Escape or the navbar swap exits Hacker Mode. The view chooser and hidden browser tabs pause the logical clock. User wheel/touch navigation or interaction stops the optional guided tour. The hero's independent typing pauses during viewport reconstruction and resumes after Go Live.
+
+This is an original implementation inspired by the [swarm rebuild reference](https://github.com/0xp47/0xp47.github.io/blob/main/public/scripts/swarm-rebuild.js), not a copy, real code build, or remote script load. Only explicit public target metadata and styling are measured; inputs, passwords, drafts, and validation text are not read. The live React page and contact form remain mounted across Replay, Go Live, and mode changes. Navbar controls and actual input fields remain usable, and interacting with an unfinished card completes that region. No proxy, music, third-party script, or additional network service is required. Hacker Mode is an explicit animation opt-in; Less motion suppresses cursor travel. OS View retains its existing wallpapers and theme.
 
 ## Progressive Web App
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 // (Firestore or Formspree) is wired up.
 const CONTACT_EMAIL = 'justeen0x24@gmail.com';
 
-function ContactForm() {
+function ContactForm({ rebuild = false }) {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
@@ -38,12 +38,12 @@ function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate className='card border border-white/40 rounded-lg text-neutral-content shadow-md w-full'>
+    <form onSubmit={handleSubmit} noValidate className='card border border-white/40 rounded-lg text-neutral-content shadow-md w-full' data-swarm-group={rebuild ? 'contact-form' : undefined} data-swarm-kind={rebuild ? 'surface' : undefined} data-swarm-id={rebuild ? 'contact-form' : undefined}>
       <div className='card-body gap-4'>
-        <h3 className='card-title text-center'>Send me a message</h3>
+        <h3 className='card-title text-center' data-swarm-kind={rebuild ? 'text' : undefined} data-swarm-id={rebuild ? 'contact-form-title' : undefined} data-swarm-text={rebuild ? 'Send me a message' : undefined}>Send me a message</h3>
 
-        <div>
-          <label className='label pb-1' htmlFor='contact-name'>Name</label>
+        <div data-swarm-preserve={rebuild ? '' : undefined}>
+          <label className='label pb-1' htmlFor='contact-name' data-swarm-kind={rebuild ? 'text' : undefined} data-swarm-id={rebuild ? 'contact-form-name-label' : undefined} data-swarm-text={rebuild ? 'Name' : undefined}>Name</label>
           <input
             id='contact-name'
             name='name'
@@ -57,8 +57,8 @@ function ContactForm() {
           {errors.name && <p className='text-error text-sm mt-1'>{errors.name}</p>}
         </div>
 
-        <div>
-          <label className='label pb-1' htmlFor='contact-email'>Email</label>
+        <div data-swarm-preserve={rebuild ? '' : undefined}>
+          <label className='label pb-1' htmlFor='contact-email' data-swarm-kind={rebuild ? 'text' : undefined} data-swarm-id={rebuild ? 'contact-form-email-label' : undefined} data-swarm-text={rebuild ? 'Email' : undefined}>Email</label>
           <input
             id='contact-email'
             name='email'
@@ -72,8 +72,8 @@ function ContactForm() {
           {errors.email && <p className='text-error text-sm mt-1'>{errors.email}</p>}
         </div>
 
-        <div>
-          <label className='label pb-1' htmlFor='contact-message'>Message</label>
+        <div data-swarm-preserve={rebuild ? '' : undefined}>
+          <label className='label pb-1' htmlFor='contact-message' data-swarm-kind={rebuild ? 'text' : undefined} data-swarm-id={rebuild ? 'contact-form-message-label' : undefined} data-swarm-text={rebuild ? 'Message' : undefined}>Message</label>
           <textarea
             id='contact-message'
             name='message'
@@ -88,7 +88,7 @@ function ContactForm() {
         </div>
 
         <div className='card-actions justify-center'>
-          <button type='submit' className='btn btn-primary w-full sm:w-auto'>Send Message</button>
+          <button type='submit' className='btn btn-primary w-full sm:w-auto' data-swarm-kind={rebuild ? 'control' : undefined} data-swarm-id={rebuild ? 'contact-form-submit' : undefined} data-swarm-text={rebuild ? 'Send Message' : undefined}>Send Message</button>
         </div>
 
         {sent && (
