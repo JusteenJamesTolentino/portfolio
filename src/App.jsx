@@ -75,7 +75,7 @@ function Home({ setChooserOpen }) {
 
   return (
     <>
-      <Portfolio onSwitchView={switchView} />
+      <Portfolio onSwitchView={switchView} viewChooserOpen={chooserOpen} />
       {chooserOpen && (
         <ViewChooser
           mode={savedOsRejected ? 'rejected' : chooserMode}
