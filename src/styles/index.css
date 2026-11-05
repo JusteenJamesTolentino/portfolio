@@ -342,6 +342,37 @@ body {
     font: 12px ui-monospace, monospace;
 }
 
+.full-swarm-hud-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
+    border-radius: 10px;
+    background: #6ee7b70c;
+    color: #6ee7b7;
+}
+
+.full-swarm-hud-toggle:focus-visible {
+    outline: 2px solid #6ee7b7;
+    outline-offset: 2px;
+}
+
+.full-swarm-hud.full-swarm-hud-collapsed {
+    top: auto;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: max(12px, env(safe-area-inset-left));
+    width: auto;
+    padding: 4px;
+    border-radius: 14px;
+}
+
+.full-swarm-hud [hidden] {
+    display: none;
+}
+
 .full-swarm-hud-heading {
     display: flex;
     align-items: center;
