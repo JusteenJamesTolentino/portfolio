@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ContactForm from '../Components/ContactForm';
 import { projectCards } from '../utils/projectCards';
 import { serviceCards } from '../utils/serviceCards';
@@ -9,8 +9,11 @@ import { TechIcon } from './TechIcon';
 import {
   FaBolt,
   FaCompass,
+  FaEnvelope,
+  FaFacebookF,
   FaFileSignature,
   FaHeadset,
+  FaInstagram,
   FaListUl,
 } from 'react-icons/fa6';
 
@@ -57,6 +60,25 @@ function GameShell({ onSwitchView }) {
   const [progress, setProgress] = useState(0);
   const [panel, setPanel] = useState('home');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cardFlipped, setCardFlipped] = useState(false);
+  const cardRef = useRef(null);
+
+  const handleCardMove = event => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width - 0.5;
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--tilt-x', `${(-py * 16).toFixed(2)}deg`);
+    card.style.setProperty('--tilt-y', `${(px * 18).toFixed(2)}deg`);
+  };
+
+  const handleCardLeave = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty('--tilt-x', '0deg');
+    card.style.setProperty('--tilt-y', '0deg');
+  };
 
   useEffect(() => {
     if (phase !== 'loading') return undefined;
@@ -87,7 +109,8 @@ function GameShell({ onSwitchView }) {
   };
 
   const quests = projectCards.length;
-  const tiltZones = Array.from({ length: 8 }, (_, index) => index);
+  const socialIcons = { Facebook: FaFacebookF, Instagram: FaInstagram, Email: FaEnvelope };
+  const flipCard = () => setCardFlipped(flipped => !flipped);
 
   if (phase === 'loading') {
     const shownLines = Math.max(1, Math.min(BOOT_LINES.length, Math.ceil(progress / 22)));
@@ -187,19 +210,61 @@ function GameShell({ onSwitchView }) {
         <main className='game-main'>
           {panel === 'home' && (
             <section className='game-panel game-home' aria-label='Home'>
-              <div className='hover-3d game-card3d'>
-                <div className='game-card3d-base'>
-                  <img src='/logo.png' alt='JusteenDev logo' className='game-card3d-logo' />
-                  <h2 className='game-card3d-name'>{portfolioProfile.brand}</h2>
-                  <p className='game-card3d-class'>{portfolioProfile.role}</p>
-                  <div className='game-xp' role='img' aria-label={`Level 12, ${quests * XP_PER_QUEST} of 1000 XP`}>
-                    <span className='game-xp-bar' style={{ width: `${Math.min(96, quests * XP_PER_QUEST / 10)}%` }} />
+              <div
+                className={`game-card3d ${cardFlipped ? 'flipped' : ''}`}
+                ref={cardRef}
+                role='button'
+                tabIndex={0}
+                aria-pressed={cardFlipped}
+                aria-label={cardFlipped ? 'Player card, flipped to social links. Activate to flip back' : 'Player card. Activate to flip and show social links'}
+                onClick={flipCard}
+                onPointerMove={handleCardMove}
+                onPointerLeave={handleCardLeave}
+                onKeyDown={event => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    flipCard();
+                  }
+                }}
+              >
+                <div className='game-card3d-tilt'>
+                  <div className='game-card3d-inner'>
+                    <div className='game-card3d-face game-card3d-base'>
+                      <img src='/logo.png' alt='JusteenDev logo' className='game-card3d-logo' />
+                      <h2 className='game-card3d-name'>{portfolioProfile.brand}</h2>
+                      <p className='game-card3d-class'>{portfolioProfile.role}</p>
+                      <div className='game-xp' role='img' aria-label={`Level 12, ${quests * XP_PER_QUEST} of 1000 XP`}>
+                        <span className='game-xp-bar' style={{ width: `${Math.min(96, quests * XP_PER_QUEST / 10)}%` }} />
+                      </div>
+                      <p className='game-card3d-flip-hint'>▲ CLICK TO FLIP ▲</p>
+                    </div>
+                    <div className='game-card3d-face game-card3d-back' aria-hidden={!cardFlipped}>
+                      <ul className='game-card3d-socials'>
+                        {contactCards.map(contact => {
+                          const SocialIcon = socialIcons[contact.title] ?? FaEnvelope;
+                          return (
+                            <li key={contact.title}>
+                              <a
+                                href={contact.href}
+                                target={contact.external ? '_blank' : undefined}
+                                rel={contact.external ? 'noopener noreferrer' : undefined}
+                                aria-label={contact.title}
+                                title={contact.title}
+                                onClick={event => event.stopPropagation()}
+                              >
+                                <SocialIcon aria-hidden='true' />
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <p className='game-card3d-flip-hint'>▼ CLICK TO FLIP BACK ▼</p>
+                    </div>
                   </div>
                 </div>
-                {tiltZones.map(zone => <div key={zone} className='game-tilt-zone' aria-hidden='true' />)}
               </div>
-              <p className='game-home-hint glitch-hover' data-text='HOVER THE CARD // IT TILTS INTO THE GRID'>
-                HOVER THE CARD // IT TILTS INTO THE GRID
+              <p className='game-home-hint glitch-hover' data-text='CLICK THE CARD // FLIP FOR SOCIALS'>
+                CLICK THE CARD // FLIP FOR SOCIALS
               </p>
               <div className='game-home-stats'>
                 <div className='game-stat'><span className='game-stat-num'>{quests}</span><span>QUESTS</span></div>
