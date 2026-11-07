@@ -3,14 +3,14 @@ export const VIEW_SESSION_KEY = 'justeendev:view-mode:v1';
 export function getViewPreference() {
   try {
     const value = sessionStorage.getItem(VIEW_SESSION_KEY);
-    return value === 'web' || value === 'os' ? value : null;
+    return value === 'web' || value === 'os' || value === 'game' ? value : null;
   } catch {
     return null;
   }
 }
 
 export function setViewPreference(value) {
-  if (value !== 'web' && value !== 'os') return;
+  if (value !== 'web' && value !== 'os' && value !== 'game') return;
   try {
     sessionStorage.setItem(VIEW_SESSION_KEY, value);
   } catch {

@@ -1,10 +1,10 @@
 export const BUILDERS = [
-  { name: 'Nova', color: '#6ee7b7' },
-  { name: 'Pixel', color: '#67e8f9' },
-  { name: 'Atlas', color: '#c4b5fd' },
-  { name: 'Echo', color: '#fbbf24' },
-  { name: 'Sora', color: '#f9a8d4' },
-  { name: 'Byte', color: '#93c5fd' },
+  { name: 'Nova', color: '#7b7ff7' },
+  { name: 'Pixel', color: '#5b5ef5' },
+  { name: 'Atlas', color: '#9a9dff' },
+  { name: 'Echo', color: '#4340e0' },
+  { name: 'Sora', color: '#b3b5ff' },
+  { name: 'Byte', color: '#2f33b8' },
 ];
 
 const ERASE_DURATION = 240;
@@ -17,7 +17,7 @@ export function createScheduler(blueprint, builderCount = 6) {
   let operation = null;
   let clock = 0;
   let bypass = false;
-  let viewport = { height: 0, top: 64, direction: 1, pinned: new Set(), reduced: false };
+  let viewport = { height: 0, top: 64, direction: 1, pinned: new Set(), reduced: false, scrollY: 0 };
 
   const resetTask = task => {
     task.state = 'culled';
@@ -44,15 +44,17 @@ export function createScheduler(blueprint, builderCount = 6) {
   };
   const position = group => {
     const box = group.geometry;
-    const pixels = Math.max(0, Math.min(box.y + box.height, viewport.height) - Math.max(box.y, viewport.top));
+    // Blueprint geometry is stored in document coordinates; convert to viewport.
+    const viewY = box.y - viewport.scrollY;
+    const pixels = Math.max(0, Math.min(viewY + box.height, viewport.height) - Math.max(viewY, viewport.top));
     const inView = pixels > 0 && box.width > 0;
     const eligible = inView && pixels >= Math.min(96, box.height * 0.3);
     const edge = viewport.direction > 0
-      ? box.y < viewport.top && box.y + box.height <= viewport.top + EDGE_BAND
-      : box.y + box.height > viewport.height && box.y >= viewport.height - EDGE_BAND;
+      ? viewY < viewport.top && viewY + box.height <= viewport.top + EDGE_BAND
+      : viewY + box.height > viewport.height && viewY >= viewport.height - EDGE_BAND;
     const returning = viewport.direction > 0
-      ? box.y + box.height > viewport.top + EDGE_BAND + 32
-      : box.y < viewport.height - EDGE_BAND - 32;
+      ? viewY + box.height > viewport.top + EDGE_BAND + 32
+      : viewY < viewport.height - EDGE_BAND - 32;
     return { pixels, inView, eligible, edge, returning };
   };
   const selectOwner = () => {
@@ -71,7 +73,7 @@ export function createScheduler(blueprint, builderCount = 6) {
     }
     if (owner) return;
     const incoming = [...groups.values()].filter(group => group.state === 'queued' && position(group).eligible && !group.edgeLocked);
-    incoming.sort((a, b) => (a.geometry.y - b.geometry.y) * viewport.direction || a.order - b.order);
+    incoming.sort((a, b) => ((a.geometry.y - viewport.scrollY) - (b.geometry.y - viewport.scrollY)) * viewport.direction || a.order - b.order);
     if (incoming.length) {
       owner = incoming[0].id;
       operation = 'build';

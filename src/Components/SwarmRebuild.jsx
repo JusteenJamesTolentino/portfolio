@@ -10,14 +10,6 @@ export function RebuildCard({ children, blueprintId }) {
   );
 }
 
-function viewportPosition(shell) {
-  const rect = shell.getBoundingClientRect();
-  const height = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-  const width = Math.max(0, Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0));
-  const area = rect.width * rect.height;
-  return { top: rect.top, inView: height > 0 && width > 0, ratio: area ? height * width / area : 0 };
-}
-
 function SwarmRebuild({ enabled, paused = false, contentKey, children }) {
   const containerRef = useRef(null);
   const statesRef = useRef(new WeakMap());
@@ -28,6 +20,15 @@ function SwarmRebuild({ enabled, paused = false, contentKey, children }) {
     const states = statesRef.current;
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     const shells = [...container.querySelectorAll('[data-rebuild-card]')];
+    // Document-space geometry cache: scrolling becomes a pure paint update
+    // with no per-frame layout reads.
+    const geometry = new Map();
+    const measure = () => {
+      shells.forEach(shell => {
+        const rect = shell.getBoundingClientRect();
+        geometry.set(shell, { top: rect.top + window.scrollY, height: rect.height });
+      });
+    };
     let active = null;
     let disposed = false;
     let frame = null;
@@ -44,6 +45,12 @@ function SwarmRebuild({ enabled, paused = false, contentKey, children }) {
       active = null;
       run.animation.cancel();
       states.set(run.shell, 'pending');
+    };
+    const viewportPosition = shell => {
+      const cached = geometry.get(shell) ?? { top: 0, height: 0 };
+      const top = cached.top - window.scrollY;
+      const height = Math.max(0, Math.min(top + cached.height, window.innerHeight) - Math.max(top, 0));
+      return { top, inView: top + cached.height > 0 && top < window.innerHeight, ratio: cached.height ? height / cached.height : 0 };
     };
     const refresh = () => {
       if (disposed) return;
@@ -86,10 +93,11 @@ function SwarmRebuild({ enabled, paused = false, contentKey, children }) {
       });
     };
     shells.forEach(shell => { if (states.get(shell) === 'running') states.set(shell, 'pending'); });
+    measure();
     refresh();
     const observer = new IntersectionObserver(refresh, { threshold: [0, ENTRY_RATIO] });
     shells.forEach(shell => observer.observe(shell));
-    const resize = new ResizeObserver(refresh);
+    const resize = new ResizeObserver(() => { measure(); refresh(); });
     resize.observe(container);
     const onScroll = () => {
       const y = window.scrollY;

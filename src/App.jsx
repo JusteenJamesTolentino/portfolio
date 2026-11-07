@@ -11,6 +11,7 @@ import NotFoundPage from './routes/404';
 import { clearViewPreference, getViewPreference, setViewPreference } from './utils/viewPreference';
 
 const OSView = lazy(() => import('./routes/OSView'));
+const GameView = lazy(() => import('./routes/GameView'));
 
 function RouteGuard({ isAllowed, children }) {
   if (!isAllowed) return <Navigate to="/unauthorized" replace />;
@@ -43,11 +44,18 @@ function Home({ setChooserOpen }) {
   }, [chooserOpen, setChooserOpen]);
 
   if (choice === 'os' && osEligible) return <Navigate to="/osview" replace />;
+  if (choice === 'game') return <Navigate to="/gameview" replace />;
 
   const chooseWeb = () => {
     setViewPreference('web');
     setChoice('web');
     setChooserOpen(false);
+  };
+
+  const chooseGame = () => {
+    setViewPreference('game');
+    setChooserOpen(false);
+    navigate('/gameview', { replace: true });
   };
 
   const chooseOs = () => {
@@ -80,11 +88,31 @@ function Home({ setChooserOpen }) {
         <ViewChooser
           mode={savedOsRejected ? 'rejected' : chooserMode}
           onChooseWeb={chooseWeb}
+          onChooseGame={chooseGame}
           onChooseOs={chooseOs}
           onBack={backToChoices}
         />
       )}
     </>
+  );
+}
+
+function GameRoute({ setChooserOpen }) {
+  const navigate = useNavigate();
+
+  useEffect(() => setChooserOpen(false), [setChooserOpen]);
+
+  const switchView = () => {
+    clearViewPreference();
+    navigate('/', { replace: true });
+  };
+
+  return (
+    <AppErrorBoundary appTitle='Game View' onReset={() => window.location.reload()}>
+      <Suspense fallback={<div className='grid min-h-screen place-items-center bg-black text-fuchsia-300'><span className='loading loading-spinner loading-lg'></span></div>}>
+        <GameView onSwitchView={switchView} />
+      </Suspense>
+    </AppErrorBoundary>
   );
 }
 
@@ -130,6 +158,7 @@ function App() {
       <Routes>
         <Route path="/" element={<RouteGuard isAllowed={isAllowed}><Home setChooserOpen={setChooserOpen} /></RouteGuard>} />
         <Route path="/osview" element={<OsRoute setChooserOpen={setChooserOpen} />} />
+        <Route path="/gameview" element={<GameRoute setChooserOpen={setChooserOpen} />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/serialmonitor" element={<SerialMonitor />} />
         <Route path="/serialmonitor/messenger" element={<Messenger />} />

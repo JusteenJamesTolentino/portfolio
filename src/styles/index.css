@@ -11,24 +11,218 @@ body {
     font-family: "Ubuntu Sans", sans-serif;
 }
 
+/* Smooth anchor navigation for the scrolling Web Page View. Programmatic
+   scrolls that pass behavior: 'instant' (OS View tour, mode jumps) are unaffected. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Lenis inertia scrolling: native smooth scrolling must yield to Lenis while active. */
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+
 .web-portfolio {
-    --web-accent: #a5b4fc;
-    background: #111318;
+    --web-accent: #8286f7;
+    background: #050508;
     color: #f4f5f7;
     overflow-x: clip;
 }
 
+.web-portfolio[data-hacker-mode="off"] {
+    --web-accent: #8286f7;
+    --neo-bg: #050508;
+    --neo-surface: #0a0a12;
+    --neo-highlight: #191a30;
+    --neo-shadow: #010102;
+    background: var(--neo-bg);
+}
+
+.web-portfolio[data-hacker-mode="off"] .web-navbar,
+.web-portfolio[data-hacker-mode="off"] .hero-about-panel,
+.web-portfolio[data-hacker-mode="off"] .web-card,
+.web-portfolio[data-hacker-mode="off"] .web-contact-form > form,
+.web-portfolio[data-hacker-mode="off"] .tech-stack-item {
+    border-color: #ffffff08;
+    background: var(--neo-surface);
+    box-shadow: 9px 9px 20px var(--neo-shadow), -7px -7px 18px var(--neo-highlight);
+}
+
+.web-portfolio[data-hacker-mode="off"] .web-navbar {
+    background: #050508e8;
+}
+
+.web-portfolio[data-hacker-mode="off"] .btn:not(.btn-ghost) {
+    border-color: #ffffff0a;
+    background: var(--neo-surface);
+    box-shadow: 5px 5px 11px var(--neo-shadow), -4px -4px 10px var(--neo-highlight);
+}
+
+.web-portfolio[data-hacker-mode="off"] .btn:not(.btn-ghost):active,
+.web-portfolio[data-hacker-mode="off"] .btn:not(.btn-ghost)[aria-pressed="true"] {
+    box-shadow: inset 4px 4px 9px var(--neo-shadow), inset -3px -3px 8px var(--neo-highlight);
+}
+
+.web-portfolio[data-hacker-mode="off"] .web-contact-form :is(input, textarea) {
+    border-color: transparent;
+    background: var(--neo-surface);
+    box-shadow: inset 4px 4px 10px var(--neo-shadow), inset -3px -3px 8px var(--neo-highlight);
+}
+
+.web-portfolio[data-hacker-mode="off"] :is(.btn, input, textarea, .hacker-toggle):focus-visible {
+    outline: 2px solid #a5b4fc;
+    outline-offset: 3px;
+}
+
+.hero-about-panel {
+    border: 1px solid #ffffff12;
+    border-radius: 1.5rem;
+}
+
+.web-hero-logo {
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 40px #4b4ef033);
+}
+
+.neu-btn {
+    border: 1px solid #ffffff10;
+    background: var(--neo-surface, #0a0a12);
+    box-shadow: 5px 5px 11px var(--neo-shadow, #010102), -4px -4px 10px var(--neo-highlight, #191a30);
+    transition: box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.neu-btn:active {
+    box-shadow: inset 4px 4px 9px var(--neo-shadow, #010102), inset -3px -3px 8px var(--neo-highlight, #191a30);
+}
+
+.neu-btn:focus-visible {
+    outline: 2px solid #8286f7;
+    outline-offset: 3px;
+}
+
+[data-hacker-mode="on"] .neu-btn {
+    border-color: #7b7ff726;
+    background: #0b0c1ce6;
+    box-shadow: none;
+}
+
+.tech-stack-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-block: 1rem;
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.tech-stack-track {
+    display: flex;
+    width: max-content;
+    animation: tech-stack-left-to-right 28s linear infinite;
+    will-change: transform;
+}
+
+.tech-stack-set {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 1rem;
+    padding-inline: 0.5rem;
+}
+
+.tech-stack-item {
+    display: flex;
+    min-width: 8.5rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ffffff12;
+    border-radius: 1rem;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #e7e8ef;
+}
+
+.tech-stack-icon {
+    display: grid;
+    width: 2.1rem;
+    height: 2.1rem;
+    flex: none;
+    place-items: center;
+    border-radius: 0.75rem;
+    color: var(--tech-color);
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--tech-color) 45%, transparent));
+}
+
+.tech-stack-monogram {
+    font: 800 0.95rem ui-monospace, monospace;
+}
+
+.tech-stack-marquee:is(:hover, :focus-within) .tech-stack-track {
+    animation-play-state: paused;
+}
+
+@keyframes tech-stack-left-to-right {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+
+.web-portfolio[data-hacker-mode="on"] .tech-stack-track {
+    animation: none;
+    transform: none;
+}
+
+.web-portfolio[data-hacker-mode="on"] .tech-stack-set[aria-hidden="true"] {
+    display: none;
+}
+
+.web-portfolio[data-hacker-mode="on"] .tech-stack-marquee {
+    mask-image: none;
+    overflow: visible;
+}
+
+.web-portfolio[data-hacker-mode="on"] .tech-stack-set {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.web-portfolio[data-hacker-mode="on"] .tech-stack-item {
+    border-color: #7b7ff726;
+    background: #0b0c1ce6;
+}
+
 .web-hero {
-    background: radial-gradient(ellipse at 65% 20%, #6366f11a, transparent 65%), #111318;
+    background: radial-gradient(ellipse at 65% 20%, #4b4ef014, transparent 65%), #050508;
 }
 
 .web-about {
-    background: linear-gradient(135deg, #191c26, #111318);
+    background: linear-gradient(135deg, #0c0d20, #050508);
 }
 
 .web-section {
     border-top: 1px solid #ffffff0d;
     background: radial-gradient(ellipse at 90% 0%, #6366f10d, transparent 65%), #111318;
+}
+
+/* Viewport culling (Normal mode only): off-screen sections skip rendering.
+   Hacker Mode keeps sections rendered for accurate swarm geometry. */
+.web-portfolio[data-hacker-mode="off"] :is(.web-hero, .web-section) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1000px;
 }
 
 .web-contact-form {
@@ -109,38 +303,38 @@ body {
 }
 
 .web-portfolio[data-hacker-mode="on"] {
-    --web-accent: #6ee7b7;
-    --color-primary: #6ee7b7;
+    --web-accent: #7b7ff7;
+    --color-primary: #7b7ff7;
     --color-primary-content: #07130f;
-    background: #09100e;
+    background: #04040e;
 }
 
 .web-portfolio[data-hacker-mode="on"] .web-hero,
 .web-portfolio[data-hacker-mode="on"] .web-section,
 .web-portfolio[data-hacker-mode="on"] .web-about {
-    background-color: #09100e;
-    background-image: linear-gradient(#6ee7b707 1px, transparent 1px), linear-gradient(90deg, #6ee7b707 1px, transparent 1px);
+    background-color: #04040e;
+    background-image: linear-gradient(#7b7ff707 1px, transparent 1px), linear-gradient(90deg, #7b7ff707 1px, transparent 1px);
     background-size: 40px 40px;
 }
 
 .web-portfolio[data-hacker-mode="on"] .web-navbar {
-    background-color: #09100ecc;
-    border-color: #6ee7b726;
+    background-color: #04040ecc;
+    border-color: #7b7ff726;
 }
 
 .web-portfolio[data-hacker-mode="on"] .hacker-toggle {
-    color: #6ee7b7;
+    color: #7b7ff7;
 }
 
 .web-portfolio[data-hacker-mode="on"] .web-card,
 .web-portfolio[data-hacker-mode="on"] .web-contact-form > form {
-    border-color: #6ee7b726;
-    background: #0e1914e6;
+    border-color: #7b7ff726;
+    background: #0b0c1ce6;
 }
 
 .web-portfolio[data-hacker-mode="on"] .web-contact-form :is(input, textarea) {
-    background: #6ee7b707;
-    border-color: #6ee7b733;
+    background: #7b7ff707;
+    border-color: #7b7ff733;
 }
 
 .web-portfolio[data-hacker-mode="on"] .web-card h2 {
@@ -164,11 +358,11 @@ body {
 
 .swarm-outline rect {
     fill: none;
-    stroke: #6ee7b7;
+    stroke: #7b7ff7;
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
     stroke-dasharray: 100;
-    filter: drop-shadow(0 0 3px #6ee7b755);
+    filter: drop-shadow(0 0 3px #7b7ff755);
 }
 
 .swarm-cursor {
@@ -237,7 +431,7 @@ body {
 .full-swarm-blueprint-grid {
     position: absolute;
     inset: var(--full-swarm-top, 0px) 0 0;
-    background-image: linear-gradient(#6ee7b709 1px, transparent 1px), linear-gradient(90deg, #6ee7b709 1px, transparent 1px);
+    background-image: linear-gradient(#7b7ff709 1px, transparent 1px), linear-gradient(90deg, #7b7ff709 1px, transparent 1px);
     background-size: 32px 32px;
 }
 
@@ -321,7 +515,7 @@ body {
     white-space: nowrap;
     padding: 2px 5px;
     border-radius: 4px;
-    background: #09100eee;
+    background: #04040eee;
     font: 9px ui-monospace, monospace;
     color: #e5e7eb;
 }
@@ -333,7 +527,7 @@ body {
     left: 16px;
     width: min(370px, calc(100vw - 32px));
     padding: 14px;
-    border: 1px solid #6ee7b733;
+    border: 1px solid #7b7ff733;
     border-radius: 16px;
     background: #0b1514ed;
     color: #e6fff4;
@@ -351,12 +545,12 @@ body {
     min-height: 44px;
     padding: 8px;
     border-radius: 10px;
-    background: #6ee7b70c;
-    color: #6ee7b7;
+    background: #7b7ff70c;
+    color: #7b7ff7;
 }
 
 .full-swarm-hud-toggle:focus-visible {
-    outline: 2px solid #6ee7b7;
+    outline: 2px solid #7b7ff7;
     outline-offset: 2px;
 }
 
@@ -392,7 +586,7 @@ body {
     width: 100%;
     height: 4px;
     margin-top: 10px;
-    accent-color: #6ee7b7;
+    accent-color: #7b7ff7;
 }
 
 .full-swarm-hud p {
@@ -410,9 +604,9 @@ body {
 
 .full-swarm-actions button {
     padding: 6px 8px;
-    border: 1px solid #6ee7b726;
+    border: 1px solid #7b7ff726;
     border-radius: 7px;
-    background: #6ee7b70c;
+    background: #7b7ff70c;
 }
 
 .full-swarm-actions button:disabled {
@@ -421,7 +615,7 @@ body {
 
 .full-swarm-actions button:focus-visible,
 .full-swarm-options input:focus-visible {
-    outline: 2px solid #6ee7b7;
+    outline: 2px solid #7b7ff7;
 }
 
 .full-swarm-options {
@@ -459,5 +653,30 @@ body {
         transition: none;
         animation: none;
     }
+}
+
+/* The moving technology rail is an explicit portfolio feature. Keep it active
+   even when the operating system asks to reduce unrelated motion. */
+.web-portfolio[data-hacker-mode="off"] .tech-stack-track {
+    display: flex;
+    width: max-content;
+    animation: tech-stack-left-to-right 28s linear infinite;
+    transform: none;
+}
+
+.web-portfolio[data-hacker-mode="off"] .tech-stack-set {
+    display: flex;
+    flex: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.web-portfolio[data-hacker-mode="off"] .tech-stack-set[aria-hidden="true"] {
+    display: flex;
+}
+
+.web-portfolio[data-hacker-mode="off"] .tech-stack-marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 

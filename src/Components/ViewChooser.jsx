@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { ArrowLeft, Globe2, Monitor, Smartphone } from 'lucide-react';
+import { ArrowLeft, Gamepad2, Globe2, Monitor, Smartphone } from 'lucide-react';
 
-function ViewChooser({ mode = 'choose', onChooseWeb, onChooseOs, onBack }) {
+function ViewChooser({ mode = 'choose', onChooseWeb, onChooseOs, onChooseGame, onBack }) {
   const dialogRef = useRef(null);
   const initialButtonRef = useRef(null);
 
@@ -56,7 +56,7 @@ function ViewChooser({ mode = 'choose', onChooseWeb, onChooseOs, onBack }) {
             </p>
           </div>
 
-          <div className='mt-7 grid gap-4 md:grid-cols-2'>
+          <div className='mt-7 grid gap-4 md:grid-cols-3'>
             <button
               ref={initialButtonRef}
               type='button'
@@ -71,6 +71,21 @@ function ViewChooser({ mode = 'choose', onChooseWeb, onChooseOs, onBack }) {
                 The responsive scrolling portfolio, optimized for every screen size.
               </p>
               <span className='mt-5 inline-flex text-xs font-semibold uppercase tracking-wider text-cyan-300'>Open website</span>
+            </button>
+
+            <button
+              type='button'
+              onClick={onChooseGame}
+              className='group rounded-2xl border border-white/15 bg-white/5 p-5 text-left transition hover:-translate-y-1 hover:border-fuchsia-400/50 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-fuchsia-400/60'
+            >
+              <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-fuchsia-400/10 text-fuchsia-300'>
+                <Gamepad2 className='h-6 w-6' />
+              </div>
+              <h2 className='mt-4 text-lg font-semibold'>Game View</h2>
+              <p className='mt-2 text-sm leading-relaxed text-white/60'>
+                A cyberpunk HUD experience with quests, contracts, and skills.
+              </p>
+              <span className='mt-5 inline-flex text-xs font-semibold uppercase tracking-wider text-fuchsia-300'>Enter the grid</span>
             </button>
 
             <button

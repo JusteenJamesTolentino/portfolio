@@ -12,9 +12,9 @@ A personal portfolio web app built with React and Vite. It showcases projects, s
 
 ## Features
 
-- Photo-free gradient hero with typing text effect
-- Optional Hacker Mode with full-page, concurrent simulated-builder reconstruction
-- About Me section with tech stack badges
+- Responsive Hero containing About Me, bio, and moving technology icon rail
+- Lenis inertia smooth scrolling on Web Page View
+- Normal-mode neumorphic Web UI, scoped away from Hacker and OS views
 - Projects section with management system cards
 - Services section with responsive service cards
 - Tools section showcasing upcoming engineering web tools
@@ -22,6 +22,7 @@ A personal portfolio web app built with React and Vite. It showcases projects, s
 - Hardware Messenger page (`/serialmonitor/messenger`) with serial-driven WiFi setup and MQTT chat relay through an ESP32
 - Installable Progressive Web App with an offline app shell and safe update prompts
 - Optional desktop OS portfolio at `/osview` with draggable windows, taskbar, Start menu, terminal, and session-based view selection
+- Cyberpunk Game View at `/gameview` with boot sequence, quest-log projects, contracts, skill matrix, and comms panels
 - Contact section with clickable contact cards and a message form
 - Route handling for unauthorized and not found pages
 
@@ -88,7 +89,7 @@ src/
 
 Web Page View includes a Hacker Mode swap after Contact: smile for Normal, spider for Hacker Mode. Normal mode retains the fast 240 ms scroll reveals and full-exit viewport culling, with immediate reveal for keyboard focus and reduced-motion preferences.
 
-Hacker Mode reconstructs the portfolio in a separate DOM/SVG scene. Six named builders on desktop (three on small screens) collaborate inside one active content group at a time, so headings and individual cards appear one by one. The hero, Projects, Tools, Services, About, and Contact participate. As an outgoing group approaches the viewport edge, cursors erase its text, controls, images, and outlines; full exits immediately cull it and cancel obsolete work. Returning to the content triggers reconstruction again. Fast scrolling can skip the visible edge-erasure animation, but off-screen content still hides immediately. Layout space and React data stay mounted.
+Hacker Mode reconstructs the portfolio in a separate DOM/SVG scene. Six named builders on desktop (three on small screens) collaborate inside one active content group at a time, so headings and individual cards appear one by one. The Hero intro, embedded About content, primary technology icon set, Projects, Tools, Services, and Contact participate. As an outgoing group approaches the viewport edge, cursors erase its text, controls, images, and outlines; full exits immediately cull it and cancel obsolete work. Returning to the content triggers reconstruction again. Fast scrolling can skip the visible edge-erasure animation, but off-screen content still hides immediately. Layout space and React data stay mounted.
 
 The HUD provides Pause/Resume, 1x/2x/3x speed, Replay, Go Live, Stop, Less motion, and optional Follow builders. Finishing the currently visible groups enters idle mode with viewport observers active and no continuous animation loop. Explicit Go Live removes construction layers and disables culling until Replay or mode exit. Escape or the navbar swap exits Hacker Mode. The view chooser and hidden browser tabs pause the logical clock. User wheel/touch navigation or interaction stops the optional guided tour. The hero's independent typing pauses during viewport reconstruction and resumes after Go Live.
 
@@ -100,7 +101,7 @@ The portfolio can be installed from supported browsers and uses a service worker
 
 Offline support applies to cached portfolio pages and static demos. Web Serial still requires a Chromium-based browser, HTTPS or localhost, and connected hardware. The Hardware Messenger also requires network access for MQTT chat.
 
-On the first homepage visit in each browser session, visitors can choose Web Page View or OS View. OS View requires a viewport at least 1024 CSS pixels wide; smaller screens receive a message directing them to the responsive Web Page View.
+On the first homepage visit in each browser session, visitors can choose Web Page View, Game View, or OS View. OS View requires a viewport at least 1024 CSS pixels wide; smaller screens receive a message directing them to the responsive Web Page View. The Game View is responsive and works on all screen sizes.
 
 OS View includes a simple Browser application. It accepts HTTP(S) addresses, keeps supported links inside the desktop, and opens the same-origin Serial Monitor and Hardware Messenger with Web Serial permission. External pages run in a restricted iframe and may refuse embedded viewing through their own security headers; the Browser always provides an Open Externally fallback. Browser history tracks addresses opened through its toolbar or OS applications, but cannot observe navigation performed inside cross-origin pages.
 

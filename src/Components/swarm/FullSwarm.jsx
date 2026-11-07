@@ -53,7 +53,7 @@ function FullSwarm({ rootRef, paused, onLiveChange, onStop, contentKey }) {
     const viewportOptions = () => {
       const focused = document.activeElement;
       const group = root.contains(focused) ? focused.closest?.('[data-swarm-group]') : null;
-      return { top, direction, pinned: new Set(group ? [group.dataset.swarmGroup] : []), reduced };
+      return { top, direction, scrollY: window.scrollY, pinned: new Set(group ? [group.dataset.swarmGroup] : []), reduced };
     };
     const classify = () => {
       if (dirty) {
@@ -64,7 +64,7 @@ function FullSwarm({ rootRef, paused, onLiveChange, onStop, contentKey }) {
       }
       return scheduler.updateViewport(window.innerHeight, viewportOptions());
     };
-    const render = snapshot => scene?.render(snapshot, reduced, { top, paused: blocked() });
+    const render = snapshot => scene?.render(snapshot, reduced, { top, paused: blocked(), scrollY: window.scrollY });
     const resize = new ResizeObserver(() => wake(true));
     const intersection = new IntersectionObserver(() => wake(true), { threshold: [0, 0.1, 1] });
     const observe = () => {
@@ -87,13 +87,13 @@ function FullSwarm({ rootRef, paused, onLiveChange, onStop, contentKey }) {
       if (!follow || reduced || blocked() || !snapshot.idle || snapshot.working) return false;
       const groups = snapshot.groups ?? [];
       groups.forEach(group => {
-        if (group.state === 'visible' && group.geometry.y < window.innerHeight && group.geometry.y + group.geometry.height > top) tourOrder = Math.max(tourOrder, group.order);
+        if (group.state === 'visible' && group.geometry.y - window.scrollY < window.innerHeight && group.geometry.y - window.scrollY + group.geometry.height > top) tourOrder = Math.max(tourOrder, group.order);
       });
       const next = [...groups].sort((a, b) => a.order - b.order).find(group => group.order > tourOrder && ['queued', 'culled'].includes(group.state));
       if (!next) { follow = false; return false; }
       tourOrder = next.order;
       const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-      tourScroll = Math.max(0, Math.min(maxScroll, window.scrollY + next.geometry.y - top - 24));
+      tourScroll = Math.max(0, Math.min(maxScroll, next.geometry.y - top - 24));
       window.scrollTo({ top: tourScroll, behavior: 'instant' });
       dirty = true;
       return true;
@@ -109,7 +109,7 @@ function FullSwarm({ rootRef, paused, onLiveChange, onStop, contentKey }) {
           const targetTask = snapshot.tasks.find(task => !task.structural && (task.element === anchorTarget || task.element.contains(anchorTarget)));
           const box = targetTask?.groupGeometry;
           if (!anchorTarget.isConnected) anchorTarget = null;
-          else if (box && box.y < window.innerHeight && box.y + box.height > top) {
+          else if (box && box.y - window.scrollY < window.innerHeight && box.y - window.scrollY + box.height > top) {
             snapshot = scheduler.completeIds(new Set([targetTask.id]));
             anchorTarget = null;
           }
@@ -210,7 +210,8 @@ function FullSwarm({ rootRef, paused, onLiveChange, onStop, contentKey }) {
       lastY = y;
       if (tourScroll !== null && Math.abs(y - tourScroll) <= 2) tourScroll = null;
       else stopFollowing();
-      wake(true);
+      // Document-coordinate blueprint means scrolling needs no re-measurement.
+      wake();
     };
     const keyInput = event => {
       if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) stopFollowing();

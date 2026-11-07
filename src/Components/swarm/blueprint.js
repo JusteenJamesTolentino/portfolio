@@ -54,8 +54,8 @@ function captureTargets(root) {
     const groupId = groupElement?.dataset.swarmGroup ?? id;
     const structural = !groupElement && kind === 'surface';
     const groupRect = (groupElement ?? element).getBoundingClientRect();
-    const groupGeometry = { x: groupRect.left, y: groupRect.top, width: groupRect.width, height: groupRect.height };
-    const geometry = { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+    const groupGeometry = { x: groupRect.left, y: groupRect.top + window.scrollY, width: groupRect.width, height: groupRect.height };
+    const geometry = { x: rect.left, y: rect.top + window.scrollY, width: rect.width, height: rect.height };
     tasks.push({
       id, kind, element, dependency, index, publicText, imageSource, vector, preserve, geometry,
       groupId, groupElement: groupElement ?? element, groupGeometry, structural,
@@ -84,8 +84,8 @@ export function measureBlueprint(tasks) {
   tasks.forEach(task => {
     if (!task.element.isConnected) return;
     const rect = task.element.getBoundingClientRect();
-    task.geometry = { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+    task.geometry = { x: rect.left, y: rect.top + window.scrollY, width: rect.width, height: rect.height };
     const groupRect = task.groupElement.getBoundingClientRect();
-    task.groupGeometry = { x: groupRect.left, y: groupRect.top, width: groupRect.width, height: groupRect.height };
+    task.groupGeometry = { x: groupRect.left, y: groupRect.top + window.scrollY, width: groupRect.width, height: groupRect.height };
   });
 }

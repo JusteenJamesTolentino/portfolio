@@ -145,6 +145,7 @@ export function createScene(root, tasks, builderCount) {
       return;
     }
     const top = clamp(options.top ?? 0, 0, window.innerHeight);
+    const scrollY = options.scrollY ?? window.scrollY;
     scene.style.setProperty('--full-swarm-top', `${top}px`);
     scene.dataset.motion = reduced ? 'reduced' : 'full';
     scene.dataset.paused = options.paused ? 'true' : 'false';
@@ -162,7 +163,8 @@ export function createScene(root, tasks, builderCount) {
       const element = task.element;
       const box = task.geometry;
       if (!box) return;
-      const visible = box.y + box.height > top && box.y < window.innerHeight && box.x + box.width > 0 && box.x < window.innerWidth && box.width > 0 && box.height > 0;
+      const viewY = box.y - scrollY;
+      const visible = viewY + box.height > top && viewY < window.innerHeight && box.x + box.width > 0 && box.x < window.innerWidth && box.width > 0 && box.height > 0;
       const protectedChildren = task.id !== 'hero-title' && task.kind !== 'surface' && hasProtectedChildren(element);
       const focused = element.contains(document.activeElement);
       const keepTitle = task.id === 'hero-title' && task.state === 'done' && visible && !focused;
@@ -180,10 +182,10 @@ export function createScene(root, tasks, builderCount) {
         items.append(view.node);
       }
       const progress = clamp(task.progress, 0, 1);
-      Object.assign(view.node.style, { left: `${box.x}px`, top: `${box.y}px`, width: `${box.width}px`, height: `${box.height}px` });
+      Object.assign(view.node.style, { left: `${box.x}px`, top: `${viewY}px`, width: `${box.width}px`, height: `${box.height}px` });
       view.node.dataset.operation = task.state === 'erasing' ? 'erase' : 'build';
       const builder = builders[task.builder];
-      const color = BUILDERS[task.builder]?.color ?? '#6ee7b7';
+      const color = BUILDERS[task.builder]?.color ?? '#7b7ff7';
       view.node.style.setProperty('--builder-color', color);
       let cursorX = box.x;
       let cursorY = box.y;
@@ -195,7 +197,7 @@ export function createScene(root, tasks, builderCount) {
         view.caret.style.display = animating && !reduced ? 'inline-block' : 'none';
         const textRect = view.content.getBoundingClientRect();
         cursorX = Math.min(box.x + box.width, textRect.right);
-        cursorY = Math.min(box.y + box.height, textRect.bottom);
+        cursorY = Math.min(viewY + box.height, textRect.bottom - scrollY);
       } else if (task.kind === 'surface') {
         view.rect.style.stroke = color;
         view.rect.style.strokeDasharray = '100';
@@ -203,22 +205,22 @@ export function createScene(root, tasks, builderCount) {
         view.node.style.opacity = `${progress}`;
         const perimeter = progress * 4;
         if (perimeter < 1) cursorX += box.width * perimeter;
-        else if (perimeter < 2) { cursorX += box.width; cursorY += box.height * (perimeter - 1); }
-        else if (perimeter < 3) { cursorX += box.width * (3 - perimeter); cursorY += box.height; }
-        else cursorY += box.height * (4 - perimeter);
-        guideLines.push({ x: box.x, y: box.y, color });
+        else if (perimeter < 2) { cursorX += box.width; cursorY += viewY + box.height * (perimeter - 1); }
+        else if (perimeter < 3) { cursorX += box.width * (3 - perimeter); cursorY += viewY + box.height; }
+        else cursorY += viewY + box.height * (4 - perimeter);
+        guideLines.push({ x: box.x, y: viewY, color });
       } else {
         view.node.style.opacity = `${progress}`;
         view.node.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
         view.node.style.transform = reduced ? 'none' : `translate(${(1 - progress) * 16}px, ${(1 - progress) * 12}px)`;
         cursorX += box.width * progress;
-        cursorY += box.height * 0.5;
+        cursorY += viewY + box.height * 0.5;
       }
       // Both typing and erasing stay in the target's visible intersection below navigation.
       const left = Math.max(0, box.x);
       const right = Math.min(window.innerWidth, box.x + box.width);
-      const upper = Math.max(top, box.y);
-      const lower = Math.min(window.innerHeight, box.y + box.height);
+      const upper = Math.max(top, viewY);
+      const lower = Math.min(window.innerHeight, viewY + box.height);
       cursorX = clamp(cursorX, left, Math.max(left, right - 1));
       cursorY = clamp(cursorY, upper, Math.max(upper, lower - 1));
       if (builder && animating && !reduced && !options.paused) {
