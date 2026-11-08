@@ -9,12 +9,20 @@ export const portfolioProfile = {
 
 export const technologyGroups = [
   {
-    title: 'Web Development',
-    technologies: ['React', 'Node.js', 'Firebase', 'Tailwind CSS', 'JavaScript'],
+    title: 'Frontend',
+    technologies: ['Frontend', 'React', 'Tailwind CSS', 'JavaScript'],
+  },
+  {
+    title: 'Backend & Databases',
+    technologies: ['Backend', 'Node.js', 'MySQL', 'MariaDB'],
   },
   {
     title: 'Programming Languages',
     technologies: ['Python', 'C++', 'C', 'C#', 'Java'],
+  },
+  {
+    title: 'Deployment & Hosting',
+    technologies: ['Vercel', 'Render', 'Firebase'],
   },
 ];
 
