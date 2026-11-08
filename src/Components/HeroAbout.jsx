@@ -1,4 +1,3 @@
-import { ArrowDown } from 'lucide-react';
 import { FaEnvelope, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import TechStackMarquee from './TechStackMarquee';
 import TextType from './ReactBits/TypingText';
@@ -9,17 +8,14 @@ function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
   return (
     <section id='home' className='web-hero relative flex min-h-screen min-h-dvh flex-col overflow-hidden' data-swarm-kind='surface' data-swarm-id='hero'>
       <div className='mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 items-end gap-10 px-5 pb-10 pt-[max(5.5rem,10dvh)] sm:px-8 md:grid-cols-[1.2fr_1.1fr_0.9fr] md:gap-8'>
-        <div className='text-white' data-swarm-group='hero-intro'>
-          <span className='mb-6 block h-px w-16 bg-white/60' aria-hidden='true' />
+        <div className='text-center text-white md:text-left' data-swarm-group='hero-intro'>
+          <span className='mx-auto mb-6 block h-px w-16 bg-white/60 md:mx-0' aria-hidden='true' />
           <div className='min-h-24 text-3xl font-extrabold tracking-tight sm:min-h-28 sm:text-4xl md:text-[2.75rem] md:leading-tight' data-swarm-kind='text' data-swarm-id='hero-title' data-swarm-text='Hello, I am JusteenDev'>
             <TextType text={['Hello, I am JusteenDev', 'A Fullstack Developer']} paused={hackerMode && !swarmLive} typingSpeed={75} pauseDuration={1500} showCursor cursorCharacter='|' deletingSpeed={50} cursorBlinkDuration={0.5} cursorClassName='swarm-original-typing' />
           </div>
-          <p className='mt-4 max-w-md text-sm leading-relaxed text-white/70' data-swarm-kind='text' data-swarm-id='about-bio' data-swarm-text={portfolioProfile.bio}>
+          <p className='mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/70' data-swarm-kind='text' data-swarm-id='about-bio' data-swarm-text={portfolioProfile.bio}>
             {portfolioProfile.bio}
           </p>
-          <a href='#projects' aria-label='Scroll to projects' className='neu-btn mt-8 inline-flex h-14 w-14 items-center justify-center rounded-full text-white' data-swarm-kind='control' data-swarm-id='hero-scroll'>
-            <ArrowDown className='h-5 w-5 transition-transform duration-200 group-hover:translate-y-0.5' aria-hidden='true' />
-          </a>
         </div>
 
         <div className='order-first flex justify-center self-end md:order-none' data-swarm-group='hero-logo'>
