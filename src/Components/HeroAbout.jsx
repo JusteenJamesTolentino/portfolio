@@ -22,11 +22,11 @@ function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
           </a>
         </div>
 
-        <div className='flex justify-center self-end' data-swarm-group='hero-logo'>
+        <div className='order-first flex justify-center self-end md:order-none' data-swarm-group='hero-logo'>
           <img
-            src='/logo.png'
-            alt='JusteenDev logo'
-            className='web-hero-logo w-52 sm:w-64 md:w-72 lg:w-80'
+            src='/justeen-photo.png'
+            alt='JusteenDev portrait'
+            className='web-hero-photo w-72 sm:w-80 md:w-[24rem] lg:w-[28rem] max-w-none'
             data-swarm-kind='image'
             data-swarm-id='about-logo'
           />

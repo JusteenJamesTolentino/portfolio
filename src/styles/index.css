@@ -92,9 +92,8 @@ html.lenis, html.lenis body {
     border-radius: 1.5rem;
 }
 
-.web-hero-logo {
-    mix-blend-mode: screen;
-    filter: drop-shadow(0 0 40px #4b4ef033);
+.web-hero-photo {
+    filter: brightness(0.78) contrast(1.05);
 }
 
 .neu-btn {
@@ -206,7 +205,7 @@ html.lenis, html.lenis body {
 }
 
 .web-hero {
-    background: radial-gradient(ellipse at 65% 20%, #4b4ef014, transparent 65%), #050508;
+    background: #000;
 }
 
 .web-about {
