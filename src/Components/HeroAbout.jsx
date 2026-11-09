@@ -10,7 +10,7 @@ function HeroAbout({ portfolioProfile, contactCards }) {
         <div className='min-w-0 text-center text-white xl:text-left' data-swarm-group='hero-intro'>
           <span className='mx-auto mb-6 block h-px w-16 bg-white/60 xl:mx-0' aria-hidden='true' />
           <h1 className='text-balance text-3xl font-extrabold tracking-tight sm:text-4xl xl:text-[2.75rem] xl:leading-tight' data-swarm-kind='text' data-swarm-id='hero-title' data-swarm-text='Justeen Dev a Full Stack Developer'>
-            Justeen Dev a Full Stack Developer
+            Justeen Dev a Fullstack Developer
           </h1>
           <p className='mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/70' data-swarm-kind='text' data-swarm-id='about-bio' data-swarm-text={portfolioProfile.bio}>
             {portfolioProfile.bio}
