@@ -1,58 +1,43 @@
 ## Context
 
-Redesign **Web Page View only** so the Hero also contains the About content and technology stack shown in the reference image. Remove the separate About section, add a seamless left-to-right icon marquee, and use neumorphic styling in Normal mode. Preserve Hacker Mode, OS View, PWA behavior, and the viewport build/erase system.
+Visitors should no longer be interrupted by an experience chooser. The normal Web Page should open immediately and remain the default experience. Switching experiences becomes optional through one **Modes** button and one **Modes** modal containing Hacker, OS, and Game modes.
 
 ## Implementation
 
-1. **Merge About into Hero**
-   - Update `src/Portfolio.jsx` so the Hero contains:
-     - Existing intro/typewriter and quote
-     - JusteenDev logo
-     - Current bio and freelance copy from `portfolioProfile`
-     - Moving technology icon strip at the bottom
-   - Remove the separate About section.
-   - Keep `min-h-screen`/`min-h-dvh` while allowing the merged Hero to grow naturally on short screens.
-   - Change navbar About links from `#about` to `#home`, the merged Hero anchor.
-   - Renumber Contact from section 05 to 04.
+1. **Open the Web Page by default**
+   - Update `src/App.jsx` so `/` always renders the normal Web Page immediately on first visit and reload.
+   - Remove startup chooser behavior and stop using a saved session choice to redirect visitors away from `/`.
+   - Keep `/gameview` and `/osview` available as direct routes.
 
-2. **Add accurate technology icons**
-   - Reuse the installed `react-icons` package:
-     - React: `SiReact`
-     - Node.js: `SiNodedotjs`
-     - Firebase: `SiFirebase`
-     - Tailwind CSS: `SiTailwindcss`
-     - JavaScript: `SiJavascript`
-     - Python: `SiPython`
-     - C++: `SiCplusplus`
-     - C: `SiC`
-     - Java: `FaJava`
-   - Use a styled `C#` monogram tile instead of a misleading .NET or Sharp logo.
-   - Keep technology strings in `portfolioProfile.js` unchanged so OS View is unaffected.
+2. **Create one optional Modes modal**
+   - Rework `src/Components/ViewChooser.jsx` as a Modes modal opened only from a Modes button.
+   - Include these options:
+     - Hacker Mode
+     - Game Mode
+     - OS Mode
+   - Also include a normal Web Page option only when needed to return from Hacker, Game, or OS mode.
+   - Selecting Hacker Mode enables the existing swarm reconstruction on `/`.
+   - Selecting Game or OS uses the existing routes.
+   - Selecting Web Page returns to `/` and disables Hacker Mode.
+   - Preserve the existing unsupported-device message when OS Mode is selected below 1024px.
 
-3. **Create a left-to-right marquee**
-   - Add a Web-only `TechStackMarquee` component with two identical sets for a seamless loop.
-   - Animate from left to right, pause on hover/focus, and hide the duplicate from assistive technology.
-   - Under reduced motion, stop animation, hide the duplicate, and present a centered, wrapping list.
-   - Keep the strip noninteractive unless links are intentionally added later.
+3. **Replace View terminology and centralize mode controls**
+   - In `src/Portfolio.jsx`, rename the desktop `View` button and mobile `Switch View` item to `Modes`, including accessibility text and swarm metadata.
+   - Remove the standalone Hacker Mode toggle from desktop and mobile navigation.
+   - Move Hacker Mode state to `src/App.jsx` so the Modes modal can enable or disable it while preserving Escape and FullSwarm HUD Stop behavior.
+   - Rename the Game and OS switch controls to `MODES` and have them open the same Modes modal.
 
-4. **Preserve Full Swarm grouping**
-   - Keep the Hero section as a structural surface.
-   - Use distinct rebuild groups for Hero intro, moved About content, and the technology strip so a tall combined Hero does not erase/build as one oversized block.
-   - Keep unique explicit public `data-swarm-text` and image/control IDs.
-   - In Hacker Mode, stop the marquee and capture only the primary icon set; keep the duplicate hidden to avoid doubled tasks and moving measurements.
-   - No scheduler or scene redesign is needed.
+4. **Clean up obsolete UI and copy**
+   - Remove the unused `src/Components/HackerModeToggle.jsx` and only its toggle-specific CSS from `src/styles/index.css`.
+   - Update Game loading tips and README text so they direct users to the Modes modal rather than the old navbar toggle or startup chooser.
 
-5. **Add Normal-only neumorphism**
-   - Define Web normal-mode tokens and styles under `.web-portfolio[data-hacker-mode="off"]` only.
-   - Apply raised surfaces and soft dual shadows to cards, navbar, buttons, contact form, and technology tiles.
-   - Use inset shadows for inputs and pressed controls, while preserving accessible focus rings.
-   - Keep Hacker Mode’s existing green grid and reconstruction styling unchanged.
-   - Do not leak styles into OS View or Serial/Messenger routes.
+## Verification
 
-6. **Documentation and verification**
-   - Update README feature and Hacker Mode descriptions for the merged Hero/About and moving icon rail.
-   - Run scheduler tests, lint, PWA build, and whitespace checks.
-   - Verify desktop/mobile/short-landscape layout, `#home` navigation, seamless left-to-right movement, hover/focus pause, reduced motion, and no horizontal page overflow.
-   - Verify Normal neumorphism and unchanged Hacker/OS appearance.
-   - Verify Full Swarm rebuild/erase groups, Replay, Go Live, contact draft preservation, and normal card culling.
-   - Do not commit, push, or deploy.
+- Run ESLint, scheduler tests, and the Vite/PWA production build.
+- Verify `/` opens Web Page mode immediately with no startup chooser, including a clean browser session and reload.
+- Verify desktop and mobile navigation show one Modes button and no separate Hacker Mode control.
+- Verify the optional Modes modal switches correctly among Web, Hacker, Game, and OS experiences.
+- Verify Game and OS can reopen Modes and return to the default Web Page.
+- Verify unsupported mobile OS selection still shows the larger-screen message.
+- Verify Hacker reconstruction, Escape/Stop exits, PWA update prompts, and direct routes still work.
+- Do not commit, push, or deploy unless requested separately.

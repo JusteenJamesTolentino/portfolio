@@ -3,7 +3,6 @@ import Lenis from 'lenis';
 import { MonitorCog } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ContactForm from './Components/ContactForm';
-import HackerModeToggle from './Components/HackerModeToggle';
 import HeroAbout from './Components/HeroAbout';
 import SwarmRebuild, { RebuildCard } from './Components/SwarmRebuild';
 import { FaCode } from 'react-icons/fa';
@@ -16,20 +15,19 @@ import { portfolioProfile } from './data/portfolioProfile';
 
 const FullSwarm = lazy(() => import('./Components/swarm/FullSwarm'));
 
-function Portfolio({ onSwitchView, viewChooserOpen = false }) {
+function Portfolio({ onSwitchView, hackerMode, onHackerModeChange, viewChooserOpen = false }) {
   const rootRef = useRef(null);
   const [navHidden, setNavHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAllTools, setShowAllTools] = useState(false);
-  const [hackerMode, setHackerMode] = useState(false);
   const [swarmLive, setSwarmLive] = useState(false);
 
   const changeHackerMode = useCallback(enabled => {
     setSwarmLive(false);
-    setHackerMode(enabled);
+    onHackerModeChange(enabled);
     setMobileMenuOpen(false);
     setNavHidden(false);
-  }, []);
+  }, [onHackerModeChange]);
 
   const stopHackerMode = useCallback(() => changeHackerMode(false), [changeHackerMode]);
 
@@ -85,17 +83,14 @@ function Portfolio({ onSwitchView, viewChooserOpen = false }) {
         <div className='navbar-center'></div>
         <div className='navbar-end w-auto'>
           <div className='hidden lg:flex gap-1 items-center'>
-            <button type='button' className='btn btn-ghost btn-sm sm:btn-md' onClick={onSwitchView} title='Switch portfolio view' data-swarm-kind='control' data-swarm-id='nav-view' data-swarm-text='View'>
-              <MonitorCog className='h-4 w-4' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-view-icon' />
-              View
+            <button type='button' className='btn btn-ghost btn-sm sm:btn-md' onClick={onSwitchView} title='Choose portfolio mode' data-swarm-kind='control' data-swarm-id='nav-modes' data-swarm-text='Modes'>
+              <MonitorCog className='h-4 w-4' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-modes-icon' />
+              Modes
             </button>
             <a className='btn btn-ghost btn-sm sm:btn-md' href='#home' data-swarm-kind='control' data-swarm-id='nav-home' data-swarm-text='About'>About</a>
             <a className='btn btn-ghost btn-sm sm:btn-md' href='#services' data-swarm-kind='control' data-swarm-id='nav-services' data-swarm-text='Services'>Services</a>
             <a className='btn btn-ghost btn-sm sm:btn-md' href='#tools' data-swarm-kind='control' data-swarm-id='nav-tools' data-swarm-text='Tools'>Tools</a>
             <a className='btn btn-ghost btn-sm sm:btn-md' href='#contact' data-swarm-kind='control' data-swarm-id='nav-contact' data-swarm-text='Contact'>Contact</a>
-            <div data-swarm-kind='control' data-swarm-id='nav-hacker-toggle' data-swarm-text='Hacker Mode'>
-              <HackerModeToggle enabled={hackerMode} onChange={changeHackerMode} />
-            </div>
           </div>
 
           <div className='relative lg:hidden'>
@@ -120,7 +115,7 @@ function Portfolio({ onSwitchView, viewChooserOpen = false }) {
             {mobileMenuOpen && (
               <div className='absolute right-0 top-full mt-3 w-44 p-2 rounded-2xl bg-base-300/70 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-xl flex flex-col'>
                 {[
-                  ['Switch View', null],
+                  ['Modes', null],
                   ['About', '#home'],
                   ['Services', '#services'],
                   ['Tools', '#tools'],
@@ -144,16 +139,13 @@ function Portfolio({ onSwitchView, viewChooserOpen = false }) {
                     className='btn btn-ghost justify-start'
                     onClick={() => { setMobileMenuOpen(false); onSwitchView(); }}
                     data-swarm-kind='control'
-                    data-swarm-id='nav-mobile-view'
+                    data-swarm-id='nav-mobile-modes'
                     data-swarm-text={label}
                   >
-                    <MonitorCog className='h-4 w-4' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-mobile-view-icon' />
+                    <MonitorCog className='h-4 w-4' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-mobile-modes-icon' />
                     {label}
                   </button>
                 ))}
-                <div data-swarm-kind='control' data-swarm-id='nav-mobile-hacker-toggle' data-swarm-text='Hacker Mode'>
-                  <HackerModeToggle enabled={hackerMode} onChange={changeHackerMode} />
-                </div>
               </div>
             )}
           </div>

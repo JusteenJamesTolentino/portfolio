@@ -26,10 +26,10 @@ const BOOT_LINES = [
 ];
 
 const LOADING_TIPS = [
-  'TIP: Enable Hacker Mode in the navbar to watch the swarm rebuild',
+  'TIP: Open Modes to launch Hacker Mode and watch the swarm rebuild',
   'TIP: The tech rail pauses while you hover it',
   'TIP: Quests unlock as the projects ship',
-  'TIP: Try the OS View for a full desktop experience',
+  'TIP: Try OS Mode for a full desktop experience',
   'TIP: The Serial Monitor talks to real hardware over USB',
 ];
 
@@ -54,7 +54,7 @@ const difficultyFor = index => 2 + (index % 3);
 const XP_PER_QUEST = 190;
 
 function GameShell({ onSwitchView }) {
-  // The loading screen is part of the Game View experience and always shows;
+  // The loading screen is part of the Game Mode experience and always shows;
   // reduced motion only disables its flicker/glitch animations via CSS.
   const [phase, setPhase] = useState('loading');
   const [progress, setProgress] = useState(0);
@@ -172,8 +172,8 @@ function GameShell({ onSwitchView }) {
         <nav className='game-nav' aria-label='Game panels'>
           {navButtons(false)}
         </nav>
-        <button type='button' className='game-exit' onClick={onSwitchView} aria-label='Switch portfolio view'>
-          ⏻ SWITCH VIEW
+        <button type='button' className='game-exit' onClick={onSwitchView} aria-label='Choose portfolio mode'>
+          ⏻ MODES
         </button>
       </aside>
 
@@ -186,7 +186,7 @@ function GameShell({ onSwitchView }) {
               {navButtons(true)}
             </nav>
             <button type='button' className='game-exit' onClick={onSwitchView}>
-              ⏻ SWITCH VIEW
+              ⏻ MODES
             </button>
           </aside>
         </>

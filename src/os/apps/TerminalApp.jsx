@@ -12,7 +12,7 @@ const help = `Available commands:
   browse URL  open an HTTP(S) address in Browser
   serial      open Serial Monitor
   messenger   open Hardware Messenger
-  home        switch to Web Page View
+  modes       open the portfolio Modes menu
   whoami      show current identity
   clear       clear terminal`;
 
@@ -38,7 +38,7 @@ function TerminalApp({ openApp, openBrowser, switchView }) {
     else if (command.startsWith('browse ')) { openBrowser(raw.slice(7).trim()); next.push({ type: 'output', text: `Opening ${raw.slice(7).trim()}...` }); }
     else if (command === 'serial') openBrowser('/serialmonitor');
     else if (command === 'messenger') openBrowser('/serialmonitor/messenger');
-    else if (command === 'home') switchView();
+    else if (command === 'modes' || command === 'home') switchView();
     else if (command === 'whoami') next.push({ type: 'output', text: `${portfolioProfile.brand} · ${portfolioProfile.role} · ${portfolioProfile.email}` });
     else if (command === 'clear') { setHistory([]); setInput(''); return; }
     else if (command) next.push({ type: 'error', text: `command not found: ${command}` });

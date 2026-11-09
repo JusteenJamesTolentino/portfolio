@@ -19,13 +19,15 @@ function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
         </div>
 
         <div className='order-first flex justify-center self-end md:order-none' data-swarm-group='hero-logo'>
-          <img
-            src='/justeen-photo.png'
-            alt='JusteenDev portrait'
-            className='web-hero-photo w-72 sm:w-80 md:w-[24rem] lg:w-[28rem] max-w-none'
-            data-swarm-kind='image'
-            data-swarm-id='about-logo'
-          />
+          <div className='web-hero-photo-stage w-72 max-w-none sm:w-80 md:w-[24rem] lg:w-[28rem]'>
+            <img
+              src='/justeen-photo.png'
+              alt='JusteenDev portrait'
+              className='web-hero-photo w-full'
+              data-swarm-kind='image'
+              data-swarm-id='about-logo'
+            />
+          </div>
         </div>
 
         <div className='text-center text-white md:text-left' data-swarm-group='about-content'>
@@ -38,7 +40,7 @@ function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
           <p className='mt-3 text-sm leading-relaxed text-white/70' data-swarm-kind='text' data-swarm-id='hero-work-description' data-swarm-text='A selection of projects and interactive tools showing how I approach web and system development.'>
             A selection of projects and interactive tools showing how I approach web and system development.
           </p>
-          <a href='#projects' className='neu-btn mt-5 inline-flex items-center gap-2 px-5 py-3 text-xs font-bold tracking-[0.18em] text-white' data-swarm-kind='control' data-swarm-id='hero-work-button' data-swarm-text='VIEW PROJECTS'>
+          <a href='#projects' className='hero-projects-cta mt-5 inline-flex items-center gap-2 px-5 py-3 text-xs font-bold tracking-[0.18em]' data-swarm-kind='control' data-swarm-id='hero-work-button' data-swarm-text='VIEW PROJECTS'>
             VIEW PROJECTS
           </a>
 

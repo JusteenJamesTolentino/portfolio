@@ -36,18 +36,18 @@ html.lenis, html.lenis body {
 
 
 .web-portfolio {
-    --web-accent: #8286f7;
-    background: #050508;
+    --web-accent: #a3a3a3;
+    background: #000;
     color: #f4f5f7;
     overflow-x: clip;
 }
 
 .web-portfolio[data-hacker-mode="off"] {
-    --web-accent: #8286f7;
-    --neo-bg: #050508;
-    --neo-surface: #0a0a12;
-    --neo-highlight: #191a30;
-    --neo-shadow: #010102;
+    --web-accent: #a3a3a3;
+    --neo-bg: #000;
+    --neo-surface: #090909;
+    --neo-highlight: #1a1a1a;
+    --neo-shadow: #000;
     background: var(--neo-bg);
 }
 
@@ -62,7 +62,7 @@ html.lenis, html.lenis body {
 }
 
 .web-portfolio[data-hacker-mode="off"] .web-navbar {
-    background: #050508e8;
+    background: #000000e8;
 }
 
 .web-portfolio[data-hacker-mode="off"] .btn:not(.btn-ghost) {
@@ -82,7 +82,7 @@ html.lenis, html.lenis body {
     box-shadow: inset 4px 4px 10px var(--neo-shadow), inset -3px -3px 8px var(--neo-highlight);
 }
 
-.web-portfolio[data-hacker-mode="off"] :is(.btn, input, textarea, .hacker-toggle):focus-visible {
+.web-portfolio[data-hacker-mode="off"] :is(.btn, input, textarea):focus-visible {
     outline: 2px solid #a5b4fc;
     outline-offset: 3px;
 }
@@ -92,29 +92,81 @@ html.lenis, html.lenis body {
     border-radius: 1.5rem;
 }
 
+.web-hero-photo-stage {
+    position: relative;
+    isolation: isolate;
+    aspect-ratio: 1;
+}
+
+.web-hero-photo-stage::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 5% -24% 2%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 38%, #ffffff38 0%, #cbd5e11f 28%, #64748b0d 52%, transparent 74%);
+    filter: blur(18px);
+    pointer-events: none;
+}
+
+.web-hero-photo-stage::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset: auto -4% -1px;
+    height: 34%;
+    background: linear-gradient(to bottom, transparent 0%, #00000073 42%, #000 94%);
+    pointer-events: none;
+}
+
 .web-hero-photo {
+    position: relative;
+    z-index: 1;
+    display: block;
     filter: brightness(0.78) contrast(1.05);
 }
 
 .neu-btn {
     border: 1px solid #ffffff10;
-    background: var(--neo-surface, #0a0a12);
-    box-shadow: 5px 5px 11px var(--neo-shadow, #010102), -4px -4px 10px var(--neo-highlight, #191a30);
+    background: var(--neo-surface, #090909);
+    box-shadow: 5px 5px 11px var(--neo-shadow, #000), -4px -4px 10px var(--neo-highlight, #1a1a1a);
     transition: box-shadow 150ms ease, background-color 150ms ease;
 }
 
 .neu-btn:active {
-    box-shadow: inset 4px 4px 9px var(--neo-shadow, #010102), inset -3px -3px 8px var(--neo-highlight, #191a30);
+    box-shadow: inset 4px 4px 9px var(--neo-shadow, #000), inset -3px -3px 8px var(--neo-highlight, #1a1a1a);
 }
 
 .neu-btn:focus-visible {
-    outline: 2px solid #8286f7;
+    outline: 2px solid #fff;
     outline-offset: 3px;
 }
 
-[data-hacker-mode="on"] .neu-btn {
+.hero-projects-cta {
+    border: 1px solid #fff;
+    border-radius: 0.75rem;
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 24px #ffffff24;
+    transition: background-color 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.hero-projects-cta:hover {
+    background: #e5e5e5;
+    box-shadow: 0 0 30px #ffffff42;
+    transform: translateY(-1px);
+}
+
+.hero-projects-cta:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+[data-hacker-mode="on"] .neu-btn,
+[data-hacker-mode="on"] .hero-projects-cta {
     border-color: #7b7ff726;
     background: #0b0c1ce6;
+    color: #fff;
     box-shadow: none;
 }
 
@@ -209,12 +261,12 @@ html.lenis, html.lenis body {
 }
 
 .web-about {
-    background: linear-gradient(135deg, #0c0d20, #050508);
+    background: #000;
 }
 
 .web-section {
     border-top: 1px solid #ffffff0d;
-    background: radial-gradient(ellipse at 90% 0%, #6366f10d, transparent 65%), #111318;
+    background: #000;
 }
 
 /* Viewport culling (Normal mode only): off-screen sections skip rendering.
@@ -296,11 +348,6 @@ html.lenis, html.lenis body {
     transform: translateY(0);
 }
 
-.hacker-toggle:has(input:focus-visible) {
-    outline: 2px solid var(--web-accent);
-    outline-offset: 2px;
-}
-
 .web-portfolio[data-hacker-mode="on"] {
     --web-accent: #7b7ff7;
     --color-primary: #7b7ff7;
@@ -319,10 +366,6 @@ html.lenis, html.lenis body {
 .web-portfolio[data-hacker-mode="on"] .web-navbar {
     background-color: #04040ecc;
     border-color: #7b7ff726;
-}
-
-.web-portfolio[data-hacker-mode="on"] .hacker-toggle {
-    color: #7b7ff7;
 }
 
 .web-portfolio[data-hacker-mode="on"] .web-card,
@@ -648,7 +691,7 @@ html.lenis, html.lenis body {
         pointer-events: auto;
     }
 
-    .web-portfolio .web-card, .web-portfolio .swap, .web-portfolio .hacker-toggle {
+    .web-portfolio .web-card, .web-portfolio .swap {
         transition: none;
         animation: none;
     }
