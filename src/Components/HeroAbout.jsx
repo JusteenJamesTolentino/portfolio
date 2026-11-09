@@ -1,25 +1,24 @@
 import { FaEnvelope, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import TechStackMarquee from './TechStackMarquee';
-import TextType from './ReactBits/TypingText';
 
-function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
+function HeroAbout({ portfolioProfile, contactCards }) {
   const socialIcons = { Facebook: FaFacebookF, Instagram: FaInstagram, Email: FaEnvelope };
 
   return (
     <section id='home' className='web-hero relative flex min-h-screen min-h-dvh flex-col overflow-hidden' data-swarm-kind='surface' data-swarm-id='hero'>
-      <div className='mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 items-end gap-10 px-5 pb-10 pt-[max(5.5rem,10dvh)] sm:px-8 md:grid-cols-[1.2fr_1.1fr_0.9fr] md:gap-8'>
-        <div className='text-center text-white md:text-left' data-swarm-group='hero-intro'>
-          <span className='mx-auto mb-6 block h-px w-16 bg-white/60 md:mx-0' aria-hidden='true' />
-          <div className='min-h-24 text-3xl font-extrabold tracking-tight sm:min-h-28 sm:text-4xl md:text-[2.75rem] md:leading-tight' data-swarm-kind='text' data-swarm-id='hero-title' data-swarm-text='Hello, I am JusteenDev'>
-            <TextType text={['Hello, I am JusteenDev', 'A Fullstack Developer']} paused={hackerMode && !swarmLive} typingSpeed={75} pauseDuration={1500} showCursor cursorCharacter='|' deletingSpeed={50} cursorBlinkDuration={0.5} cursorClassName='swarm-original-typing' />
-          </div>
+      <div className='mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 items-end gap-10 px-5 pb-10 pt-[max(5.5rem,10dvh)] sm:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,28rem)_minmax(0,1fr)] xl:gap-8'>
+        <div className='min-w-0 text-center text-white xl:text-left' data-swarm-group='hero-intro'>
+          <span className='mx-auto mb-6 block h-px w-16 bg-white/60 xl:mx-0' aria-hidden='true' />
+          <h1 className='text-balance text-3xl font-extrabold tracking-tight sm:text-4xl xl:text-[2.75rem] xl:leading-tight' data-swarm-kind='text' data-swarm-id='hero-title' data-swarm-text='Justeen Dev a Full Stack Developer'>
+            Justeen Dev a Full Stack Developer
+          </h1>
           <p className='mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/70' data-swarm-kind='text' data-swarm-id='about-bio' data-swarm-text={portfolioProfile.bio}>
             {portfolioProfile.bio}
           </p>
         </div>
 
-        <div className='order-first flex justify-center self-end md:order-none' data-swarm-group='hero-logo'>
-          <div className='web-hero-photo-stage w-72 max-w-none sm:w-80 md:w-[24rem] lg:w-[28rem]'>
+        <div className='order-first flex min-w-0 justify-center self-end xl:order-none' data-swarm-group='hero-logo'>
+          <div className='web-hero-photo-stage w-72 max-w-full sm:w-80 lg:w-[24rem] xl:w-[28rem]'>
             <img
               src='/justeen-photo.png'
               alt='JusteenDev portrait'
@@ -30,7 +29,7 @@ function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
           </div>
         </div>
 
-        <div className='text-center text-white md:text-left' data-swarm-group='about-content'>
+        <div className='min-w-0 text-center text-white xl:text-left' data-swarm-group='about-content'>
           <p className='web-eyebrow' data-swarm-kind='text' data-swarm-id='about-heading' data-swarm-text='ABOUT ME'>ABOUT ME</p>
           <p className='mt-3 text-sm leading-relaxed text-white/70' data-swarm-kind='text' data-swarm-id='about-freelance' data-swarm-text={portfolioProfile.freelance}>
             {portfolioProfile.freelance}
@@ -45,7 +44,7 @@ function HeroAbout({ hackerMode, swarmLive, portfolioProfile, contactCards }) {
           </a>
 
           <p className='web-eyebrow mt-8' data-swarm-kind='text' data-swarm-id='hero-follow-label' data-swarm-text='FOLLOW ME'>FOLLOW ME</p>
-          <div className='mt-3 flex justify-center gap-3 md:justify-start'>
+          <div className='mt-3 flex justify-center gap-3 xl:justify-start'>
             {contactCards.map(contact => {
               const SocialIcon = socialIcons[contact.title] ?? FaEnvelope;
               return (

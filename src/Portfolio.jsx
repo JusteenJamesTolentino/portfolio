@@ -2,10 +2,9 @@ import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis';
 import { MonitorCog } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import ContactForm from './Components/ContactForm';
 import HeroAbout from './Components/HeroAbout';
 import SwarmRebuild, { RebuildCard } from './Components/SwarmRebuild';
-import { FaCode } from 'react-icons/fa';
+import { FaCode, FaEnvelope, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { projectCards } from './utils/projectCards';
 import { serviceCards } from './utils/serviceCards';
 import { cardSwapCards } from './utils/cardSwapCards';
@@ -16,14 +15,13 @@ import { portfolioProfile } from './data/portfolioProfile';
 const FullSwarm = lazy(() => import('./Components/swarm/FullSwarm'));
 
 function Portfolio({ onSwitchView, hackerMode, onHackerModeChange, viewChooserOpen = false }) {
+  const socialIcons = { Facebook: FaFacebookF, Instagram: FaInstagram, Email: FaEnvelope };
   const rootRef = useRef(null);
   const [navHidden, setNavHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAllTools, setShowAllTools] = useState(false);
-  const [swarmLive, setSwarmLive] = useState(false);
 
   const changeHackerMode = useCallback(enabled => {
-    setSwarmLive(false);
     onHackerModeChange(enabled);
     setMobileMenuOpen(false);
     setNavHidden(false);
@@ -153,8 +151,6 @@ function Portfolio({ onSwitchView, hackerMode, onHackerModeChange, viewChooserOp
       </div>
 
       <HeroAbout
-        hackerMode={hackerMode}
-        swarmLive={swarmLive}
         portfolioProfile={portfolioProfile}
         contactCards={contactCards}
       />
@@ -237,25 +233,66 @@ function Portfolio({ onSwitchView, hackerMode, onHackerModeChange, viewChooserOp
             <h1 className='mt-3 text-3xl font-bold sm:text-4xl' data-swarm-kind='text' data-swarm-id='contact-heading' data-swarm-text='Contact'>Contact</h1>
             <p className='mt-3 text-sm text-white/60' data-swarm-kind='text' data-swarm-id='contact-description' data-swarm-text='Get in touch with me for any inquiries or projects.'>Get in touch with me for any inquiries or projects.</p>
           </div>
-          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-            {contactCards.map((contact, index) => (
-              <RebuildCard key={contact.title} blueprintId={`contact-${index}`}>
-                <a href={contact.href} target={contact.external ? '_blank' : undefined} rel={contact.external ? 'noopener noreferrer' : undefined} className='block' data-swarm-kind='control' data-swarm-id={`contact-${index}-link`}>
-                  <h2 className='text-lg font-bold' data-rebuild-part data-swarm-kind='text' data-swarm-id={`contact-${index}-title`} data-swarm-text={contact.title}>{contact.title}</h2>
-                  <p className='mt-3 break-words text-sm text-white/60' data-rebuild-part data-swarm-kind='text' data-swarm-id={`contact-${index}-value`} data-swarm-text={contact.value}>{contact.value}</p>
-                </a>
-              </RebuildCard>
-            ))}
-          </div>
-          <div className='web-contact-form mx-auto mt-6 w-full max-w-xl'>
-            <ContactForm rebuild />
+          <div className='contact-social-layout'>
+            <RebuildCard blueprintId='contact-social-bio'>
+              <div className='social-bio-card'>
+                <div className='social-bio-status' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-status' data-swarm-text='Available for collaborations'>
+                  <span aria-hidden='true' />
+                  Available for collaborations
+                </div>
+                <p className='web-eyebrow' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-label' data-swarm-text='SOCIAL BIO'>SOCIAL BIO</p>
+                <h2 className='social-bio-title' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-title' data-swarm-text='Building across software and hardware'>
+                  Building across software and hardware
+                </h2>
+                <p className='social-bio-copy' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-copy' data-swarm-text={portfolioProfile.freelance}>
+                  {portfolioProfile.freelance}
+                </p>
+                <p className='social-bio-note' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-note' data-swarm-text='Follow my work, connect with me, or reach out about web, hardware, and IoT projects.'>
+                  Follow my work, connect with me, or reach out about web, hardware, and IoT projects.
+                </p>
+              </div>
+            </RebuildCard>
+
+            <RebuildCard blueprintId='contact-social-links'>
+              <div className='social-launchpad'>
+                <p className='web-eyebrow' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-platform-label' data-swarm-text='SOCIAL CHANNELS'>SOCIAL CHANNELS</p>
+                <div className='social-launchpad-links'>
+                  {contactCards.map((contact, index) => {
+                    const SocialIcon = socialIcons[contact.title] ?? FaEnvelope;
+                    return (
+                      <a
+                        key={contact.title}
+                        href={contact.href}
+                        target={contact.external ? '_blank' : undefined}
+                        rel={contact.external ? 'noopener noreferrer' : undefined}
+                        className='social-launch-link'
+                        aria-label={`Open ${contact.title}`}
+                        data-rebuild-part
+                        data-swarm-kind='control'
+                        data-swarm-id={`contact-social-${index}`}
+                        data-swarm-text={contact.title}
+                      >
+                        <span className='social-launch-icon' data-swarm-kind='image' data-swarm-id={`contact-social-${index}-icon`}>
+                          <SocialIcon aria-hidden='true' />
+                        </span>
+                        <span className='min-w-0'>
+                          <span className='social-launch-name' data-swarm-kind='text' data-swarm-id={`contact-social-${index}-name`} data-swarm-text={contact.title}>{contact.title}</span>
+                          <span className='social-launch-value'>{contact.value}</span>
+                        </span>
+                        <span className='social-launch-arrow' aria-hidden='true'>↗</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </RebuildCard>
           </div>
         </div>
       </section>
       </SwarmRebuild>
       {hackerMode && (
         <Suspense fallback={null}>
-          <FullSwarm rootRef={rootRef} paused={viewChooserOpen} onLiveChange={setSwarmLive} onStop={stopHackerMode} contentKey={showAllTools} />
+          <FullSwarm rootRef={rootRef} paused={viewChooserOpen} onStop={stopHackerMode} contentKey={showAllTools} />
         </Suspense>
       )}
     </div>

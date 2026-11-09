@@ -1,5 +1,6 @@
 import { FaJava, FaLaptopCode, FaServer } from 'react-icons/fa';
-import { SiC, SiCplusplus, SiFirebase, SiJavascript, SiMariadb, SiMysql, SiNodedotjs, SiPython, SiReact, SiRender, SiTailwindcss, SiVercel } from 'react-icons/si';
+import { SiC, SiCplusplus, SiFirebase, SiGithub, SiJavascript, SiMariadb, SiMysql, SiNodedotjs, SiPython, SiReact, SiRender, SiTailwindcss, SiVercel } from 'react-icons/si';
+import { VscAzure } from 'react-icons/vsc';
 
 export const TECH_ICONS = {
   Frontend: { Icon: FaLaptopCode, color: '#38bdf8' },
@@ -18,4 +19,6 @@ export const TECH_ICONS = {
   Java: { Icon: FaJava, color: '#f89820' },
   Vercel: { Icon: SiVercel, color: '#ffffff' },
   Render: { Icon: SiRender, color: '#46e3b7' },
+  Azure: { Icon: VscAzure, color: '#0089d6' },
+  GitHub: { Icon: SiGithub, color: '#ffffff' },
 };

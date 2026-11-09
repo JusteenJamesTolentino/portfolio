@@ -1,43 +1,44 @@
 ## Context
 
-Visitors should no longer be interrupted by an experience chooser. The normal Web Page should open immediately and remain the default experience. Switching experiences becomes optional through one **Modes** button and one **Modes** modal containing Hacker, OS, and Game modes.
+The Web Page contact section currently repeats contact URLs in cards and includes a “Send me a message” mailto form. The requested design removes email composition from the Web Page and replaces it with an original social-focused panel that matches the portfolio’s black, charcoal, neumorphic UI. Existing Facebook, Instagram, and email destinations will remain clickable. Game Mode’s separate Comms form will remain unchanged.
 
 ## Implementation
 
-1. **Open the Web Page by default**
-   - Update `src/App.jsx` so `/` always renders the normal Web Page immediately on first visit and reload.
-   - Remove startup chooser behavior and stop using a saved session choice to redirect visitors away from `/`.
-   - Keep `/gameview` and `/osview` available as direct routes.
+1. **Replace the Web contact form and raw contact cards**
+   - Update `src/Portfolio.jsx` to remove the `ContactForm` import and its Web Page usage.
+   - Replace the current three raw URL cards and message form with one responsive social section:
+     - A large **Social Bio** panel introducing Justeen as a Computer Engineering student, full-stack engineer, and hardware/IoT builder.
+     - A compact availability/status treatment that fits the existing technical portfolio language.
+     - An icon-first social launchpad for Facebook, Instagram, and Email.
+   - Keep visible platform labels for clarity while making the icons the main visual element.
+   - Reuse the existing `contactCards` destinations and their safe external-link behavior.
 
-2. **Create one optional Modes modal**
-   - Rework `src/Components/ViewChooser.jsx` as a Modes modal opened only from a Modes button.
-   - Include these options:
-     - Hacker Mode
-     - Game Mode
-     - OS Mode
-   - Also include a normal Web Page option only when needed to return from Hacker, Game, or OS mode.
-   - Selecting Hacker Mode enables the existing swarm reconstruction on `/`.
-   - Selecting Game or OS uses the existing routes.
-   - Selecting Web Page returns to `/` and disables Hacker Mode.
-   - Preserve the existing unsupported-device message when OS Mode is selected below 1024px.
+2. **Match the current Web Page visual system**
+   - Add narrowly scoped styles in `src/styles/index.css` for the Social Bio and social links.
+   - Use pure black backgrounds, charcoal surfaces, white type, neutral borders, soft neumorphic depth, and subtle glow/hover lift.
+   - Make the layout one column on mobile and an asymmetric bio/social split on desktop.
+   - Avoid copying the reference design directly while preserving its useful idea of a bio paired with prominent social actions.
 
-3. **Replace View terminology and centralize mode controls**
-   - In `src/Portfolio.jsx`, rename the desktop `View` button and mobile `Switch View` item to `Modes`, including accessibility text and swarm metadata.
-   - Remove the standalone Hacker Mode toggle from desktop and mobile navigation.
-   - Move Hacker Mode state to `src/App.jsx` so the Modes modal can enable or disable it while preserving Escape and FullSwarm HUD Stop behavior.
-   - Rename the Game and OS switch controls to `MODES` and have them open the same Modes modal.
+3. **Preserve Hacker Mode compatibility**
+   - Keep the section inside the existing `SwarmRebuild` tree.
+   - Use `RebuildCard` and explicit unique `data-swarm-*` metadata for bio text, platform icons, labels, and links.
+   - Ensure all new content rebuilds and erases correctly without form-preservation logic.
 
-4. **Clean up obsolete UI and copy**
-   - Remove the unused `src/Components/HackerModeToggle.jsx` and only its toggle-specific CSS from `src/styles/index.css`.
-   - Update Game loading tips and README text so they direct users to the Modes modal rather than the old navbar toggle or startup chooser.
+4. **Keep Game Mode unchanged**
+   - Retain `src/Components/ContactForm.jsx` because `src/game/GameShell.jsx` still uses it in the Comms panel.
+   - Do not alter Game Mode’s form or its independent styles.
+
+5. **Clean unused Web-only styles**
+   - Remove `.web-contact-form` selectors from `src/styles/index.css` once the Web Page no longer renders that wrapper.
+   - Leave Game Mode’s `.game-form-frame` and form styling intact.
 
 ## Verification
 
-- Run ESLint, scheduler tests, and the Vite/PWA production build.
-- Verify `/` opens Web Page mode immediately with no startup chooser, including a clean browser session and reload.
-- Verify desktop and mobile navigation show one Modes button and no separate Hacker Mode control.
-- Verify the optional Modes modal switches correctly among Web, Hacker, Game, and OS experiences.
-- Verify Game and OS can reopen Modes and return to the default Web Page.
-- Verify unsupported mobile OS selection still shows the larger-screen message.
-- Verify Hacker reconstruction, Escape/Stop exits, PWA update prompts, and direct routes still work.
+- Run ESLint, all 15 swarm scheduler tests, and the Vite/PWA production build.
+- Verify the Web Contact section contains no “Send me a message” form or editable fields.
+- Verify Facebook, Instagram, and Email icons navigate to the existing `contactCards` destinations with correct external-link protection.
+- Verify the Social Bio and links are responsive on phone, tablet, and desktop with no overlap or horizontal scrolling.
+- Verify normal Web Page styling, keyboard focus states, and hover states.
+- Verify Hacker Mode reconstructs the new social section correctly.
+- Verify Game Mode Comms still retains its existing contact form.
 - Do not commit, push, or deploy unless requested separately.

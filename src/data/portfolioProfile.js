@@ -22,7 +22,7 @@ export const technologyGroups = [
   },
   {
     title: 'Deployment & Hosting',
-    technologies: ['Vercel', 'Render', 'Firebase'],
+    technologies: ['Vercel', 'Render', 'Firebase', 'Azure', 'GitHub'],
   },
 ];
 
