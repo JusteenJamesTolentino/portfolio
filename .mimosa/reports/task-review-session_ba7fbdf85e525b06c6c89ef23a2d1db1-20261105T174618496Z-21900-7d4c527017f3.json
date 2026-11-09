@@ -1,0 +1,504 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20261105T174618496Z-21900-7d4c527017f3",
+  "run_status": "completed",
+  "errors": [],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "complete",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 54,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 6
+    },
+    "change_tracking": {
+      "touched_observed": 6,
+      "touched_retained": 6,
+      "truncated": false,
+      "bash_mutation": false,
+      "bash_discovered": 0,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 6,
+      "selected_files": 6,
+      "limit": 20,
+      "truncated": false
+    },
+    "scanning": {
+      "required_files": 6,
+      "scanned_files": 6,
+      "skipped_files": 0,
+      "failed_files": 0,
+      "project_checks_required": 0,
+      "project_checks_completed": 0
+    },
+    "notification": {
+      "eligible_findings": 0,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": false
+    },
+    "reason_counts": {},
+    "reasons": [],
+    "reasons_truncated": false
+  },
+  "generated_at": "2026-11-05T17:46:18.496Z",
+  "session_id": "session_ba7fbdf85e525b06c6c89ef23a2d1db1",
+  "target": ".",
+  "revision": "06517549121dad0c743870c53f2c58dbbbb5228d",
+  "rules_version": "unavailable",
+  "diff_hash": "5fffc56bec8799b33e5913ee6547ec04226b07027b7cd84bf9f66603af6cf17d",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 6,
+    "changed_files": [
+      {
+        "file": "src/Components/swarm/blueprint.js",
+        "ranges": [
+          {
+            "start": 25,
+            "end": 25
+          },
+          {
+            "start": 53,
+            "end": 57
+          },
+          {
+            "start": 61,
+            "end": 62
+          },
+          {
+            "start": 88,
+            "end": 89
+          }
+        ],
+        "before_hash": "8299112ec90dca61ef63d91f49994190de5e0185422370249c830d380506a1df",
+        "after_hash": "6c583bfeaab27493b201d73591aebf8c8fab8af466b27aa803a5d196bb17a365"
+      },
+      {
+        "file": "src/Components/swarm/FullSwarm.jsx",
+        "ranges": [
+          {
+            "start": 11,
+            "end": 11
+          },
+          {
+            "start": 16,
+            "end": 16
+          },
+          {
+            "start": 23,
+            "end": 24
+          },
+          {
+            "start": 34,
+            "end": 36
+          },
+          {
+            "start": 38,
+            "end": 44
+          },
+          {
+            "start": 47,
+            "end": 84
+          },
+          {
+            "start": 86,
+            "end": 132
+          },
+          {
+            "start": 134,
+            "end": 134
+          },
+          {
+            "start": 138,
+            "end": 142
+          },
+          {
+            "start": 146,
+            "end": 146
+          },
+          {
+            "start": 157,
+            "end": 162
+          },
+          {
+            "start": 164,
+            "end": 166
+          },
+          {
+            "start": 168,
+            "end": 170
+          },
+          {
+            "start": 172,
+            "end": 181
+          },
+          {
+            "start": 183,
+            "end": 203
+          },
+          {
+            "start": 205,
+            "end": 213
+          },
+          {
+            "start": 218,
+            "end": 233
+          },
+          {
+            "start": 235,
+            "end": 237
+          },
+          {
+            "start": 242,
+            "end": 242
+          },
+          {
+            "start": 244,
+            "end": 244
+          },
+          {
+            "start": 248,
+            "end": 250
+          },
+          {
+            "start": 254,
+            "end": 258
+          },
+          {
+            "start": 263,
+            "end": 263
+          },
+          {
+            "start": 265,
+            "end": 265
+          },
+          {
+            "start": 269,
+            "end": 269
+          },
+          {
+            "start": 271,
+            "end": 272
+          }
+        ],
+        "before_hash": "86e18ffecddbb8f76efd1af3193a169581894b15e63026b2ccc7c2a720523afb",
+        "after_hash": "044171956db01c3f53ec6ca5fc7fdcef4e5369d01fea4b19e6ee8c5f039c8d0d"
+      },
+      {
+        "file": "src/Components/swarm/scene.js",
+        "ranges": [
+          {
+            "start": 4,
+            "end": 8
+          },
+          {
+            "start": 30,
+            "end": 30
+          },
+          {
+            "start": 32,
+            "end": 35
+          },
+          {
+            "start": 66,
+            "end": 76
+          },
+          {
+            "start": 80,
+            "end": 80
+          },
+          {
+            "start": 90,
+            "end": 90
+          },
+          {
+            "start": 94,
+            "end": 94
+          },
+          {
+            "start": 103,
+            "end": 104
+          },
+          {
+            "start": 106,
+            "end": 116
+          },
+          {
+            "start": 118,
+            "end": 128
+          },
+          {
+            "start": 130,
+            "end": 136
+          },
+          {
+            "start": 141,
+            "end": 151
+          },
+          {
+            "start": 155,
+            "end": 159
+          },
+          {
+            "start": 161,
+            "end": 162
+          },
+          {
+            "start": 164,
+            "end": 174
+          },
+          {
+            "start": 178,
+            "end": 178
+          },
+          {
+            "start": 182,
+            "end": 182
+          },
+          {
+            "start": 184,
+            "end": 184
+          },
+          {
+            "start": 191,
+            "end": 195
+          },
+          {
+            "start": 203,
+            "end": 203
+          },
+          {
+            "start": 209,
+            "end": 209
+          },
+          {
+            "start": 217,
+            "end": 224
+          },
+          {
+            "start": 227,
+            "end": 227
+          },
+          {
+            "start": 229,
+            "end": 229
+          },
+          {
+            "start": 237,
+            "end": 241
+          },
+          {
+            "start": 244,
+            "end": 250
+          },
+          {
+            "start": 252,
+            "end": 253
+          },
+          {
+            "start": 255,
+            "end": 255
+          }
+        ],
+        "before_hash": "689ec9614818437abbb6f286a6f7cc5349ced79ad0b5dfb21a143d09767d8fde",
+        "after_hash": "b60200af9f15776d8c31294b044375795e0b2c013afb0ec346d0ee8cbc14af55"
+      },
+      {
+        "file": "src/Components/swarm/scheduler.js",
+        "ranges": [
+          {
+            "start": 10,
+            "end": 12
+          },
+          {
+            "start": 14,
+            "end": 17
+          },
+          {
+            "start": 19,
+            "end": 91
+          },
+          {
+            "start": 95,
+            "end": 96
+          },
+          {
+            "start": 99,
+            "end": 101
+          },
+          {
+            "start": 103,
+            "end": 118
+          },
+          {
+            "start": 120,
+            "end": 168
+          },
+          {
+            "start": 170,
+            "end": 191
+          },
+          {
+            "start": 194,
+            "end": 194
+          },
+          {
+            "start": 196,
+            "end": 199
+          },
+          {
+            "start": 201,
+            "end": 235
+          },
+          {
+            "start": 237,
+            "end": 237
+          },
+          {
+            "start": 240,
+            "end": 242
+          }
+        ],
+        "before_hash": "5456430801d1560ee914644cd7fa16dd26747d6f5b57aec01293d7fad3e21e49",
+        "after_hash": "c93e086f3c3e33bac15a8240a1bf8759914ce99421a7dd44cc421259e7e616e1"
+      },
+      {
+        "file": "src/Components/SwarmRebuild.jsx",
+        "ranges": [
+          {
+            "start": 7,
+            "end": 7
+          }
+        ],
+        "before_hash": "d143dde07df7d0443587eec6e23505854488b0470cefecdfa88417d98c504944",
+        "after_hash": "98a72e11007e3b644b4d4a563862d3e086224017faf729c68d4eb3a80f1ecf36"
+      },
+      {
+        "file": "tests/swarm-scheduler.test.js",
+        "ranges": [
+          {
+            "start": 5,
+            "end": 6
+          },
+          {
+            "start": 8,
+            "end": 16
+          },
+          {
+            "start": 19,
+            "end": 30
+          },
+          {
+            "start": 33,
+            "end": 38
+          },
+          {
+            "start": 41,
+            "end": 46
+          },
+          {
+            "start": 49,
+            "end": 54
+          },
+          {
+            "start": 56,
+            "end": 95
+          },
+          {
+            "start": 97,
+            "end": 102
+          },
+          {
+            "start": 105,
+            "end": 109
+          },
+          {
+            "start": 111,
+            "end": 112
+          },
+          {
+            "start": 114,
+            "end": 114
+          },
+          {
+            "start": 117,
+            "end": 127
+          },
+          {
+            "start": 130,
+            "end": 133
+          },
+          {
+            "start": 135,
+            "end": 192
+          },
+          {
+            "start": 195,
+            "end": 200
+          }
+        ],
+        "before_hash": "99fcb51d4f3684f17ab33dc8ae8691583352a370ffb32a55e837267e77b706e7",
+        "after_hash": "2d02921fabe85f0f79411a41a339d40b05940ae52e73f2709aae7851a9ac113d"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-11-05T17:46:16.368Z",
+    "completed_at": "2026-11-05T17:46:18.496Z",
+    "duration_ms": 2128,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "complete",
+    "latencyMs": 2128,
+    "peakMemoryBytes": 150085632,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 6,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 0,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [],
+  "findings": [],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261105T174618496Z-21900-7d4c527017f3.json",
+    "latest_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1.json",
+    "history_summary": ".mimosa/history/run-20261105T174618496Z-21900-7d4c527017f3.json"
+  }
+}

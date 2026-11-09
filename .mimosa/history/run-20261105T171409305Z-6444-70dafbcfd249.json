@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "mimosa-finding-history/v1",
+  "runId": "20261105T171409305Z-6444-70dafbcfd249",
+  "runStatus": "inconclusive",
+  "errors": [
+    "scan:src/Components/SwarmRebuild.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/swarm/blueprint.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/swarm/scheduler.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/swarm/scene.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/swarm/SwarmHud.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/swarm/FullSwarm.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:tests/swarm-scheduler.test.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+  ],
+  "target": ".",
+  "revision": "06517549121dad0c743870c53f2c58dbbbb5228d",
+  "diffHash": "9a9dcfed14a71d53a04483ba7a1b33fdefb4eddaa47b4cfa9589f8cda3e0046f",
+  "rulesVersion": "unavailable",
+  "recordedAt": "2026-11-05T17:14:09.305Z",
+  "timing": {
+    "startedAt": "2026-11-05T17:14:06.223Z",
+    "completedAt": "2026-11-05T17:14:09.305Z",
+    "durationMs": 3082
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "modelCalls": 0,
+    "measurement": "known-zero"
+  },
+  "findings": {
+    "total": 0,
+    "bySeverity": {},
+    "byStatus": {}
+  },
+  "coverage": {
+    "status": "partial",
+    "reasonCounts": {
+      "scanner_failed": 7,
+      "project_check_failed": 7
+    }
+  },
+  "evidenceBoundary": "static_only",
+  "immutableReport": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261105T171409305Z-6444-70dafbcfd249.json"
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "mimosa-finding-history/v1",
+  "runId": "20261108T103623948Z-17712-1a5166690c75",
+  "runStatus": "inconclusive",
+  "errors": [
+    "scan:src/data/portfolioProfile.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/data/techIcons.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+  ],
+  "target": ".",
+  "revision": "d99147324c7ffc9302dff42b9cd03445dcb89616",
+  "diffHash": "7ca6e6349c6fe67df720a78867cf24abde1004e166c5cf23ca5e31e8ca7bdc64",
+  "rulesVersion": "unavailable",
+  "recordedAt": "2026-11-08T10:36:23.948Z",
+  "timing": {
+    "startedAt": "2026-11-08T10:36:20.098Z",
+    "completedAt": "2026-11-08T10:36:23.948Z",
+    "durationMs": 3850
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "modelCalls": 0,
+    "measurement": "known-zero"
+  },
+  "findings": {
+    "total": 0,
+    "bySeverity": {},
+    "byStatus": {}
+  },
+  "coverage": {
+    "status": "partial",
+    "reasonCounts": {
+      "scanner_failed": 2,
+      "project_check_failed": 2
+    }
+  },
+  "evidenceBoundary": "static_only",
+  "immutableReport": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261108T103623948Z-17712-1a5166690c75.json"
+}

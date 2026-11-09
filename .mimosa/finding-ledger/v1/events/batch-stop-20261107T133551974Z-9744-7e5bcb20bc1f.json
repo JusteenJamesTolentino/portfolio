@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261107T133551974Z-9744-7e5bcb20bc1f",
+  "runId": "20261107T133551974Z-9744-7e5bcb20bc1f",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "e0a3963d58d078d117318d20488cf6fb84096469",
+  "diffHash": "031ef80e9dfc7c5256c608f0878eb6961793ef0279f1e67bf39d0fe3a304bedf",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261107T133551974Z-9744-7e5bcb20bc1f.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "src/game/GameShell.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-07T13:35:53.320Z"
+}

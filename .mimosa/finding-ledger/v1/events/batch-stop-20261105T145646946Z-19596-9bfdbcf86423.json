@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261105T145646946Z-19596-9bfdbcf86423",
+  "runId": "20261105T145646946Z-19596-9bfdbcf86423",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "3ea0b1119e78bbeabd155ab82310d701efd42c05",
+  "diffHash": "ff0566a7d62319e5ffccb8f4031542bdd6d63cec0eea5163a926296ea08142de",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261105T145646946Z-19596-9bfdbcf86423.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "src/Components/HackerModeToggle.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/Components/SwarmRebuild.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/Portfolio.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/App.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-05T14:56:47.652Z"
+}

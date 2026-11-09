@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261107T103131131Z-16112-925193e7d334",
+  "runId": "20261107T103131131Z-16112-925193e7d334",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "37002379fa2de996e5e89b205de751f10932ea59",
+  "diffHash": "78a677fa387ba4f08e8bd3b72083dde7f09355d6f2bb94aaccf2f9d0b4f650c9",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261107T103131131Z-16112-925193e7d334.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "src/Components/swarm/scene.js",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/Components/swarm/scheduler.js",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-07T10:31:32.442Z"
+}

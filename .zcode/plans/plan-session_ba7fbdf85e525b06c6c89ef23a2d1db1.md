@@ -1,47 +1,58 @@
 ## Context
 
-The blank OS page has one confirmed primary cause in `src/os/apps/TerminalApp.jsx`: its history-scroll effect implicitly returns the result of `scrollIntoView()`. In browsers where that method returns a Promise, React stores the Promise as an effect cleanup and later tries to call it when a command changes history or when Terminal closes. That throws during React’s commit phase and can unmount the entire application because there is no error boundary.
+Redesign **Web Page View only** so the Hero also contains the About content and technology stack shown in the reference image. Remove the separate About section, add a seamless left-to-right icon marquee, and use neumorphic styling in Normal mode. Preserve Hacker Mode, OS View, PWA behavior, and the viewport build/erase system.
 
-A second compatibility issue affects Browser-related terminal commands: `crypto.randomUUID()` can be unavailable in some browser/WebView contexts and currently throws without recovery.
+## Implementation
 
-## Fix
+1. **Merge About into Hero**
+   - Update `src/Portfolio.jsx` so the Hero contains:
+     - Existing intro/typewriter and quote
+     - JusteenDev logo
+     - Current bio and freelance copy from `portfolioProfile`
+     - Moving technology icon strip at the bottom
+   - Remove the separate About section.
+   - Keep `min-h-screen`/`min-h-dvh` while allowing the merged Hero to grow naturally on short screens.
+   - Change navbar About links from `#about` to `#home`, the merged Hero anchor.
+   - Renumber Contact from section 05 to 04.
 
-1. **Correct Terminal scrolling**
-   - Replace the expression-bodied effect with a block-bodied effect that explicitly returns nothing.
-   - Use a scroll-container ref with `scrollTop = scrollHeight`, following the proven pattern already used by `SerialMonitor.jsx`.
-   - This prevents cleanup errors and avoids scrolling ancestor windows unexpectedly.
+2. **Add accurate technology icons**
+   - Reuse the installed `react-icons` package:
+     - React: `SiReact`
+     - Node.js: `SiNodedotjs`
+     - Firebase: `SiFirebase`
+     - Tailwind CSS: `SiTailwindcss`
+     - JavaScript: `SiJavascript`
+     - Python: `SiPython`
+     - C++: `SiCplusplus`
+     - C: `SiC`
+     - Java: `FaJava`
+   - Use a styled `C#` monogram tile instead of a misleading .NET or Sharp logo.
+   - Keep technology strings in `portfolioProfile.js` unchanged so OS View is unaffected.
 
-2. **Remove the fragile random UUID dependency**
-   - Replace `crypto.randomUUID()` in `src/os/OSDesktop.jsx` with a `useRef` incrementing request ID.
-   - Browser launch requests only need a changing identifier, not cryptographic randomness.
+3. **Create a left-to-right marquee**
+   - Add a Web-only `TechStackMarquee` component with two identical sets for a seamless loop.
+   - Animate from left to right, pause on hover/focus, and hide the duplicate from assistive technology.
+   - Under reduced motion, stop animation, hide the duplicate, and present a centered, wrapping list.
+   - Keep the strip noninteractive unless links are intentionally added later.
 
-3. **Contain future app failures**
-   - Add a reusable React error boundary around each OS app window.
-   - If an individual app throws, keep the desktop, taskbar, and other windows alive and show a compact recovery panel inside the affected window.
-   - Recovery will close/reopen or reset the failed app rather than blanking the entire page.
-   - Add a route-level fallback around lazy OS View loading so stale/missing PWA chunks provide a reload action instead of an empty root.
+4. **Preserve Full Swarm grouping**
+   - Keep the Hero section as a structural surface.
+   - Use distinct rebuild groups for Hero intro, moved About content, and the technology strip so a tall combined Hero does not erase/build as one oversized block.
+   - Keep unique explicit public `data-swarm-text` and image/control IDs.
+   - In Hacker Mode, stop the marquee and capture only the primary icon set; keep the duplicate hidden to avoid doubled tasks and moving measurements.
+   - No scheduler or scene redesign is needed.
 
-4. **Regression verification**
-   - Run `npm run lint` and `npm run build`.
-   - In production preview, verify Terminal remains visible and the OS does not blank after:
-     - `help`
-     - `whoami`
-     - unknown command
-     - `clear`
-     - `browser`
-     - `browse https://example.com`
-     - `serial`
-     - `messenger`
-     - closing Terminal
-     - reopening Terminal
-     - minimizing/restoring Terminal
-   - Verify other windows and the taskbar stay interactive after Terminal closes.
-   - Verify Browser commands still open/focus the Browser window.
-   - Verify the PWA build still generates its service worker and lazy OS chunk without warnings.
+5. **Add Normal-only neumorphism**
+   - Define Web normal-mode tokens and styles under `.web-portfolio[data-hacker-mode="off"]` only.
+   - Apply raised surfaces and soft dual shadows to cards, navbar, buttons, contact form, and technology tiles.
+   - Use inset shadows for inputs and pressed controls, while preserving accessible focus rings.
+   - Keep Hacker Mode’s existing green grid and reconstruction styling unchanged.
+   - Do not leak styles into OS View or Serial/Messenger routes.
 
-## Main files
-
-- Modify `src/os/apps/TerminalApp.jsx`
-- Modify `src/os/OSDesktop.jsx`
-- Add `src/Components/AppErrorBoundary.jsx` or an OS-specific equivalent
-- Modify `src/App.jsx` / OS window rendering to use the error boundaries
+6. **Documentation and verification**
+   - Update README feature and Hacker Mode descriptions for the merged Hero/About and moving icon rail.
+   - Run scheduler tests, lint, PWA build, and whitespace checks.
+   - Verify desktop/mobile/short-landscape layout, `#home` navigation, seamless left-to-right movement, hover/focus pause, reduced motion, and no horizontal page overflow.
+   - Verify Normal neumorphism and unchanged Hacker/OS appearance.
+   - Verify Full Swarm rebuild/erase groups, Replay, Go Live, contact draft preservation, and normal card culling.
+   - Do not commit, push, or deploy.

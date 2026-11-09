@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "mimosa-finding-history/v1",
+  "runId": "20261107T095919323Z-18928-bf8f5c9f8d33",
+  "runStatus": "inconclusive",
+  "errors": [
+    "scan:src/utils/viewPreference.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/data/techIcons.js: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/game/TechIcon.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/TechStackMarquee.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/ViewChooser.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/game/GameShell.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/routes/GameView.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/App.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+  ],
+  "target": ".",
+  "revision": "37002379fa2de996e5e89b205de751f10932ea59",
+  "diffHash": "5d445e82ea6016c29e3c8d0eae7aabcefcd741a15fa7e33114dc97d883b42324",
+  "rulesVersion": "unavailable",
+  "recordedAt": "2026-11-07T09:59:19.323Z",
+  "timing": {
+    "startedAt": "2026-11-07T09:59:15.130Z",
+    "completedAt": "2026-11-07T09:59:19.323Z",
+    "durationMs": 4193
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "modelCalls": 0,
+    "measurement": "known-zero"
+  },
+  "findings": {
+    "total": 0,
+    "bySeverity": {},
+    "byStatus": {}
+  },
+  "coverage": {
+    "status": "partial",
+    "reasonCounts": {
+      "scanner_failed": 8,
+      "project_check_failed": 8
+    }
+  },
+  "evidenceBoundary": "static_only",
+  "immutableReport": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261107T095919323Z-18928-bf8f5c9f8d33.json"
+}
