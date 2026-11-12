@@ -168,9 +168,10 @@ function Portfolio({ onSwitchView, hackerMode, onHackerModeChange, viewChooserOp
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
             {projectCards.map((project, index) => (
               <RebuildCard key={project.title} blueprintId={`project-${index}`}>
+                {project.image && <img className='h-40 w-full rounded-lg object-cover object-top' src={project.image} alt={project.imageAlt || `${project.title} preview`} data-rebuild-part />}
                 <div className='web-card-meta' data-rebuild-part>
                   <span className='flex items-center gap-2' data-swarm-kind='text' data-swarm-id={`project-${index}-meta`} data-swarm-text={`PRJ / ${String(index + 1).padStart(2, '0')}`}><FaCode aria-hidden='true' data-swarm-kind='image' data-swarm-id={`project-${index}-icon`} /> PRJ / {String(index + 1).padStart(2, '0')}</span>
-                  <span data-swarm-kind='text' data-swarm-id={`project-${index}-status`} data-swarm-text='Planned demo'>Planned demo</span>
+                  <span className={project.href ? 'text-emerald-300' : ''} data-swarm-kind='text' data-swarm-id={`project-${index}-status`} data-swarm-text={project.href ? 'Live project' : 'Planned demo'}>{project.href ? 'Live project' : 'Planned demo'}</span>
                 </div>
                 <h2 className='mt-6 text-lg font-bold' data-rebuild-part data-swarm-kind='text' data-swarm-id={`project-${index}-title`} data-swarm-text={project.title}>{project.title}</h2>
                 <p className='mt-3 flex-1 text-sm leading-relaxed text-white/60' data-rebuild-part data-swarm-kind='text' data-swarm-id={`project-${index}-description`} data-swarm-text={project.description}>{project.description}</p>
