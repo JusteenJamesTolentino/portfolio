@@ -1,5 +1,14 @@
 export const projectCards = [
   {
+    title: 'Kogni',
+    description: 'Learning platform for creating quizzes and flashcards that support active recall.',
+    cta: 'Visit Kogni',
+    href: 'https://kogni.justeentolentino.dev/',
+    external: true,
+    image: '/kogni-preview.png',
+    imageAlt: 'Kogni learning platform sign-in screen',
+  },
+  {
     title: 'Inventory Management System',
     description: 'Fullstack web application for managing inventory and tracking stock levels.',
     cta: 'Coming Soon',

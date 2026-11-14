@@ -17,7 +17,6 @@ import OSWindow from './shell/OSWindow';
 import StartMenu from './shell/StartMenu';
 import Taskbar from './shell/Taskbar';
 import AppErrorBoundary from '../Components/AppErrorBoundary';
-import { clearViewPreference } from '../utils/viewPreference';
 
 function OSDesktop({ onSwitchView }) {
   const [startMenuOpen, setStartMenuOpen] = useState(false);
@@ -47,7 +46,7 @@ function OSDesktop({ onSwitchView }) {
   }, []);
 
   const switchView = () => {
-    clearViewPreference();
+    setStartMenuOpen(false);
     onSwitchView();
   };
 

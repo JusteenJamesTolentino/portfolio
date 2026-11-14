@@ -35,7 +35,7 @@ function StartMenu({ apps, onOpen, onSwitchView }) {
           <img src='/logo.png' alt='' className='h-8 w-8 rounded-lg object-cover' />
           <div><p className='text-xs font-semibold'>JusteenDev</p><p className='text-[10px] text-white/45'>Fullstack Developer</p></div>
         </div>
-        <button type='button' aria-label='Switch view' title='Switch View' className='rounded-lg p-2 text-white/55 hover:bg-white/10 hover:text-white' onClick={onSwitchView}>
+        <button type='button' aria-label='Open Modes' title='Modes' className='rounded-lg p-2 text-white/55 hover:bg-white/10 hover:text-white' onClick={onSwitchView}>
           <Power className='h-4 w-4' />
         </button>
       </div>

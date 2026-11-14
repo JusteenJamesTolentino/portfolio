@@ -1,47 +1,44 @@
 ## Context
 
-The blank OS page has one confirmed primary cause in `src/os/apps/TerminalApp.jsx`: its history-scroll effect implicitly returns the result of `scrollIntoView()`. In browsers where that method returns a Promise, React stores the Promise as an effect cleanup and later tries to call it when a command changes history or when Terminal closes. That throws during React’s commit phase and can unmount the entire application because there is no error boundary.
+The Web Page contact section currently repeats contact URLs in cards and includes a “Send me a message” mailto form. The requested design removes email composition from the Web Page and replaces it with an original social-focused panel that matches the portfolio’s black, charcoal, neumorphic UI. Existing Facebook, Instagram, and email destinations will remain clickable. Game Mode’s separate Comms form will remain unchanged.
 
-A second compatibility issue affects Browser-related terminal commands: `crypto.randomUUID()` can be unavailable in some browser/WebView contexts and currently throws without recovery.
+## Implementation
 
-## Fix
+1. **Replace the Web contact form and raw contact cards**
+   - Update `src/Portfolio.jsx` to remove the `ContactForm` import and its Web Page usage.
+   - Replace the current three raw URL cards and message form with one responsive social section:
+     - A large **Social Bio** panel introducing Justeen as a Computer Engineering student, full-stack engineer, and hardware/IoT builder.
+     - A compact availability/status treatment that fits the existing technical portfolio language.
+     - An icon-first social launchpad for Facebook, Instagram, and Email.
+   - Keep visible platform labels for clarity while making the icons the main visual element.
+   - Reuse the existing `contactCards` destinations and their safe external-link behavior.
 
-1. **Correct Terminal scrolling**
-   - Replace the expression-bodied effect with a block-bodied effect that explicitly returns nothing.
-   - Use a scroll-container ref with `scrollTop = scrollHeight`, following the proven pattern already used by `SerialMonitor.jsx`.
-   - This prevents cleanup errors and avoids scrolling ancestor windows unexpectedly.
+2. **Match the current Web Page visual system**
+   - Add narrowly scoped styles in `src/styles/index.css` for the Social Bio and social links.
+   - Use pure black backgrounds, charcoal surfaces, white type, neutral borders, soft neumorphic depth, and subtle glow/hover lift.
+   - Make the layout one column on mobile and an asymmetric bio/social split on desktop.
+   - Avoid copying the reference design directly while preserving its useful idea of a bio paired with prominent social actions.
 
-2. **Remove the fragile random UUID dependency**
-   - Replace `crypto.randomUUID()` in `src/os/OSDesktop.jsx` with a `useRef` incrementing request ID.
-   - Browser launch requests only need a changing identifier, not cryptographic randomness.
+3. **Preserve Hacker Mode compatibility**
+   - Keep the section inside the existing `SwarmRebuild` tree.
+   - Use `RebuildCard` and explicit unique `data-swarm-*` metadata for bio text, platform icons, labels, and links.
+   - Ensure all new content rebuilds and erases correctly without form-preservation logic.
 
-3. **Contain future app failures**
-   - Add a reusable React error boundary around each OS app window.
-   - If an individual app throws, keep the desktop, taskbar, and other windows alive and show a compact recovery panel inside the affected window.
-   - Recovery will close/reopen or reset the failed app rather than blanking the entire page.
-   - Add a route-level fallback around lazy OS View loading so stale/missing PWA chunks provide a reload action instead of an empty root.
+4. **Keep Game Mode unchanged**
+   - Retain `src/Components/ContactForm.jsx` because `src/game/GameShell.jsx` still uses it in the Comms panel.
+   - Do not alter Game Mode’s form or its independent styles.
 
-4. **Regression verification**
-   - Run `npm run lint` and `npm run build`.
-   - In production preview, verify Terminal remains visible and the OS does not blank after:
-     - `help`
-     - `whoami`
-     - unknown command
-     - `clear`
-     - `browser`
-     - `browse https://example.com`
-     - `serial`
-     - `messenger`
-     - closing Terminal
-     - reopening Terminal
-     - minimizing/restoring Terminal
-   - Verify other windows and the taskbar stay interactive after Terminal closes.
-   - Verify Browser commands still open/focus the Browser window.
-   - Verify the PWA build still generates its service worker and lazy OS chunk without warnings.
+5. **Clean unused Web-only styles**
+   - Remove `.web-contact-form` selectors from `src/styles/index.css` once the Web Page no longer renders that wrapper.
+   - Leave Game Mode’s `.game-form-frame` and form styling intact.
 
-## Main files
+## Verification
 
-- Modify `src/os/apps/TerminalApp.jsx`
-- Modify `src/os/OSDesktop.jsx`
-- Add `src/Components/AppErrorBoundary.jsx` or an OS-specific equivalent
-- Modify `src/App.jsx` / OS window rendering to use the error boundaries
+- Run ESLint, all 15 swarm scheduler tests, and the Vite/PWA production build.
+- Verify the Web Contact section contains no “Send me a message” form or editable fields.
+- Verify Facebook, Instagram, and Email icons navigate to the existing `contactCards` destinations with correct external-link protection.
+- Verify the Social Bio and links are responsive on phone, tablet, and desktop with no overlap or horizontal scrolling.
+- Verify normal Web Page styling, keyboard focus states, and hover states.
+- Verify Hacker Mode reconstructs the new social section correctly.
+- Verify Game Mode Comms still retains its existing contact form.
+- Do not commit, push, or deploy unless requested separately.

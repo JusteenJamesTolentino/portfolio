@@ -1,14 +1,14 @@
 {
   "schemaVersion": "mimosa-hook-status/v1",
-  "recordedAt": "2026-11-03T16:16:13.144Z",
+  "recordedAt": "2026-11-09T10:07:27.147Z",
   "sessionId": "session_ba7fbdf85e525b06c6c89ef23a2d1db1",
   "event": "PostToolUse",
   "toolName": "Edit",
-  "file": "src/os/shell/AnimatedBackground.jsx",
+  "file": "src/styles/index.css",
   "outcome": "clear",
   "coverage": "complete",
   "findingCount": 0,
-  "durationMs": 20,
+  "durationMs": 9,
   "hostState": "hook_complete",
   "reportHint": ".mimosa/reports/"
 }

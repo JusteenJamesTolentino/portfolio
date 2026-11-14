@@ -1,22 +1,44 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import Lenis from 'lenis';
 import { MonitorCog } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import TextType from './Components/ReactBits/TypingText';
-import ClickSpark from './Components/ReactBits/ClickSpark';
-import CardSwap, { Card } from './Components/ReactBits/CardSwap';
-import ContactForm from './Components/ContactForm';
-import ScrollZoomHero from './Components/ScrollZoomHero';
+import HeroAbout from './Components/HeroAbout';
+import SwarmRebuild, { RebuildCard } from './Components/SwarmRebuild';
+import { FaCode, FaEnvelope, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { projectCards } from './utils/projectCards';
 import { serviceCards } from './utils/serviceCards';
 import { cardSwapCards } from './utils/cardSwapCards';
 import { contactCards } from './utils/contactCards';
 import { toolCards } from './utils/toolCards';
-import { portfolioProfile, technologies } from './data/portfolioProfile';
+import { portfolioProfile } from './data/portfolioProfile';
 
-function Portfolio({ onSwitchView }) {
+const FullSwarm = lazy(() => import('./Components/swarm/FullSwarm'));
+
+function Portfolio({ onSwitchView, hackerMode, onHackerModeChange, viewChooserOpen = false }) {
+  const socialIcons = { Facebook: FaFacebookF, Instagram: FaInstagram, Email: FaEnvelope };
+  const rootRef = useRef(null);
   const [navHidden, setNavHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAllTools, setShowAllTools] = useState(false);
+
+  const changeHackerMode = useCallback(enabled => {
+    onHackerModeChange(enabled);
+    setMobileMenuOpen(false);
+    setNavHidden(false);
+  }, [onHackerModeChange]);
+
+  const stopHackerMode = useCallback(() => changeHackerMode(false), [changeHackerMode]);
+
+  useEffect(() => {
+    if (!hackerMode || viewChooserOpen) return;
+    const exit = event => {
+      if (event.key === 'Escape' && !document.querySelector('dialog[open]')) {
+        stopHackerMode();
+      }
+    };
+    window.addEventListener('keydown', exit);
+    return () => window.removeEventListener('keydown', exit);
+  }, [hackerMode, viewChooserOpen, stopHackerMode]);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -29,37 +51,60 @@ function Portfolio({ onSwitchView }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Lenis inertia scrolling, matching the reference site's feel. It only runs
+  // while Web Page View is mounted; OS View and the serial tools are unaffected.
+  useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.09,
+      smoothWheel: true,
+      anchors: { offset: -80 },
+      wheelMultiplier: 1,
+    });
+    let frame = null;
+    const raf = time => {
+      lenis.raf(time);
+      frame = requestAnimationFrame(raf);
+    };
+    frame = requestAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(frame);
+      lenis.destroy();
+    };
+  }, []);
+
   return (
-    <ClickSpark className="overflow-x-hidden" sparkColor='#fff' sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
-      <div className={`navbar fixed top-0 left-0 right-0 z-50 bg-base-300/50 backdrop-blur-xl backdrop-saturate-150 border-b border-white/10 px-3 md:px-6 shadow-sm transition-transform duration-300 ${navHidden ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div className='navbar-start'>
-          <p className='text-base sm:text-lg md:text-xl font-bold'>JusteenDev</p>
+    <div ref={rootRef} className='web-portfolio' data-hacker-mode={hackerMode ? 'on' : 'off'}>
+      <div data-swarm-nav className={`web-navbar navbar fixed top-0 left-0 right-0 z-50 bg-base-300/50 backdrop-blur-xl backdrop-saturate-150 border-b border-white/10 px-3 md:px-6 shadow-sm transition-transform duration-300 ${navHidden && !mobileMenuOpen && !hackerMode ? '-translate-y-full' : 'translate-y-0'}`}>
+        <div className='navbar-start w-auto flex-1'>
+          <p className='text-base sm:text-lg md:text-xl font-bold' data-swarm-kind='text' data-swarm-id='nav-brand' data-swarm-text='JusteenDev'>JusteenDev</p>
         </div>
         <div className='navbar-center'></div>
-        <div className='navbar-end'>
-          <div className='hidden md:flex gap-1 sm:gap-2'>
-            <button type='button' className='btn btn-ghost btn-sm sm:btn-md' onClick={onSwitchView} title='Switch portfolio view'>
-              <MonitorCog className='h-4 w-4' />
-              View
+        <div className='navbar-end w-auto'>
+          <div className='hidden lg:flex gap-1 items-center'>
+            <button type='button' className='btn btn-ghost btn-sm sm:btn-md' onClick={onSwitchView} title='Choose portfolio mode' data-swarm-kind='control' data-swarm-id='nav-modes' data-swarm-text='Modes'>
+              <MonitorCog className='h-4 w-4' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-modes-icon' />
+              Modes
             </button>
-            <a className='btn btn-ghost btn-sm sm:btn-md' href="#about">About</a>
-            <a className='btn btn-ghost btn-sm sm:btn-md' href="#services">Services</a>
-            <a className='btn btn-ghost btn-sm sm:btn-md' href="#tools">Tools</a>
-            <a className='btn btn-ghost btn-sm sm:btn-md' href="#contact">Contact</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href='#home' data-swarm-kind='control' data-swarm-id='nav-home' data-swarm-text='About'>About</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href='#services' data-swarm-kind='control' data-swarm-id='nav-services' data-swarm-text='Services'>Services</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href='#tools' data-swarm-kind='control' data-swarm-id='nav-tools' data-swarm-text='Tools'>Tools</a>
+            <a className='btn btn-ghost btn-sm sm:btn-md' href='#contact' data-swarm-kind='control' data-swarm-id='nav-contact' data-swarm-text='Contact'>Contact</a>
           </div>
 
-          <div className='relative md:hidden'>
+          <div className='relative lg:hidden'>
             <button
               type='button'
               className='btn btn-ghost btn-square btn-sm'
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(open => !open)}
+              data-swarm-kind='control'
+              data-swarm-id='nav-menu'
             >
               {mobileMenuOpen ? (
-                <span className='text-2xl leading-none' aria-hidden='true'>×</span>
+                <span className='text-2xl leading-none' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-menu-icon'>×</span>
               ) : (
-                <svg aria-hidden='true' viewBox='0 0 24 24' className='w-5 h-5 fill-none stroke-current stroke-2'>
+                <svg aria-hidden='true' viewBox='0 0 24 24' className='w-5 h-5 fill-none stroke-current stroke-2' data-swarm-kind='image' data-swarm-id='nav-menu-icon'>
                   <path d='M4 6h16M4 12h16M4 18h16' strokeLinecap='round' />
                 </svg>
               )}
@@ -68,8 +113,8 @@ function Portfolio({ onSwitchView }) {
             {mobileMenuOpen && (
               <div className='absolute right-0 top-full mt-3 w-44 p-2 rounded-2xl bg-base-300/70 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-xl flex flex-col'>
                 {[
-                  ['Switch View', null],
-                  ['About', '#about'],
+                  ['Modes', null],
+                  ['About', '#home'],
                   ['Services', '#services'],
                   ['Tools', '#tools'],
                   ['Contact', '#contact'],
@@ -79,6 +124,9 @@ function Portfolio({ onSwitchView }) {
                     href={href}
                     className='btn btn-ghost justify-start'
                     onClick={() => setMobileMenuOpen(false)}
+                    data-swarm-kind='control'
+                    data-swarm-id={`nav-mobile-${href.slice(1)}`}
+                    data-swarm-text={label}
                   >
                     {label}
                   </a>
@@ -88,8 +136,11 @@ function Portfolio({ onSwitchView }) {
                     type='button'
                     className='btn btn-ghost justify-start'
                     onClick={() => { setMobileMenuOpen(false); onSwitchView(); }}
+                    data-swarm-kind='control'
+                    data-swarm-id='nav-mobile-modes'
+                    data-swarm-text={label}
                   >
-                    <MonitorCog className='h-4 w-4' />
+                    <MonitorCog className='h-4 w-4' aria-hidden='true' data-swarm-kind='image' data-swarm-id='nav-mobile-modes-icon' />
                     {label}
                   </button>
                 ))}
@@ -99,183 +150,154 @@ function Portfolio({ onSwitchView }) {
         </div>
       </div>
 
-      <ScrollZoomHero secondImage='/about-night-lamp.jpg'>
-        <div className='max-w-md text-white'>
-          <TextType className='text-3xl sm:text-4xl md:text-5xl font-extrabold' text={["Hello, I am JusteenDev", "A Fullstack Developer"]} typingSpeed={75} pauseDuration={1500} showCursor cursorCharacter='|' deletingSpeed={50} cursorBlinkDuration={0.5} />
-          <div className='py-4 sm:py-6'>
-            <p className='text-lg sm:text-xl font-semibold'> "Simplicity is prerequisite for reliability."</p>
-            <p className='opacity-80'>Edsger W. Dijkstra</p>
-          </div>
-        </div>
-      </ScrollZoomHero>
+      <HeroAbout
+        portfolioProfile={portfolioProfile}
+        contactCards={contactCards}
+      />
 
-      <div id='projects' className='p-5 bg-neutral text-neutral-content scroll-mt-16'>
-        <div className='w-full p-5 flex flex-col gap-4 items-start max-w-6xl mx-auto'>
-          <div className='p-5'>
-            <h1 className='text-3xl sm:text-4xl font-bold'>Projects</h1>
-          </div>
-
-          <div className='py-2 px-5'>
-            <h1 className='text-xl sm:text-2xl font-bold'>Management Systems</h1>
-          </div>
-
-          <div className='flex flex-row flex-nowrap gap-2 p-2 pb-3 w-full overflow-x-auto shadow-sm'>
-            {projectCards.map((project) => (
-              <div key={project.title} className="card bg-base-300 w-60 flex-none shadow-sm">
-                <div className="card-body">
-                  <h2 className="card-title">{project.title}</h2>
-                  <p>{project.description}</p>
-                  <div className="card-actions justify-center py-5 hover:scale-105 transition-transform duration-300">
-                    {project.href ? (
-                      <a className="btn btn-primary w-full" href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noopener noreferrer' : undefined}>{project.cta}</a>
-                    ) : (
-                      <button className="btn btn-primary w-full" disabled={project.disabled}>{project.cta}</button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div id='tools' className='min-h-screen bg-neutral text-neutral-content scroll-mt-16 py-16'>
-        <div className='w-full max-w-6xl flex-col items-start text-left px-4 sm:px-6 mx-auto'>
-          <div className='p-5'>
-            <h1 className='text-3xl sm:text-4xl font-bold'>Tools</h1>
-            <p className='mt-2 text-sm sm:text-base opacity-80'>Engineering web tools: free, fast, and running entirely in your browser.</p>
-          </div>
-
-          <div className='flex flex-row flex-wrap gap-4 items-stretch justify-center w-full px-2'>
-            {(showAllTools ? toolCards : toolCards.slice(0, 2)).map((tool) => {
-              const inner = (
-                <>
-                  <h2 className='text-lg sm:text-xl py-2 font-bold'>{tool.title}</h2>
-                  <p className='text-sm text-center flex-1'>{tool.description}</p>
-                  {tool.href ? (
-                    <span className='btn btn-primary btn-sm mt-2'>Open Tool</span>
-                  ) : (
-                    <span className='badge badge-outline badge-sm mt-2'>Coming Soon</span>
-                  )}
-                </>
-              );
-              return tool.href ? (
-                <Link
-                  key={tool.title}
-                  to={tool.href}
-                  className='border border-white/40 rounded-lg p-4 w-72 shrink-0 flex flex-col items-center justify-start gap-2 hover:border-white/80 hover:-translate-y-1 transition-all duration-200'
-                >
-                  {inner}
-                </Link>
-              ) : (
-                <div key={tool.title} className='border border-white/40 rounded-lg p-4 w-72 shrink-0 flex flex-col items-center justify-start gap-2'>
-                  {inner}
-                </div>
-              );
-            })}
-          </div>
-
-          {toolCards.length > 2 && (
-            <div className='flex justify-center pt-6'>
-              <button
-                type='button'
-                className='btn btn-outline bg-transparent border-white/40 hover:border-white hover:bg-white/10 hover:text-white'
-                onClick={() => setShowAllTools(current => !current)}
-                aria-expanded={showAllTools}
-              >
-                {showAllTools ? 'Show Less' : `Show More (${toolCards.length - 2})`}
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div id='services' className='hero min-h-screen bg-neutral text-neutral-content max-[768px]:place-items-start scroll-mt-16'>
-        <div className='hero-content w-full max-w-6xl flex-col items-start text-left px-4 sm:px-6 max-[768px]:pt-6'>
-          <div className='p-5'>
-            <h1 className='text-3xl sm:text-4xl font-bold'>Services</h1>
-            <p className='mt-2 text-sm sm:text-base opacity-80'>Focused development services for websites and student projects.</p>
-          </div>
-
-          <div className='flex flex-row flex-wrap gap-4 items-center justify-center w-full'>
-            {serviceCards.map((service) => (
-              <div key={service.title} className='border text-justify border-white/40 rounded-lg p-4 w-72 lg:w-80 h-40 lg:min-h-50 shrink-0 flex flex-col items-center gap-2 snap-start flex-none'>
-                <h1 className='text-lg sm:text-xl py-2 font-bold'>{service.title}</h1>
-                <p className='text-sm'>{service.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className='relative w-full h-130 sm:h-140 md:h-150'>
-            <CardSwap width={420} height={300} cardDistance={40} verticalDistance={48} delay={5000} pauseOnHover={false}>
-              {cardSwapCards.map((cardItem) => (
-                <Card key={cardItem.title} className='p-6 sm:p-8 flex flex-col justify-center gap-3 bg-black text-white border-white/40'>
-                  <h3 className='text-xl sm:text-2xl font-bold'>{cardItem.title}</h3>
-                  <p>{cardItem.description}</p>
-                </Card>
-              ))}
-            </CardSwap>
-          </div>
-        </div>
-      </div>
-
-
-      <div id='about' className='hero relative min-h-screen scroll-mt-16 bg-cover bg-center bg-no-repeat' style={{ backgroundImage: "url('/about-night-lamp.jpg')" }}>
-        <div className='absolute inset-0 bg-black/70' aria-hidden='true'></div>
-        <div className='hero-content relative z-10 flex-col lg:flex-row-reverse gap-8 lg:gap-16 max-w-6xl px-4 sm:px-6'>
-          <img
-            src='/logo.png'
-            alt='JusteenDev logo'
-            className='w-40 sm:w-52 lg:w-64 rounded-2xl shadow-lg'
-          />
-          <div className='text-center lg:text-left'>
-            <h1 className='text-3xl sm:text-4xl font-bold'>About Me</h1>
-            <p className='py-4 text-base sm:text-lg'>
-              {portfolioProfile.bio}
-            </p>
-            <p className='text-sm sm:text-base opacity-80'>
-              {portfolioProfile.freelance}
-            </p>
-            <div className='flex flex-wrap gap-2 justify-center lg:justify-start pt-4'>
-              {technologies.map(tech => (
-                <span key={tech} className='badge badge-outline'>{tech}</span>
-              ))}
+      <SwarmRebuild enabled={hackerMode} paused={viewChooserOpen} contentKey={showAllTools}>
+      <section id='projects' className='web-section scroll-mt-20 py-14 sm:py-20' data-swarm-kind='surface' data-swarm-id='projects'>
+        <div className='mx-auto max-w-6xl px-5 sm:px-8'>
+          <div className='mb-8 flex flex-wrap items-end justify-between gap-5' data-swarm-group='projects-heading'>
+            <div>
+              <p className='web-eyebrow' data-swarm-kind='text' data-swarm-id='projects-eyebrow' data-swarm-text='01 / PROJECT LAB'>01 / PROJECT LAB</p>
+              <h1 className='mt-3 text-3xl font-bold sm:text-4xl' data-swarm-kind='text' data-swarm-id='projects-heading' data-swarm-text='Projects'>Projects</h1>
+              <p className='mt-3 max-w-xl text-sm text-white/60' data-swarm-kind='text' data-swarm-id='projects-description' data-swarm-text='Management system demos in development. Sample-data experiences are planned, not production systems.'>Management system demos in development. Sample-data experiences are planned, not production systems.</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div id='contact' className='hero min-h-screen bg-neutral text-neutral-content max-[768px]:place-items-start scroll-mt-16'>
-        <div className='hero-content w-full max-w-6xl flex-col items-start text-left px-4 sm:px-6 max-[768px]:pt-6'>
-          <div className='p-5'>
-            <h1 className='text-3xl sm:text-4xl font-bold'>Contact</h1>
-            <p className='mt-2 text-sm sm:text-base opacity-80'>Get in touch with me for any inquiries or projects.</p>
-          </div>
-
-          <div className='flex flex-row flex-wrap w-full gap-4 items-center justify-center'>
-            {contactCards.map((contact) => (
-              <div key={contact.title} className='border text-justify border-white/40 rounded-lg p-4 w-72 sm:w-80 min-h-40 shrink-0 flex flex-col items-center justify-center gap-2'>
-                <a
-                  href={contact.href}
-                  target={contact.external ? '_blank' : undefined}
-                  rel={contact.external ? 'noopener noreferrer' : undefined}
-                  className='w-full text-center'
-                >
-                  <h1 className='text-lg sm:text-xl py-2 font-bold'>{contact.title}</h1>
-                  <p className='text-sm opacity-80 wrap-break-word'>{contact.value}</p>
-                </a>
-              </div>
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+            {projectCards.map((project, index) => (
+              <RebuildCard key={project.title} blueprintId={`project-${index}`}>
+                {project.image && <img className='h-40 w-full rounded-lg object-cover object-top' src={project.image} alt={project.imageAlt || `${project.title} preview`} data-rebuild-part />}
+                <div className='web-card-meta' data-rebuild-part>
+                  <span className='flex items-center gap-2' data-swarm-kind='text' data-swarm-id={`project-${index}-meta`} data-swarm-text={`PRJ / ${String(index + 1).padStart(2, '0')}`}><FaCode aria-hidden='true' data-swarm-kind='image' data-swarm-id={`project-${index}-icon`} /> PRJ / {String(index + 1).padStart(2, '0')}</span>
+                  <span className={project.href ? 'text-emerald-300' : ''} data-swarm-kind='text' data-swarm-id={`project-${index}-status`} data-swarm-text={project.href ? 'Live project' : 'Planned demo'}>{project.href ? 'Live project' : 'Planned demo'}</span>
+                </div>
+                <h2 className='mt-6 text-lg font-bold' data-rebuild-part data-swarm-kind='text' data-swarm-id={`project-${index}-title`} data-swarm-text={project.title}>{project.title}</h2>
+                <p className='mt-3 flex-1 text-sm leading-relaxed text-white/60' data-rebuild-part data-swarm-kind='text' data-swarm-id={`project-${index}-description`} data-swarm-text={project.description}>{project.description}</p>
+                <div className='mt-6 border-t border-white/10 pt-4' data-rebuild-part>
+                  {project.href ? <a className='btn btn-primary btn-sm w-full' href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noopener noreferrer' : undefined} data-swarm-kind='control' data-swarm-id={`project-${index}-action`} data-swarm-text={project.cta}>{project.cta}</a> : <button type='button' className='btn btn-outline btn-sm w-full' disabled={project.disabled} data-swarm-kind='control' data-swarm-id={`project-${index}-action`} data-swarm-text={project.cta}>{project.cta}</button>}
+                </div>
+              </RebuildCard>
             ))}
           </div>
-          <div className='w-full max-w-xl mx-auto'>
-            <ContactForm />
-          </div>
-
         </div>
-      </div>
+      </section>
 
-    </ClickSpark>
-  )
+      <section id='tools' className='web-section scroll-mt-20 py-14 sm:py-20' data-swarm-kind='surface' data-swarm-id='tools'>
+        <div className='mx-auto max-w-6xl px-5 sm:px-8'>
+          <div className='mb-8' data-swarm-group='tools-heading'>
+            <p className='web-eyebrow' data-swarm-kind='text' data-swarm-id='tools-eyebrow' data-swarm-text='02 / ENGINEERING WORKSPACE'>02 / ENGINEERING WORKSPACE</p>
+            <h1 className='mt-3 text-3xl font-bold sm:text-4xl' data-swarm-kind='text' data-swarm-id='tools-heading' data-swarm-text='Tools'>Tools</h1>
+            <p className='mt-3 text-sm text-white/60' data-swarm-kind='text' data-swarm-id='tools-description' data-swarm-text='Engineering web tools: explore live utilities and what is coming next.'>Engineering web tools: explore live utilities and what is coming next.</p>
+          </div>
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+            {(showAllTools ? toolCards : toolCards.slice(0, 2)).map((tool, index) => (
+              <RebuildCard key={tool.title} blueprintId={`tool-${index}`}>
+                <div className='web-card-meta' data-rebuild-part>
+                  <span className='flex items-center gap-2' data-swarm-kind='text' data-swarm-id={`tool-${index}-meta`} data-swarm-text={`TOOL / ${String(index + 1).padStart(2, '0')}`}><FaCode aria-hidden='true' data-swarm-kind='image' data-swarm-id={`tool-${index}-icon`} /> TOOL / {String(index + 1).padStart(2, '0')}</span>
+                  <span className={tool.href ? 'text-emerald-300' : ''} data-swarm-kind='text' data-swarm-id={`tool-${index}-status`} data-swarm-text={tool.href ? 'Available' : 'Coming Soon'}>{tool.href ? 'Available' : 'Coming Soon'}</span>
+                </div>
+                <h2 className='mt-6 text-lg font-bold' data-rebuild-part data-swarm-kind='text' data-swarm-id={`tool-${index}-title`} data-swarm-text={tool.title}>{tool.title}</h2>
+                <p className='mt-3 flex-1 text-sm leading-relaxed text-white/60' data-rebuild-part data-swarm-kind='text' data-swarm-id={`tool-${index}-description`} data-swarm-text={tool.description}>{tool.description}</p>
+                <div className='mt-6 border-t border-white/10 pt-4' data-rebuild-part>{tool.href ? <Link to={tool.href} className='btn btn-primary btn-sm w-full' data-swarm-kind='control' data-swarm-id={`tool-${index}-action`} data-swarm-text='Open Tool'>Open Tool</Link> : <span className='badge badge-outline text-white/50' data-swarm-kind='control' data-swarm-id={`tool-${index}-badge`} data-swarm-text='Coming Soon'>Coming Soon</span>}</div>
+              </RebuildCard>
+            ))}
+          </div>
+          {toolCards.length > 2 && <div className='flex justify-center pt-6' data-swarm-group='tools-more'><button type='button' className='btn btn-outline bg-transparent border-white/30 hover:bg-white/5' onClick={() => setShowAllTools(value => !value)} aria-expanded={showAllTools} data-swarm-kind='control' data-swarm-id='tools-expand' data-swarm-text={showAllTools ? 'Show Less' : `Show More (${toolCards.length - 2})`}>{showAllTools ? 'Show Less' : `Show More (${toolCards.length - 2})`}</button></div>}
+        </div>
+      </section>
+
+      <section id='services' className='web-section scroll-mt-20 py-14 sm:py-20' data-swarm-kind='surface' data-swarm-id='services'>
+        <div className='mx-auto max-w-6xl px-5 sm:px-8'>
+          <div className='mb-8' data-swarm-group='services-heading'>
+            <p className='web-eyebrow' data-swarm-kind='text' data-swarm-id='services-eyebrow' data-swarm-text='03 / DEVELOPMENT SERVICES'>03 / DEVELOPMENT SERVICES</p>
+            <h1 className='mt-3 text-3xl font-bold sm:text-4xl' data-swarm-kind='text' data-swarm-id='services-heading' data-swarm-text='Services'>Services</h1>
+            <p className='mt-3 text-sm text-white/60' data-swarm-kind='text' data-swarm-id='services-description' data-swarm-text='Focused development services for websites and student projects.'>Focused development services for websites and student projects.</p>
+          </div>
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+            {[...serviceCards, ...cardSwapCards.filter(item => !serviceCards.some(service => service.title === item.title))].map((service, index) => (
+              <RebuildCard key={service.title} blueprintId={`service-${index}`}>
+                <div className='web-card-meta' data-rebuild-part><span data-swarm-kind='text' data-swarm-id={`service-${index}-meta`} data-swarm-text={`SERVICE / ${String(index + 1).padStart(2, '0')}`}>SERVICE / {String(index + 1).padStart(2, '0')}</span><FaCode aria-hidden='true' data-swarm-kind='image' data-swarm-id={`service-${index}-icon`} /></div>
+                <h2 className='mt-6 text-lg font-bold' data-rebuild-part data-swarm-kind='text' data-swarm-id={`service-${index}-title`} data-swarm-text={service.title}>{service.title}</h2>
+                <p className='mt-3 text-sm leading-relaxed text-white/60' data-rebuild-part data-swarm-kind='text' data-swarm-id={`service-${index}-description`} data-swarm-text={service.description}>{service.description}</p>
+              </RebuildCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id='contact' className='web-section scroll-mt-20 py-14 sm:py-20' data-swarm-kind='surface' data-swarm-id='contact'>
+        <div className='mx-auto max-w-6xl px-5 sm:px-8'>
+          <div className='mb-8' data-swarm-group='contact-heading'>
+            <p className='web-eyebrow' data-swarm-kind='text' data-swarm-id='contact-eyebrow' data-swarm-text='04 / LET’S CONNECT'>04 / LET’S CONNECT</p>
+            <h1 className='mt-3 text-3xl font-bold sm:text-4xl' data-swarm-kind='text' data-swarm-id='contact-heading' data-swarm-text='Contact'>Contact</h1>
+            <p className='mt-3 text-sm text-white/60' data-swarm-kind='text' data-swarm-id='contact-description' data-swarm-text='Get in touch with me for any inquiries or projects.'>Get in touch with me for any inquiries or projects.</p>
+          </div>
+          <div className='contact-social-layout'>
+            <RebuildCard blueprintId='contact-social-bio'>
+              <div className='social-bio-card'>
+                <div className='social-bio-status' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-status' data-swarm-text='Available for collaborations'>
+                  <span aria-hidden='true' />
+                  Available for collaborations
+                </div>
+                <p className='web-eyebrow' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-label' data-swarm-text='SOCIAL BIO'>SOCIAL BIO</p>
+                <h2 className='social-bio-title' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-title' data-swarm-text='Building across software and hardware'>
+                  Building across software and hardware
+                </h2>
+                <p className='social-bio-copy' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-copy' data-swarm-text={portfolioProfile.freelance}>
+                  {portfolioProfile.freelance}
+                </p>
+                <p className='social-bio-note' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-social-note' data-swarm-text='Follow my work, connect with me, or reach out about web, hardware, and IoT projects.'>
+                  Follow my work, connect with me, or reach out about web, hardware, and IoT projects.
+                </p>
+              </div>
+            </RebuildCard>
+
+            <RebuildCard blueprintId='contact-social-links'>
+              <div className='social-launchpad'>
+                <p className='web-eyebrow' data-rebuild-part data-swarm-kind='text' data-swarm-id='contact-platform-label' data-swarm-text='SOCIAL CHANNELS'>SOCIAL CHANNELS</p>
+                <div className='social-launchpad-links'>
+                  {contactCards.map((contact, index) => {
+                    const SocialIcon = socialIcons[contact.title] ?? FaEnvelope;
+                    return (
+                      <a
+                        key={contact.title}
+                        href={contact.href}
+                        target={contact.external ? '_blank' : undefined}
+                        rel={contact.external ? 'noopener noreferrer' : undefined}
+                        className='social-launch-link'
+                        aria-label={`Open ${contact.title}`}
+                        data-rebuild-part
+                        data-swarm-kind='control'
+                        data-swarm-id={`contact-social-${index}`}
+                        data-swarm-text={contact.title}
+                      >
+                        <span className='social-launch-icon' data-swarm-kind='image' data-swarm-id={`contact-social-${index}-icon`}>
+                          <SocialIcon aria-hidden='true' />
+                        </span>
+                        <span className='min-w-0'>
+                          <span className='social-launch-name' data-swarm-kind='text' data-swarm-id={`contact-social-${index}-name`} data-swarm-text={contact.title}>{contact.title}</span>
+                          <span className='social-launch-value'>{contact.value}</span>
+                        </span>
+                        <span className='social-launch-arrow' aria-hidden='true'>↗</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </RebuildCard>
+          </div>
+        </div>
+      </section>
+      </SwarmRebuild>
+      {hackerMode && (
+        <Suspense fallback={null}>
+          <FullSwarm rootRef={rootRef} paused={viewChooserOpen} onStop={stopHackerMode} contentKey={showAllTools} />
+        </Suspense>
+      )}
+    </div>
+  );
 }
 
-export default Portfolio
+export default Portfolio;

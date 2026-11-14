@@ -1,0 +1,425 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20261105T171409305Z-6444-70dafbcfd249",
+  "run_status": "inconclusive",
+  "errors": [
+    {
+      "stage": "scan",
+      "target": "src/Components/SwarmRebuild.jsx",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "src/Components/swarm/blueprint.js",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "src/Components/swarm/scheduler.js",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "src/Components/swarm/scene.js",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "src/Components/swarm/SwarmHud.jsx",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "src/Components/swarm/FullSwarm.jsx",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "tests/swarm-scheduler.test.js",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    }
+  ],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "partial",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 54,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 7
+    },
+    "change_tracking": {
+      "touched_observed": 7,
+      "touched_retained": 7,
+      "truncated": false,
+      "bash_mutation": false,
+      "bash_discovered": 0,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 7,
+      "selected_files": 7,
+      "limit": 20,
+      "truncated": false
+    },
+    "scanning": {
+      "required_files": 7,
+      "scanned_files": 0,
+      "skipped_files": 0,
+      "failed_files": 7,
+      "project_checks_required": 0,
+      "project_checks_completed": 0
+    },
+    "notification": {
+      "eligible_findings": 0,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": false
+    },
+    "reason_counts": {
+      "scanner_failed": 7,
+      "project_check_failed": 7
+    },
+    "reasons": [
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "src/Components/SwarmRebuild.jsx",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/blueprint.js",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/scheduler.js",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/scene.js",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/SwarmHud.jsx",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/FullSwarm.jsx",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "tests/swarm-scheduler.test.js",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "src/Components/SwarmRebuild.jsx",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/blueprint.js",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/scheduler.js",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/scene.js",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/SwarmHud.jsx",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "src/Components/swarm/FullSwarm.jsx",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "tests/swarm-scheduler.test.js",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      }
+    ],
+    "reasons_truncated": false
+  },
+  "generated_at": "2026-11-05T17:14:09.305Z",
+  "session_id": "session_ba7fbdf85e525b06c6c89ef23a2d1db1",
+  "target": ".",
+  "revision": "06517549121dad0c743870c53f2c58dbbbb5228d",
+  "rules_version": "unavailable",
+  "diff_hash": "9a9dcfed14a71d53a04483ba7a1b33fdefb4eddaa47b4cfa9589f8cda3e0046f",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 7,
+    "changed_files": [
+      {
+        "file": "src/Components/swarm/blueprint.js",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 83
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "8299112ec90dca61ef63d91f49994190de5e0185422370249c830d380506a1df"
+      },
+      {
+        "file": "src/Components/swarm/FullSwarm.jsx",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 170
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "86e18ffecddbb8f76efd1af3193a169581894b15e63026b2ccc7c2a720523afb"
+      },
+      {
+        "file": "src/Components/swarm/scene.js",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 177
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "689ec9614818437abbb6f286a6f7cc5349ced79ad0b5dfb21a143d09767d8fde"
+      },
+      {
+        "file": "src/Components/swarm/scheduler.js",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 69
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "5456430801d1560ee914644cd7fa16dd26747d6f5b57aec01293d7fad3e21e49"
+      },
+      {
+        "file": "src/Components/swarm/SwarmHud.jsx",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 31
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "edb951e57eea030aa4ac5567ac09fccf42a75a5844606c1211f9feb39c217673"
+      },
+      {
+        "file": "src/Components/SwarmRebuild.jsx",
+        "ranges": [
+          {
+            "start": 5,
+            "end": 5
+          },
+          {
+            "start": 8,
+            "end": 8
+          },
+          {
+            "start": 21,
+            "end": 21
+          },
+          {
+            "start": 23,
+            "end": 23
+          },
+          {
+            "start": 27,
+            "end": 29
+          },
+          {
+            "start": 33,
+            "end": 33
+          },
+          {
+            "start": 37,
+            "end": 39
+          },
+          {
+            "start": 41,
+            "end": 41
+          },
+          {
+            "start": 45,
+            "end": 46
+          },
+          {
+            "start": 48,
+            "end": 51
+          },
+          {
+            "start": 53,
+            "end": 64
+          },
+          {
+            "start": 66,
+            "end": 68
+          },
+          {
+            "start": 71,
+            "end": 76
+          },
+          {
+            "start": 78,
+            "end": 78
+          },
+          {
+            "start": 80,
+            "end": 82
+          },
+          {
+            "start": 85,
+            "end": 85
+          },
+          {
+            "start": 88,
+            "end": 88
+          },
+          {
+            "start": 92,
+            "end": 93
+          },
+          {
+            "start": 98,
+            "end": 98
+          },
+          {
+            "start": 100,
+            "end": 101
+          },
+          {
+            "start": 103,
+            "end": 103
+          },
+          {
+            "start": 106,
+            "end": 109
+          },
+          {
+            "start": 113,
+            "end": 114
+          },
+          {
+            "start": 116,
+            "end": 120
+          },
+          {
+            "start": 123,
+            "end": 123
+          }
+        ],
+        "before_hash": "16b69ba959ef5e1ab5975bfb6fd9d0ab599dd9f68270117f76127c90f52cffe9",
+        "after_hash": "d143dde07df7d0443587eec6e23505854488b0470cefecdfa88417d98c504944"
+      },
+      {
+        "file": "tests/swarm-scheduler.test.js",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 80
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "99fcb51d4f3684f17ab33dc8ae8691583352a370ffb32a55e837267e77b706e7"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-11-05T17:14:06.223Z",
+    "completed_at": "2026-11-05T17:14:09.305Z",
+    "duration_ms": 3082,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "partial/INCONCLUSIVE",
+    "latencyMs": 3082,
+    "peakMemoryBytes": 106176512,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 0,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 0,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [],
+  "findings": [],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261105T171409305Z-6444-70dafbcfd249.json",
+    "latest_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1.json",
+    "history_summary": ".mimosa/history/run-20261105T171409305Z-6444-70dafbcfd249.json"
+  }
+}

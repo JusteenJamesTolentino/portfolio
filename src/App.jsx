@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import AppErrorBoundary from './Components/AppErrorBoundary';
 import Portfolio from './Portfolio';
@@ -8,12 +8,12 @@ import useOsViewEligibility from './hooks/useOsViewEligibility';
 import SerialMonitor from './routes/SerialMonitor';
 import Messenger from './routes/Messenger';
 import NotFoundPage from './routes/404';
-import { clearViewPreference, getViewPreference, setViewPreference } from './utils/viewPreference';
 
 const OSView = lazy(() => import('./routes/OSView'));
+const GameView = lazy(() => import('./routes/GameView'));
 
 function RouteGuard({ isAllowed, children }) {
-  if (!isAllowed) return <Navigate to="/unauthorized" replace />;
+  if (!isAllowed) return <Navigate to='/unauthorized' replace />;
   return children;
 }
 
@@ -30,24 +30,71 @@ function Unauthorized() {
   );
 }
 
-function Home({ setChooserOpen }) {
+function Home({ hackerMode, modesOpen, onHackerModeChange, onOpenModes }) {
+  return (
+    <Portfolio
+      hackerMode={hackerMode}
+      viewChooserOpen={modesOpen}
+      onHackerModeChange={onHackerModeChange}
+      onSwitchView={onOpenModes}
+    />
+  );
+}
+
+function GameRoute({ onOpenModes }) {
+  return (
+    <AppErrorBoundary appTitle='Game Mode' onReset={() => window.location.reload()}>
+      <Suspense fallback={<div className='grid min-h-screen place-items-center bg-black text-fuchsia-300'><span className='loading loading-spinner loading-lg'></span></div>}>
+        <GameView onSwitchView={onOpenModes} />
+      </Suspense>
+    </AppErrorBoundary>
+  );
+}
+
+function OsRoute({ onOpenModes }) {
+  return (
+    <AppErrorBoundary appTitle='OS Mode' onReset={() => window.location.reload()}>
+      <Suspense fallback={<div className='grid min-h-screen place-items-center bg-slate-950 text-white'><span className='loading loading-spinner loading-lg'></span></div>}>
+        <OSView onSwitchView={onOpenModes} />
+      </Suspense>
+    </AppErrorBoundary>
+  );
+}
+
+function AppRoutes() {
+  const isAllowed = true;
   const navigate = useNavigate();
   const osEligible = useOsViewEligibility();
-  const [choice, setChoice] = useState(() => getViewPreference());
+  const [modesOpen, setModesOpen] = useState(false);
   const [chooserMode, setChooserMode] = useState('choose');
-  const savedOsRejected = choice === 'os' && !osEligible;
-  const chooserOpen = choice === null || savedOsRejected;
+  const [hackerMode, setHackerMode] = useState(false);
 
-  useEffect(() => {
-    setChooserOpen(chooserOpen);
-  }, [chooserOpen, setChooserOpen]);
+  const openModes = () => {
+    setChooserMode('choose');
+    setModesOpen(true);
+  };
 
-  if (choice === 'os' && osEligible) return <Navigate to="/osview" replace />;
+  const closeModes = () => {
+    setModesOpen(false);
+    setChooserMode('choose');
+  };
 
   const chooseWeb = () => {
-    setViewPreference('web');
-    setChoice('web');
-    setChooserOpen(false);
+    setHackerMode(false);
+    closeModes();
+    navigate('/', { replace: true });
+  };
+
+  const chooseHacker = () => {
+    setHackerMode(true);
+    closeModes();
+    navigate('/', { replace: true });
+  };
+
+  const chooseGame = () => {
+    setHackerMode(false);
+    closeModes();
+    navigate('/gameview');
   };
 
   const chooseOs = () => {
@@ -55,89 +102,55 @@ function Home({ setChooserOpen }) {
       setChooserMode('rejected');
       return;
     }
-    setViewPreference('os');
-    setChooserOpen(false);
-    navigate('/osview', { replace: true });
+    setHackerMode(false);
+    closeModes();
+    navigate('/osview');
   };
 
-  const switchView = () => {
-    clearViewPreference();
-    setChoice(null);
-    setChooserMode('choose');
-    setChooserOpen(true);
-  };
-
-  const backToChoices = () => {
-    clearViewPreference();
-    setChoice(null);
-    setChooserMode('choose');
-  };
+  const activeMode = location.pathname === '/gameview'
+    ? 'game'
+    : location.pathname === '/osview'
+      ? 'os'
+      : hackerMode
+        ? 'hacker'
+        : 'web';
 
   return (
     <>
-      <Portfolio onSwitchView={switchView} />
-      {chooserOpen && (
+      <Routes>
+        <Route path='/' element={<RouteGuard isAllowed={isAllowed}><Home hackerMode={hackerMode} modesOpen={modesOpen} onHackerModeChange={setHackerMode} onOpenModes={openModes} /></RouteGuard>} />
+        <Route path='/osview' element={osEligible ? <OsRoute onOpenModes={openModes} /> : <Navigate to='/' replace />} />
+        <Route path='/gameview' element={<GameRoute onOpenModes={openModes} />} />
+        <Route path='/unauthorized' element={<Unauthorized />} />
+        <Route path='/serialmonitor' element={<SerialMonitor />} />
+        <Route path='/serialmonitor/messenger' element={<Messenger />} />
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+
+      {modesOpen && (
         <ViewChooser
-          mode={savedOsRejected ? 'rejected' : chooserMode}
+          mode={chooserMode}
+          activeMode={activeMode}
           onChooseWeb={chooseWeb}
+          onChooseHacker={chooseHacker}
+          onChooseGame={chooseGame}
           onChooseOs={chooseOs}
-          onBack={backToChoices}
+          onBack={() => setChooserMode('choose')}
+          onClose={closeModes}
         />
       )}
+
+      <ReloadPrompt hidden={modesOpen} />
     </>
   );
 }
 
-function OsRoute({ setChooserOpen }) {
-  const navigate = useNavigate();
-  const osEligible = useOsViewEligibility();
-
-  useEffect(() => {
-    setChooserOpen(!osEligible);
-  }, [osEligible, setChooserOpen]);
-
-  const chooseWeb = () => {
-    setViewPreference('web');
-    setChooserOpen(false);
-    navigate('/', { replace: true });
-  };
-
-  const backToChoices = () => {
-    clearViewPreference();
-    setChooserOpen(true);
-    navigate('/', { replace: true });
-  };
-
-  if (!osEligible) {
-    return <ViewChooser mode='rejected' onChooseWeb={chooseWeb} onBack={backToChoices} />;
-  }
-
-  return (
-    <AppErrorBoundary appTitle='OS View' onReset={() => window.location.reload()}>
-      <Suspense fallback={<div className='grid min-h-screen place-items-center bg-slate-950 text-white'><span className='loading loading-spinner loading-lg'></span></div>}>
-        <OSView onSwitchView={() => navigate('/', { replace: true })} />
-      </Suspense>
-    </AppErrorBoundary>
-  );
-}
-
 function App() {
-  const isAllowed = true;
-  const [chooserOpen, setChooserOpen] = useState(false);
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<RouteGuard isAllowed={isAllowed}><Home setChooserOpen={setChooserOpen} /></RouteGuard>} />
-        <Route path="/osview" element={<OsRoute setChooserOpen={setChooserOpen} />} />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/serialmonitor" element={<SerialMonitor />} />
-        <Route path="/serialmonitor/messenger" element={<Messenger />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <ReloadPrompt hidden={chooserOpen} />
+      <AppRoutes />
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;

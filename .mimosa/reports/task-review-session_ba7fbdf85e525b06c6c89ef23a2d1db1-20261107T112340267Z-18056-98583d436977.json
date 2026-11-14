@@ -1,0 +1,219 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20261107T112340267Z-18056-98583d436977",
+  "run_status": "completed",
+  "errors": [],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "complete",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 60,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 1
+    },
+    "change_tracking": {
+      "touched_observed": 1,
+      "touched_retained": 1,
+      "truncated": false,
+      "bash_mutation": false,
+      "bash_discovered": 0,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 1,
+      "selected_files": 1,
+      "limit": 20,
+      "truncated": false
+    },
+    "scanning": {
+      "required_files": 1,
+      "scanned_files": 1,
+      "skipped_files": 0,
+      "failed_files": 0,
+      "project_checks_required": 0,
+      "project_checks_completed": 0
+    },
+    "notification": {
+      "eligible_findings": 1,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": true
+    },
+    "reason_counts": {},
+    "reasons": [],
+    "reasons_truncated": false
+  },
+  "generated_at": "2026-11-07T11:23:40.267Z",
+  "session_id": "session_ba7fbdf85e525b06c6c89ef23a2d1db1",
+  "target": ".",
+  "revision": "37002379fa2de996e5e89b205de751f10932ea59",
+  "rules_version": "unavailable",
+  "diff_hash": "447c2d468ee92ea67be78bbaa8f1fdde85c443703dda9e716d3da1f89fdeab47",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 1,
+    "changed_files": [
+      {
+        "file": "src/game/GameShell.jsx",
+        "ranges": [
+          {
+            "start": 9,
+            "end": 15
+          },
+          {
+            "start": 26,
+            "end": 30
+          },
+          {
+            "start": 33,
+            "end": 40
+          },
+          {
+            "start": 47,
+            "end": 50
+          },
+          {
+            "start": 53,
+            "end": 56
+          },
+          {
+            "start": 58,
+            "end": 78
+          },
+          {
+            "start": 81,
+            "end": 81
+          },
+          {
+            "start": 83,
+            "end": 108
+          },
+          {
+            "start": 110,
+            "end": 112
+          },
+          {
+            "start": 114,
+            "end": 121
+          },
+          {
+            "start": 123,
+            "end": 131
+          },
+          {
+            "start": 133,
+            "end": 133
+          },
+          {
+            "start": 138,
+            "end": 287
+          }
+        ],
+        "before_hash": "50682428691b951d18bf82626c45f0b55c729dd6a5a18cd145d2708badb17ca9",
+        "after_hash": "ba726b222ad23c8771967fd8e25ebf7f3f37751cbcf0f6f22c10db414b297643"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-11-07T11:23:37.086Z",
+    "completed_at": "2026-11-07T11:23:40.267Z",
+    "duration_ms": 3181,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "complete",
+    "latencyMs": 3181,
+    "peakMemoryBytes": 136732672,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 1,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 1,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [
+    {
+      "finding_id": "mimosa-2c24a4832dcc1926009dc10d",
+      "file": "src/game/GameShell.jsx",
+      "line": 55,
+      "severity": "high",
+      "category": "弱随机数",
+      "status": "candidate",
+      "decision": "observe",
+      "at": "2026-11-07T11:23:40.267Z",
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "source": "semgrep",
+        "evidence_hash": "6e1d20acf19918c55cbd15e101aa927a260671fc4fbe0dcae329ba0f640859e7",
+        "runtime_oracle": false
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "mimosa-2c24a4832dcc1926009dc10d",
+      "file": "src/game/GameShell.jsx",
+      "line": 55,
+      "end_line": 55,
+      "severity": "high",
+      "category": "弱随机数",
+      "kind": "semgrep",
+      "advisory": true,
+      "status": "candidate",
+      "evidence_boundary": "candidate",
+      "evidence": [
+        {
+          "kind": "static_scan",
+          "boundary": "candidate",
+          "producer": "deterministic",
+          "source": "semgrep",
+          "file": "src/game/GameShell.jsx",
+          "line": 55,
+          "evidence_hash": "6e1d20acf19918c55cbd15e101aa927a260671fc4fbe0dcae329ba0f640859e7",
+          "runtime_oracle": false
+        }
+      ],
+      "already_reported_to_agent": false,
+      "selected_for_rewake": false
+    }
+  ],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261107T112340267Z-18056-98583d436977.json",
+    "latest_report": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1.json",
+    "history_summary": ".mimosa/history/run-20261107T112340267Z-18056-98583d436977.json"
+  }
+}

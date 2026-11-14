@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20261107T112340267Z-18056-98583d436977",
+  "runId": "20261107T112340267Z-18056-98583d436977",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": "37002379fa2de996e5e89b205de751f10932ea59",
+  "diffHash": "447c2d468ee92ea67be78bbaa8f1fdde85c443703dda9e716d3da1f89fdeab47",
+  "rulesVersion": "unavailable",
+  "sessionHash": "73f25b34e2c62637526c5b6f60a1747f5fb3212f8390c42afcd18401c70b6d72",
+  "reportRef": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261107T112340267Z-18056-98583d436977.json",
+  "events": [
+    {
+      "eventId": "hook-0fa1613e7868a8ab9b201474f6b2b084",
+      "findingId": "mimosa-2c24a4832dcc1926009dc10d",
+      "type": "finding_observed",
+      "at": "2026-11-07T11:23:40.267Z",
+      "identity": {
+        "projectRelativeFile": "src/game/GameShell.jsx",
+        "ruleId": "security",
+        "codeEvidenceHash": "6e1d20acf19918c55cbd15e101aa927a260671fc4fbe0dcae329ba0f640859e7",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 55,
+      "endLine": 55,
+      "reasonCode": "observe",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "6e1d20acf19918c55cbd15e101aa927a260671fc4fbe0dcae329ba0f640859e7"
+      },
+      "sequence": 0
+    }
+  ],
+  "observedFindingIds": [
+    "mimosa-2c24a4832dcc1926009dc10d"
+  ],
+  "verifiedFiles": [
+    {
+      "file": "src/game/GameShell.jsx",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-11-07T11:23:41.553Z"
+}

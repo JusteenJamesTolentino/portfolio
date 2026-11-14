@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "mimosa-finding-history/v1",
+  "runId": "20261105T151223715Z-24200-0a6926ade154",
+  "runStatus": "inconclusive",
+  "errors": [
+    "scan:src/Portfolio.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:src/Components/SwarmRebuild.jsx: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+  ],
+  "target": ".",
+  "revision": "3ea0b1119e78bbeabd155ab82310d701efd42c05",
+  "diffHash": "2024937a0ace59a673cd2398eee02b4e4672974605e9bf31e78859a457582ca4",
+  "rulesVersion": "unavailable",
+  "recordedAt": "2026-11-05T15:12:23.715Z",
+  "timing": {
+    "startedAt": "2026-11-05T15:12:19.708Z",
+    "completedAt": "2026-11-05T15:12:23.715Z",
+    "durationMs": 4007
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "modelCalls": 0,
+    "measurement": "known-zero"
+  },
+  "findings": {
+    "total": 0,
+    "bySeverity": {},
+    "byStatus": {}
+  },
+  "coverage": {
+    "status": "partial",
+    "reasonCounts": {
+      "scanner_failed": 2,
+      "project_check_failed": 2
+    }
+  },
+  "evidenceBoundary": "static_only",
+  "immutableReport": ".mimosa/reports/task-review-session_ba7fbdf85e525b06c6c89ef23a2d1db1-20261105T151223715Z-24200-0a6926ade154.json"
+}
